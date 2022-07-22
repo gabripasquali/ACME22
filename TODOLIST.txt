@@ -1,0 +1,10 @@
+pagina HTML per ristoranti: form to setAvailability or ChangeMenu
+	non disponibile dopo le 10?/ ritorna un messaggio di errore?
+
+pagina HTML per utente: scelta del comune ->
+get getRestaurant(comune)->
+pagina HTML per utente: scelta ristorante, menu e orario->
+POST sendOrder(info in body)
+
+annulla
+invia token
