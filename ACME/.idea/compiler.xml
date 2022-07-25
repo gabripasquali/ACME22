@@ -6,9 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ACME-backend" />
         <module name="ACME-frontend" />
+        <module name="ACME-service" />
+        <module name="ACME-internal" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ACME-backend" target="15" />
+      <module name="acme-internal" target="15" />
+      <module name="ACME-services" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
