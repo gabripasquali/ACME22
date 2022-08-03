@@ -6,7 +6,6 @@ import camundajar.impl.com.google.gson.GsonBuilder;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -26,7 +25,7 @@ public class ChangeAvailability extends HttpServlet {
 
     private void sendResponse(HttpServletResponse response, String s) throws IOException {
         PrintWriter out = response.getWriter();
-        response.setContentType(MediaType.APPLICATION_JSON);
+        response.setContentType("application/json");
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
         response.setHeader("Access-Control-Allow-Methods", "GET");

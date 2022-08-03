@@ -18,7 +18,7 @@
                 "availability" : availability.toString()
             };
 
-            let availabilityUrl ="http://localhost:8080/acme-api/changeAvailability";
+            let availabilityUrl ="changeAvailability";
             let xhr = new XMLHttpRequest();
             xhr.open("PUT", availabilityUrl, true);
             xhr.send(JSON.stringify(requestBody));
