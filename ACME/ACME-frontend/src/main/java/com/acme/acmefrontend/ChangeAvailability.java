@@ -27,7 +27,7 @@ public class ChangeAvailability extends HttpServlet {
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-type", "application/json");
         CloseableHttpResponse res = client.execute(httpPost);
-        
+
         sendResponse(resp, response);
     }
 

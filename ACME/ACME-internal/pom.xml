@@ -150,7 +150,18 @@
         </dependency>
 
         <!-- Add your own dependencies here, if in compile scope, they are added to the war -->
-
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.8</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>1.8</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <repositories>
