@@ -2,6 +2,7 @@ package com.acme;
 
 import camundajar.impl.com.google.gson.Gson;
 import com.acme.utilities.Rider;
+import com.acme.utilities.RiderInZone;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -21,10 +22,10 @@ public class FindRider implements JavaDelegate {
     private final Logger LOGGER = Logger.getLogger(LoggerDelegate.class.getName());
     ArrayList<Rider> riderList = new ArrayList<Rider>(){
         {
-            add(new Rider("Redir", "http://localhost:10002", 10.8, 44));
-            add(new Rider("Riderin", "http://localhost:10003", 11.329779624938965, 44.49944393446856));
-            add(new Rider("Astro", "http://localhost:10004", 11, 44));
-            add(new Rider("B4L", "http://localhost:10005", 11.55, 44.28));
+            add(new Rider("Redir", "http://localhost:10002", 44.4992, 11.330));
+            add(new Rider("Riderin", "http://localhost:10003", 44.4994439, 11.3297796));
+            add(new Rider("Astro", "http://localhost:10004",44,  11));
+            add(new Rider("B4L", "http://localhost:10005", 44.28, 11.55));
         }
     };
 
@@ -37,13 +38,13 @@ public class FindRider implements JavaDelegate {
         /**lettura parametri della richiesta, posizione utente/ristorante**/
         //lat = execution.getVariable("lat")
         //lng = execution.getVariable("lng" )
-        double lng =  11.3297796;
-        double lat =  44.4994439;
+        double lat =  11.3297796;
+        double lng =  44.4994439;
 
         /**richiesta lista rider al db e creazione del body**/
         Gson gson = new Gson();
         RiderDistanceRequest body = new RiderDistanceRequest(distance, lat, lng);
-        LOGGER.info("FIND RIDER BODY:" + gson.toJson(body).toString());
+        LOGGER.info("FIND RIDER BODY: "+ gson.toJson(body).toString());
 
         /**chiamata a GIS**/
         String url = "http://localhost:10000/isInDistance";
@@ -56,15 +57,25 @@ public class FindRider implements JavaDelegate {
                 .type(MediaType.APPLICATION_JSON_TYPE)
                 .post(ClientResponse.class, gson.toJson(body));
         LOGGER.info("FIND RIDER STATUS CODE:" + response.getStatus());
+
         if(response.getStatus() == OK.getStatusCode()){
             //TODO read data from response, deserialize and use to create new list
             /**creazione della lista per task parallelo**/
+            RiderInZone riderInZoneRes = response.getEntity(RiderInZone.class);
             ArrayList<Rider> riderInZoneList = new ArrayList<>();
-            riderInZoneList.add(new Rider("Redir", "http://localhost:10002", 10.8, 44));
+            //join info from riderList and riderInZoneList
+            for (Rider r : riderList){
+                for(Rider rIZ : riderInZoneRes.results){
+                    if(r.name.equals(rIZ.name) && rIZ.isInDistance){
+                        riderInZoneList.add(r);
+                    }
+                }
+            }
 
+            //list to iterate on
             execution.setVariable("riderInZoneList", riderInZoneList);
+            //list to fill with rider available
             execution.setVariable("riderAvailableList", new ArrayList<Rider>());
-            //execution.setVariable("riderList", riderList);
         }
     }
 

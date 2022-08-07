@@ -16,7 +16,7 @@ app.post("/isInDistance", (req, res) => {
 		let to = turf.point([riderList[i].lng, riderList[i].lat])
 		let d = turf.distance(from, to, {units: 'kilometers'});
 		//results[i] = {"nome": riderList[i].properties.name, "distance": d};
-		results[i] = {"nome": riderList[i].name, "isInDistance": d<req.body.distance  };
+		results[i] = {"name": riderList[i].name, "isInDistance": d<req.body.distance  };
 	}
 	
 	res.status(200).json({

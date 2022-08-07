@@ -24,10 +24,11 @@ public class GetAvailability implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
+        /**GET CURRENT RIDER VARIABLE**/
         Rider rider = (Rider) execution.getVariable("rider");
         LOGGER.info("GET RIDER AVAILABILITY : "+ rider.getName());
-        execution.setVariable("riderAvailable", true);
-        //call rider server with url
+
+        /**CALLING DISP RIDER SERVICE**/
         String url = rider.getSite()+"/dispRider";
         ClientConfig clientConfig = new DefaultClientConfig();
         clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
@@ -37,6 +38,8 @@ public class GetAvailability implements JavaDelegate {
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .type(MediaType.APPLICATION_JSON_TYPE)
                 .get(ClientResponse.class);
+
+        /**READ RESPONSE**/
         if(response.getStatus() == OK.getStatusCode()){
             RiderAvailability responseRider = response.getEntity(RiderAvailability.class);
             execution.setVariable("riderAvailable", responseRider.isDisp());
@@ -45,7 +48,5 @@ public class GetAvailability implements JavaDelegate {
         } else {
             LOGGER.info("server error");
         }
-        //execute.setVariable("riderAvailable", response.riderAvailability)
-        //execute.setVariable("price", response.price)
     }
 }

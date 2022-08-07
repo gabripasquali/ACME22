@@ -1,4 +1,4 @@
 cd Rider
 call executeRider.bat
-cd /GIS
+cd ../GIS
 call executeGIS.bat
