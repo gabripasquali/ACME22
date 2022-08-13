@@ -12,5 +12,8 @@
 </head>
 <body>
 <h1>PAGINA CLIENTI</h1>
+
+<button type="submit">Conferma Ordine e Paga</button>
+
 </body>
 </html>

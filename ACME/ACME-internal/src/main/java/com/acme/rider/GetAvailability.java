@@ -45,6 +45,9 @@ public class GetAvailability implements JavaDelegate {
             execution.setVariable("riderAvailable", responseRider.isDisp());
             execution.setVariable("price", responseRider.getPrezzo());
             LOGGER.info("disp: " + responseRider.isDisp() + " price : "+ responseRider.getPrezzo());
+            if(responseRider.isDisp() == true){
+                rider.setPrice(responseRider.prezzo);
+            }
         } else {
             LOGGER.info("server error");
         }
