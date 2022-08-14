@@ -46,7 +46,11 @@ app.post('/consAff', (req,res) => {
                     var i = 0
                     while(exit == false && i < consegne.length){
                             if(consegna.id == consegne[i].id){
-                                res.send('Impossibile prendere in carico la consegna: id ' + consegna.id + ' già presente!');
+                                var risposta = {
+                                    "consegna" : false,
+                                    "info" : 'Impossibile prendere in carico la consegna: id ' + consegna.id + ' già presente!'
+                                }
+                                res.send(risposta);
                                 exit = true;
                             }
                         i=i+1;
@@ -56,7 +60,13 @@ app.post('/consAff', (req,res) => {
                     consegne.push(consegna); //add some data
                     json = JSON.stringify(consegne,null,4); //convert it back to json
                     fs.writeFile('consegne.json', json, 'utf8', function(err) { if (err) { console.log(err); } }); // write it back 
-                    res.send('Consegna: id ' + consegna.id + ' presa in carico!');
+                    var risposta = {
+                        "consegna" : true,
+                        "info" : 'Consegna: id ' + consegna.id + ' presa in carico!'
+                    }
+                    res.send(risposta);
+                    
+                    
                 }
             }
         })
@@ -80,7 +90,11 @@ app.post('/notificaCons', (req,res) => {
                             consegne.splice(i,1);
                             json = JSON.stringify(consegne,null,4); //convert it back to json
                             fs.writeFile('consegne.json', json, 'utf8', function(err) { if (err) { console.log(err); } }); // write it back 
-                            res.send('Consegna ' + id + ' In Corso');
+                            var risposta = {
+                                "consegna" : true,
+                                "info" : 'Consegna ' + id + ' In Corso'
+                            }
+                            res.send(risposta);
                             
                             exit = true;
                         }
@@ -88,7 +102,11 @@ app.post('/notificaCons', (req,res) => {
                 }
             }
             if(exit == false){
-                res.send('Consegna: id ' + id + ' non trovata');
+                var risposta = {
+                    "consegna" : false,
+                    "info" : 'Consegna: id ' + id + ' non trovata'
+                }
+                res.send(risposta);
             }
             
         }

@@ -11,4 +11,4 @@ Per far partire ACME:
 
 * sistemare abort order nei veri casi (comunciazione acme-rest acme-cliente acme-rider)
 * comunicazione con banca attualmente non c'è
-* chiamata al rider per consegna asseganta
+* consegne rider non vengono scritte/cancellate
