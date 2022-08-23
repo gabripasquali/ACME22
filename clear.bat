@@ -11,3 +11,7 @@ docker rm Astro
 docker stop B4L
 docker rm B4L
 docker image rm rider
+
+docker stop bank
+docker rm bank
+docker image rm bank
