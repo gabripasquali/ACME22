@@ -74,11 +74,11 @@
     <wsdl:message name="verifyTokenRequest">
         <wsdl:part name="body" element="xsd1:verifyToken"/>
     </wsdl:message>
-    <wsdl:message name="VerifyTokenResponse">
+    <wsdl:message name="verifyTokenResponse">
         <wsdl:part name="body" element="xsd1:verifyTokenResponse"/>
     </wsdl:message>
 
-    <wsdl:message name="RefoundRequest">
+    <wsdl:message name="refoundRequest">
         <wsdl:part name="body" element="xsd1:refound"/>
     </wsdl:message>
     <wsdl:message name="refoundResponse">
