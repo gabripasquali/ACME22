@@ -9,6 +9,6 @@ Per far partire ACME:
 * la pagina iniziale di acme sarà visualizzabile a http://localhost:8080/ACMEat/
 
 
-* sistemare abort order nei veri casi (comunciazione acme-rest acme-cliente acme-rider)
+* sistemare abort order nei veri casi (comunciazione acme-rest acme-cliente)
 * comunicazione con banca attualmente non c'è
 * consegne rider non vengono scritte/cancellate

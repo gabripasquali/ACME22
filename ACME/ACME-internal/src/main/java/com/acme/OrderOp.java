@@ -6,7 +6,7 @@ import com.acme.utilities.RiderConsResp;
 
 import camundajar.impl.com.google.gson.Gson;
 
-import com.acme.LoggerDelegate;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -36,12 +36,6 @@ public class OrderOp implements JavaDelegate{
         Rider rider = (Rider) execution.getVariable("cheaperRider");
         LOGGER.info("Recupero cheaper Rider: " + rider.getName());
 
-        int minId = 1;
-		int maxId = 10;
-		Random random = new Random();
-		int id = random.nextInt(maxId + minId) + minId;
-		LOGGER.info("ID: " + id);
-
         int[] minu = {0 , 15, 30, 45};
         int minM = 0;
 		int maxM = 4;
@@ -62,7 +56,8 @@ public class OrderOp implements JavaDelegate{
         String indCliente = "Via Cliente 43";
 
         execution.setVariable("oraCons", time);
-        execution.setVariable("idCons", id);
+        int id =  (int) execution.getVariable("idCons");
+
 
         Gson gson = new Gson();
         Order body =  new Order(id, time, indRisto, indCliente);

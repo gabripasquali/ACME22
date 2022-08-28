@@ -114,7 +114,7 @@ app.post('/notificaCons', (req,res) => {
 })
 
 
-app.delete('/consAnnul', (req, res) => {
+app.post('/consAnnul', (req, res) => {
     const id = req.body.id;
     var exit = false
 
@@ -130,14 +130,22 @@ app.delete('/consAnnul', (req, res) => {
                             consegne.splice(i,1);
                             json = JSON.stringify(consegne,null,4); //convert it back to json
                             fs.writeFile('consegne.json', json, 'utf8', function(err) { if (err) { console.log(err); } }); // write it back 
-                            res.send('Consegna ' + id + ' Annullata');
+                            var risposta = {
+                                "consegna" : true,
+                                "info" : 'Consegna ' + id + ' Annullata'
+                            }
+                            res.send(risposta);
                             exit = true;
                         }
                     i=i+1;
                 }
             }
             if(exit == false){
-                res.send('Consegna: id ' + id + ' non trovata');
+                var risposta = {
+                    "consegna" : true,
+                    "info" : 'Consegna: id ' + id + ' non trovata'
+                }
+                res.send(risposta);
             }
         }
     })

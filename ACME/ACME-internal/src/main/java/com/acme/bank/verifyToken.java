@@ -1,7 +1,9 @@
-package com.acme;
+package com.acme.bank;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+
+import com.acme.LoggerDelegate;
 
 import java.util.Random;
 
@@ -22,7 +24,7 @@ public class verifyToken implements JavaDelegate{
 
         execution.setVariable("TokenOk", verToken);
 
-        if (verToken == true){
+        /*if (verToken == true){
             // create random object
             Random randomO = new Random();
 
@@ -31,6 +33,6 @@ public class verifyToken implements JavaDelegate{
 
             execution.setVariable("OrderOk", order);
 
-        }
+        }*/
     }
 }

@@ -1,10 +1,11 @@
-package com.acme;
+package com.acme.rider;
+import com.acme.LoggerDelegate;
 import com.acme.utilities.Rider;
 import com.acme.utilities.RiderConsResp;
 
 import camundajar.impl.com.google.gson.Gson;
 
-import com.acme.LoggerDelegate;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -39,6 +40,7 @@ public class NotifyRider implements JavaDelegate{
         NotifyRiderReq body = new NotifyRiderReq(idCons);
 
         /**CALLING NOTIFICACONS RIDER SERVICE**/
+        
         String url = rider.getSite()+"/notificaCons";
         ClientConfig clientConfig = new DefaultClientConfig();
         clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
@@ -51,7 +53,7 @@ public class NotifyRider implements JavaDelegate{
         LOGGER.info("NOTIFICACONS STATUS CODE:" + response.getStatus());
 
          /**READ RESPONSE**/
-         if(response.getStatus() == OK.getStatusCode()){
+        if(response.getStatus() == OK.getStatusCode()){
             RiderConsResp responseRider = response.getEntity(RiderConsResp.class);
             LOGGER.info( responseRider.getInfo());
         
@@ -65,12 +67,7 @@ public class NotifyRider implements JavaDelegate{
         public NotifyRiderReq(int id){
             this.id = id;
         }
-
     }
-
-
-
-
 }
     
 

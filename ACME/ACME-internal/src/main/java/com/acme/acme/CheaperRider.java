@@ -1,5 +1,6 @@
-package com.acme;
+package com.acme.acme;
 
+import com.acme.LoggerDelegate;
 import com.acme.utilities.Rider;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -24,7 +25,7 @@ public class CheaperRider implements JavaDelegate{
                 cRider = availableRider.get(i);
             }
         }
-        System.out.println("Rider selezionato: " + cRider.getName()+ " Prezzo: " + cRider.getPrice());
+        LOGGER.info("Rider selezionato: " + cRider.getName()+ " Prezzo: " + cRider.getPrice());
         execution.setVariable("cheaperRider", cRider);
         
         

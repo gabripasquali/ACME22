@@ -1,6 +1,8 @@
-package com.acme;
+package com.acme.acme;
 
 import camundajar.impl.com.google.gson.Gson;
+
+import com.acme.LoggerDelegate;
 import com.acme.utilities.Rider;
 import com.acme.utilities.RiderInZone;
 import com.sun.jersey.api.client.Client;

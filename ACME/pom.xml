@@ -11,6 +11,7 @@
     <modules>
         <module>ACME-internal</module>
         <module>ACME-frontend</module>
+        <module>common</module>
     </modules>
 
     <properties>
