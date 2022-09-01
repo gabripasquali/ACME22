@@ -1,7 +1,7 @@
 package com.acme.rider;
 import com.acme.LoggerDelegate;
-import com.acme.utilities.Rider;
-import com.acme.utilities.RiderConsResp;
+import com.acme.utils.Rider;
+import com.acme.utils.RiderConsResp;
 
 import camundajar.impl.com.google.gson.Gson;
 

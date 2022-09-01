@@ -1,4 +1,4 @@
-package com.acme.utilities;
+package com.acme.utils;
 
 import java.io.Serializable;
 

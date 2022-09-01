@@ -1,3 +1,4 @@
+from textwrap import indent
 from flask import Flask
 from flask import jsonify, request, abort
 import random
@@ -11,11 +12,9 @@ def index():
 
 @app.route('/getAvailability', methods=['POST'])
 def getAvailability():
-    #lettura del body
-    #controlli sull'ordine
-    order['status'] = random.choice([True, False])
-    return jsonify(order)
+    order = random.choice(["True","False"])
+    return jsonify(disp = order)
 
-@app.route('/abortOrder', methods=['PUT'])
+@app.route('/abortOrder', methods=['GET'])
 def abortOrder():
     return jsonify(status = 'OK')

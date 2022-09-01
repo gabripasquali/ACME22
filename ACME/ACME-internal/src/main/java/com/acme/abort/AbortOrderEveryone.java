@@ -9,8 +9,9 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.acme.LoggerDelegate;
-import com.acme.utilities.Rider;
-import com.acme.utilities.RiderConsResp;
+import com.acme.utils.Restaurant;
+import com.acme.utils.Rider;
+import com.acme.utils.RiderConsResp;
 
 import camundajar.impl.com.google.gson.Gson;
 
@@ -31,6 +32,29 @@ public class AbortOrderEveryone implements JavaDelegate {
 
         LOGGER.info("2) Task abort order Ristorante ");
 
+        Restaurant rest = (Restaurant) execution.getVariable("restaurantC");
+        LOGGER.info("ABORT REST : "+ rest.getName());
+
+        /**CALLING ABORT REST SERVICE**/
+        String url = rest.getSite()+"/abortOrder";
+        ClientConfig clientConfig = new DefaultClientConfig();
+        clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
+        Client client = Client.create(clientConfig);
+        WebResource webResource = client.resource(url);
+        ClientResponse response =  webResource
+                .accept(MediaType.APPLICATION_JSON_TYPE)
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .get(ClientResponse.class);
+
+         /**READ RESPONSE**/
+         if(response.getStatus() == OK.getStatusCode()){
+            LOGGER.info("Restaurant " + rest.getName() + ": ABORT SUCCESSED");
+            
+        } else {
+            LOGGER.info("server error");
+        }
+
+
         LOGGER.info("3) Task abort order Rider");
 
         Rider rider = (Rider) execution.getVariable("cheaperRider");
@@ -41,19 +65,17 @@ public class AbortOrderEveryone implements JavaDelegate {
         Gson gson = new Gson();
         IdConsAbort body = new IdConsAbort(idCons);
 
-        /**CALLING NOTIFICACONS RIDER SERVICE**/
-        
-        String url = rider.getSite()+"/consAnnul";
-        ClientConfig clientConfig = new DefaultClientConfig();
+        /**CALLING ABORT RIDER SERVICE**/
+        url = rider.getSite()+"/consAnnul";
+        clientConfig = new DefaultClientConfig();
         clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
-        Client client = Client.create(clientConfig);
-        WebResource webResource = client.resource(url);
-        ClientResponse response =  webResource
+        client = Client.create(clientConfig);
+        webResource = client.resource(url);
+        response =  webResource
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .type(MediaType.APPLICATION_JSON_TYPE)
                 .post(ClientResponse.class, gson.toJson(body));
         LOGGER.info("ABORT RIDER STATUS CODE:" + response.getStatus());
-
          /**READ RESPONSE**/
         if(response.getStatus() == OK.getStatusCode()){
             RiderConsResp responseRider = response.getEntity(RiderConsResp.class);

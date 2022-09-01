@@ -1,0 +1,105 @@
+[
+  {
+    "name" : "Vegetale",
+    "city" : "Mantova",
+    "address" : "X",
+    "url" : "http://localhost:10007",
+    "isOpen" : true,
+    "menu" : [
+    	{
+    		"name":"Carote",
+    		"price": 10.00
+    	},
+    	{
+    	 	"name":"insalata",
+    		"price": 9.50
+    	}	 	
+    	]
+	},
+  {
+    "name" : "DaCarlo",
+    "city" : "Trento",
+    "address" : "X",
+    "url" : "http://localhost:10008",
+    "isOpen" : true,
+    "menu" :[
+    	{
+    		"name":"Canaderli",
+    		"price": 12.50
+    	},
+    	{
+    	 	"name":"Carlo",
+    		"price": 8.50
+    	}	 	
+    ]
+ 
+  },
+  {
+    "name" : "Paradiso",
+    "city" : "Mantova",
+    "address" : "X",
+    "url" : "http://localhost:10009",
+    "isOpen" : false,
+    "menu" : [
+    	{
+    		"name":"Tagliata",
+    		"price": 15.00
+    	},
+    	{
+    	 	"name":"Carbonara",
+    		"price": 11.50
+    	}	 	
+    	]
+  },
+  {
+    "name" : "Sushino",
+    "city" : "Cagliari",
+    "address" : "X",
+    "url" : "http://localhost:10010",
+    "isOpen" : true,
+    "menu" : [
+    	{
+    		"name":"Nigiri",
+    		"price": 3.50
+    	},
+    	{
+    	 	"name":"Udon",
+    		"price": 5.00
+    	}	 	
+    ]
+	},
+  {
+    "name" : "Tramonto",
+    "city" : "Cagliari",
+    "address" : "X",
+    "url" : "http://localhost:10011",
+    "isOpen" : true,
+    "menu" : [
+    	{
+    		"name":"Aragosta",
+    		"price": 25.00
+    	},
+    	{
+    	 	"name":"Frittura",
+    		"price": 18.50
+    	}	 	
+    	]
+  },
+  {
+    "name" : "YinDyan",
+    "city" : "Trento",
+    "address" : "X",
+    "url" : "http://localhost:10012",
+    "isOpen" : false,
+    "menu" : [
+    	{
+    		"name":"Nuvole",
+    		"price": 4.50
+    	},
+    	{
+    	 	"name":"Spicy Pork",
+    		"price": 9.50
+    	}	 	
+    	]
+  }
+]

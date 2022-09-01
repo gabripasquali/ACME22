@@ -1,8 +1,9 @@
 package com.acme;
 
-import com.acme.utilities.Rider;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+
+import com.acme.utils.Rider;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;

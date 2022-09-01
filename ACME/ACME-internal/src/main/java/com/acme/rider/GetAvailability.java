@@ -1,8 +1,8 @@
 package com.acme.rider;
 
 import com.acme.LoggerDelegate;
-import com.acme.utilities.Rider;
-import com.acme.utilities.RiderAvailability;
+import com.acme.utils.Rider;
+import com.acme.utils.RiderAvailability;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;

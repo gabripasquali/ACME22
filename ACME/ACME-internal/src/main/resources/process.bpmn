@@ -108,7 +108,7 @@
       <bpmn:incoming>Flow_1affkcz</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1affkcz" sourceRef="Activity_186dlzr" targetRef="Event_021w627" />
-    <bpmn:serviceTask id="Activity_1qdp5g5" name="Verifica Token" camunda:class="com.acme.verifyToken">
+    <bpmn:serviceTask id="Activity_1qdp5g5" name="Verifica Token" camunda:class="com.acme.bank.verifyToken">
       <bpmn:incoming>Flow_1d5c8cq</bpmn:incoming>
       <bpmn:incoming>Flow_1ro1y5l</bpmn:incoming>
       <bpmn:outgoing>Flow_0f796zp</bpmn:outgoing>
@@ -355,9 +355,6 @@
       <bpmndi:BPMNShape id="Activity_0dteuqy_di" bpmnElement="Activity_1nkhcz1">
         <dc:Bounds x="1310" y="305" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_104n2ca_di" bpmnElement="Activity_104n2ca">
-        <dc:Bounds x="540" y="420" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1l2isei_di" bpmnElement="Activity_1l2isei" isExpanded="true">
         <dc:Bounds x="1510" y="150" width="650" height="390" />
       </bpmndi:BPMNShape>
@@ -484,6 +481,9 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="155" y="405" width="49" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_104n2ca_di" bpmnElement="Activity_104n2ca">
+        <dc:Bounds x="540" y="420" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1m0p1s0_di" bpmnElement="TextAnnotation_1m0p1s0">
         <dc:Bounds x="1310" y="205" width="100" height="30" />

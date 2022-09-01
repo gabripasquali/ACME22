@@ -1,6 +1,7 @@
-package com.acme.utilities;
+package com.acme.utils;
+import java.io.Serializable;
 
-public class RiderConsResp {
+public class RiderConsResp  implements Serializable{
     public boolean consegna;
     public String info;
 

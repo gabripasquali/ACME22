@@ -1,12 +1,11 @@
 package com.acme;
 
-import com.acme.utilities.Order;
-import com.acme.utilities.Rider;
-import com.acme.utilities.RiderConsResp;
-
 import camundajar.impl.com.google.gson.Gson;
 
-
+import com.acme.utils.OrderRider;
+import com.acme.utils.Restaurant;
+import com.acme.utils.Rider;
+import com.acme.utils.RiderConsResp;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -36,7 +35,7 @@ public class OrderOp implements JavaDelegate{
         Rider rider = (Rider) execution.getVariable("cheaperRider");
         LOGGER.info("Recupero cheaper Rider: " + rider.getName());
 
-        int[] minu = {0 , 15, 30, 45};
+        /*int[] minu = {0 , 15, 30, 45};
         int minM = 0;
 		int maxM = 4;
 		Random randomM = new Random();
@@ -50,17 +49,17 @@ public class OrderOp implements JavaDelegate{
 
 
         LocalTime time = LocalTime.of(hour, minutes);
-        LOGGER.info("Orario Consegna: " + time);
-
-        String indRisto = "Via Risto 33";
+        LOGGER.info("Orario Consegna: " + time);*/
+        Restaurant ris = (Restaurant) execution.getVariable("restaurantC");
+        String indRisto = ris.address;
         String indCliente = "Via Cliente 43";
-
-        execution.setVariable("oraCons", time);
+        LocalTime time = (LocalTime) execution.getVariable("oraCons");
+        //execution.setVariable("oraCons", time);
         int id =  (int) execution.getVariable("idCons");
 
 
         Gson gson = new Gson();
-        Order body =  new Order(id, time, indRisto, indCliente);
+        OrderRider body =  new OrderRider(id, time, indRisto, indCliente);
         
          /**CALLING CONSAFF RIDER SERVICE**/
          String url = rider.getSite()+"/consAff";

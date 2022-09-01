@@ -1,21 +1,21 @@
-package com.acme.utilities;
+package com.acme.utils;
 
 import java.io.Serializable;
 import java.time.LocalTime;
 
-public class Order implements Serializable {
+public class OrderRider implements Serializable {
     public int id;
     public LocalTime oraCons;
     public String indRisto;
     public String indCliente;
-    public Order(int id, LocalTime oraCons, String indRisto, String indCliente){
+    public OrderRider(int id, LocalTime oraCons, String indRisto, String indCliente){
         this.id = id;
         this.oraCons = oraCons;
         this.indRisto = indRisto;
         this.indCliente = indCliente;
     }
 
-    public Order(){
+    public OrderRider(){
 
     }
 
