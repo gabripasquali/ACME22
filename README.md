@@ -11,4 +11,10 @@ Per far partire ACME:
 
 * Comunicazione acme-cliente in generale
 * comunicazione con banca attualmente non c'è
-* consegne rider non vengono scritte/cancellate
+
+* spostare servlet (con settaggio delle variabili)
+* recupero dati da ritornare
+* sistemare frontend per chiamare servlet corrette
+
+
+
