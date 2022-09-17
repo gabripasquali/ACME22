@@ -9,9 +9,9 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.acme.LoggerDelegate;
-import com.acme.utils.Restaurant;
-import com.acme.utils.Rider;
-import com.acme.utils.RiderConsResp;
+import com.acme.utils.models.Restaurant;
+import com.acme.utils.models.Rider;
+import com.acme.utils.models.RiderConsResp;
 
 import camundajar.impl.com.google.gson.Gson;
 

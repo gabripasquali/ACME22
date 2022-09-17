@@ -1,6 +1,72 @@
 [{"name":"Vegetale",
   "city":"Mantova",
   "address":"X","url":"http://localhost:10007",
-  "isOpen":true,"menu":[{"name":"Carote","price":10.0},{"name":"insalata","price":9.5}]
+  "isOpen":true,
+  "menu":[
+    {"name":"Carote",
+    "price":10.0},
+    {"name":"insalata",
+    "price":9.5}
+    ]
   },
-  {"name":"DaCarlo","city":"Trento","address":"X","url":"http://localhost:10008","isOpen":true,"menu":[{"name":"Canaderli","price":12.5},{"name":"Carlo","price":8.5}]},{"name":"Paradiso","city":"Mantova","address":"X","url":"http://localhost:10009","isOpen":false,"menu":[{"name":"Tagliata","price":15.0},{"name":"Carbonara","price":11.5}]},{"name":"Sushino","city":"Cagliari","address":"X","url":"http://localhost:10010","isOpen":true,"menu":[{"name":"Nigiri","price":3.5},{"name":"Udon","price":5.0}]},{"name":"Tramonto","city":"Cagliari","address":"X","url":"http://localhost:10011","isOpen":true,"menu":[{"name":"Aragosta","price":25.0},{"name":"Frittura","price":18.5}]},{"name":"YinDyan","city":"Trento","address":"X","url":"http://localhost:10012","isOpen":false,"menu":[{"name":"Nuvole","price":4.5},{"name":"Spicy Pork","price":9.5}]}]
+  {"name":"DaCarlo",
+  "city":"Trento",
+  "address":"X",
+  "url":"http://localhost:10008",
+  "isOpen":true,
+  "menu":[
+    {"name":"Canaderli",
+    "price":12.5},
+    {"name":"Carlo",
+    "price":8.5}
+    ]
+  },
+  {"name":"Paradiso",
+  "city":"Mantova",
+  "address":"X",
+  "url":"http://localhost:10009",
+  "isOpen":false,
+  "menu":[
+    {"name":"Tagliata",
+    "price":15.0},
+    {"name":"Carbonara",
+    "price":11.5}
+    ]
+  },
+  {"name":"Sushino",
+  "city":"Cagliari",
+  "address":"X",
+  "url":"http://localhost:10010",
+  "isOpen":true,
+  "menu":[
+    {"name":"Nigiri",
+    "price":3.5},
+    {"name":"Udon",
+    "price":5.0}
+    ]
+  },
+    {"name":"Tramonto",
+    "city":"Cagliari",
+    "address":"X",
+    "url":"http://localhost:10011",
+    "isOpen":true,
+    "menu":[
+      {"name":"Aragosta",
+      "price":25.0},
+      {"name":"Frittura",
+      "price":18.5}
+      ]
+    },
+    {"name":"YinDyan",
+    "city":"Trento",
+    "address":"X",
+    "url":"http://localhost:10012",
+    "isOpen":false,
+    "menu":[
+      {"name":"Nuvole",
+      "price":4.5},
+      {"name":"Spicy Pork",
+      "price":9.5}
+    ]
+  }
+]

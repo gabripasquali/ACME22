@@ -1,15 +1,19 @@
 package com.acme.acme;
 
 import com.acme.utils.Database;
-import com.acme.utils.Restaurant;
+import com.acme.utils.models.Restaurant;
+import com.acme.utils.models.RestaurantList;
 
-import org.camunda.bpm.engine.ProcessEngine;
+import camundajar.impl.com.google.gson.Gson;
+
+
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import com.acme.LoggerDelegate;
 
-import java.util.Random;
+
+import static com.acme.utils.acmeVar.*;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -23,17 +27,23 @@ public class GetRestByCity implements JavaDelegate{
         LOGGER.info("Ristorante in base a città");
         //get db
         Database db = new Database();
+        String city = (String) execution.getVariable("city");
+        LOGGER.info((city));
         //get restaurant of required city
         //TODO: remove hardcoded city
-        ArrayList<Restaurant> restaurants = getResByCity("Mantova", db);
+        RestaurantList restaurants = new RestaurantList();
+        restaurants.setRestaurants(getResByCity(city, db));
 
-        for(int i = 0; i < restaurants.size(); i++){
-            LOGGER.info(restaurants.get(i).name);
-        }
 
-        Restaurant restaurant = (Restaurant) restaurants.get(0);
-        execution.setVariable("restaurantC", restaurant);
-        LOGGER.info(restaurant.name + "Menù: " + restaurant.menu);
+        Gson g = new Gson();
+        
+    
+        LOGGER.info("Lista Risto: " + g.toJson(restaurants));
+        
+        Restaurant restaurant = restaurants.gRestaurant(0);
+        //execution.setVariable(RESTAURANT, g.toJson(restaurant));
+        execution.setVariable(RESTAURANTS, g.toJson(restaurants));
+        //LOGGER.info(restaurant.name + "Menù: " + restaurant.menu);
     }
 
     private ArrayList<Restaurant> getResByCity(String city, Database db) {

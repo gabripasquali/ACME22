@@ -11,7 +11,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import com.acme.LoggerDelegate;
-import com.acme.utils.Restaurant;
+import com.acme.utils.models.Restaurant;
 
 import java.util.logging.Logger;
 

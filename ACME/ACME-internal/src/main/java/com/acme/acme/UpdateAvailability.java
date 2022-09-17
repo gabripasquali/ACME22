@@ -2,7 +2,8 @@ package com.acme.acme;
 
 import com.acme.LoggerDelegate;
 import com.acme.utils.Database;
-import com.acme.utils.Restaurant;
+import com.acme.utils.models.Restaurant;
+
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 

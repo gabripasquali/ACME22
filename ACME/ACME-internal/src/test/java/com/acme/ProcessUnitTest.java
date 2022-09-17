@@ -31,7 +31,7 @@ public class ProcessUnitTest {
     init(rule.getProcessEngine());
   }
 
-  @Test
+  /*@Test
   @Deployment(resources = "process.bpmn")
   public void testHappyPath() {
     // Drive the process by API and assert correct behavior by camunda-bpm-assert
@@ -40,6 +40,6 @@ public class ProcessUnitTest {
         .startProcessInstanceByKey(ProcessConstants.PROCESS_DEFINITION_KEY);
 
     assertThat(processInstance).isEnded();
-  }
+  }*/
 
 }

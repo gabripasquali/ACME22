@@ -1,7 +1,7 @@
 package com.acme.acme;
 
 import com.acme.LoggerDelegate;
-import com.acme.utils.Rider;
+import com.acme.utils.models.Rider;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;

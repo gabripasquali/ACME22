@@ -3,8 +3,8 @@ package com.acme.acme;
 import camundajar.impl.com.google.gson.Gson;
 
 import com.acme.LoggerDelegate;
-import com.acme.utils.Rider;
-import com.acme.utils.RiderInZone;
+import com.acme.utils.models.Rider;
+import com.acme.utils.models.RiderInZone;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;

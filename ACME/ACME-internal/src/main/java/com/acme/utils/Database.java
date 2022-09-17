@@ -5,6 +5,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.acme.utils.models.Dish;
+import com.acme.utils.models.Restaurant;
+
 import camundajar.impl.com.google.gson.Gson;
 import camundajar.impl.com.google.gson.stream.JsonReader;
 import camundajar.impl.com.google.gson.stream.JsonWriter;
@@ -39,6 +42,53 @@ public class Database {
                     "X", "http://localhost:10007",
                     true,
                     menu));
+            
+            menu.clear();
+            menu.add(new Dish("Canaderli", 12.50));
+            menu.add(new Dish("Carlo",8.50));
+            restaurants.add(new Restaurant("DeCarlo",
+            "Trento",
+            "X", "http://localhost:10008",
+            true,
+            menu));
+
+            menu.clear();
+            menu.add(new Dish("Tagliata", 15.00));
+            menu.add(new Dish("Carbonara",11.50));
+            restaurants.add(new Restaurant("Paradiso",
+            "Mantova",
+            "X", "http://localhost:10009",
+            true,
+            menu));
+
+            menu.clear();
+            menu.add(new Dish("Nigiri", 3.50));
+            menu.add(new Dish("Udon",5.00));
+            restaurants.add(new Restaurant("Sushino",
+            "Cagliari",
+            "X", "http://localhost:10010",
+            true,
+            menu));
+
+            menu.clear();
+            menu.add(new Dish("Aragosta", 25.00));
+            menu.add(new Dish("Frittura",18.50));
+            restaurants.add(new Restaurant("Tramonto",
+            "Cagliari",
+            "X", "http://localhost:10011",
+            true,
+            menu));
+
+            menu.clear();
+            menu.add(new Dish("Nuvole", 4.50));
+            menu.add(new Dish("Spicy Pork",9.50));
+            restaurants.add(new Restaurant("YinDyan",
+            "Trento",
+            "X", "http://localhost:10012",
+            true,
+            menu));
+
+
             this.save();
             System.out.println("NON TROVO IL FILE");
         }

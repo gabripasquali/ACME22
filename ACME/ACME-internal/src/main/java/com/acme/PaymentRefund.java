@@ -3,7 +3,7 @@ package com.acme;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import com.acme.utils.Rider;
+import com.acme.utils.models.Rider;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;

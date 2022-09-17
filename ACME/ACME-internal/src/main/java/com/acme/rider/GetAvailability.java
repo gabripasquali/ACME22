@@ -1,8 +1,8 @@
 package com.acme.rider;
 
 import com.acme.LoggerDelegate;
-import com.acme.utils.Rider;
-import com.acme.utils.RiderAvailability;
+import com.acme.utils.models.Rider;
+import com.acme.utils.models.RiderAvailability;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -13,7 +13,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import javax.ws.rs.core.MediaType;
-import java.io.Serializable;
+
 import java.util.logging.Logger;
 
 import static com.sun.jersey.api.client.ClientResponse.Status.OK;

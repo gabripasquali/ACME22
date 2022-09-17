@@ -1,7 +1,7 @@
 package com.acme.rider;
 import com.acme.LoggerDelegate;
-import com.acme.utils.Rider;
-import com.acme.utils.RiderConsResp;
+import com.acme.utils.models.Rider;
+import com.acme.utils.models.RiderConsResp;
 
 import camundajar.impl.com.google.gson.Gson;
 
@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 import static com.sun.jersey.api.client.ClientResponse.Status.OK;
 
 
-import java.util.logging.Logger;
+
 
 public class NotifyRider implements JavaDelegate{
     private final Logger LOGGER = Logger.getLogger(LoggerDelegate.class.getName());

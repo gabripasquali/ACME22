@@ -2,10 +2,10 @@ package com.acme;
 
 import camundajar.impl.com.google.gson.Gson;
 
-import com.acme.utils.OrderRider;
-import com.acme.utils.Restaurant;
-import com.acme.utils.Rider;
-import com.acme.utils.RiderConsResp;
+import com.acme.utils.models.OrderRider;
+import com.acme.utils.models.Restaurant;
+import com.acme.utils.models.Rider;
+import com.acme.utils.models.RiderConsResp;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -16,8 +16,7 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 
 import java.time.LocalTime;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+
 import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 
