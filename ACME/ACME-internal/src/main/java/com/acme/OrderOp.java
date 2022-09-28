@@ -52,7 +52,7 @@ public class OrderOp implements JavaDelegate{
         Restaurant ris = (Restaurant) execution.getVariable("restaurantC");
         String indRisto = ris.address;
         String indCliente = "Via Cliente 43";
-        LocalTime time = (LocalTime) execution.getVariable("oraCons");
+        String time = (String) execution.getVariable("oraCons");
         //execution.setVariable("oraCons", time);
         int id =  (int) execution.getVariable("idCons");
 

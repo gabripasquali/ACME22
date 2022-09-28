@@ -19,6 +19,8 @@ import javax.ws.rs.core.MediaType;
 
 import static com.sun.jersey.api.client.ClientResponse.Status.OK;
 
+import static com.acme.utils.acmeVar.*;
+
 public class AbortOrderRest implements JavaDelegate {
     private final Logger LOGGER = Logger.getLogger(LoggerDelegate.class.getName());
 
@@ -27,6 +29,7 @@ public class AbortOrderRest implements JavaDelegate {
         LOGGER.info("Task abort order Cliente e Ristorante");
 
         LOGGER.info("1) Task abort order Cliente");
+        execution.setVariable(RIDERAV, false);
 
         LOGGER.info("2) Task abort order Ristorante ");
 

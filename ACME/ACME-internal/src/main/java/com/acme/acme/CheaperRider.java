@@ -9,6 +9,8 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import static com.acme.utils.acmeVar.*;
+
 public class CheaperRider implements JavaDelegate{
     private final Logger LOGGER = Logger.getLogger(LoggerDelegate.class.getName());
 
@@ -28,6 +30,7 @@ public class CheaperRider implements JavaDelegate{
         }
         LOGGER.info("Rider selezionato: " + cRider.getName()+ " Prezzo: " + cRider.getPrice());
         execution.setVariable("cheaperRider", cRider);
+        execution.setVariable(RIDERAV, true);
         
         
     }

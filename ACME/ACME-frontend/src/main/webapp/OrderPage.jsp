@@ -106,10 +106,10 @@
         console.log("request sent succesfully");
     }
 
-            function sendOrder() {
+    function sendOrder() {
                 //call servlet that start camunda engine
                 document.getElementById("sceltaordine").style.display = "none";
-                document.getElementById("loading").style.display = "block";
+                document.getElementById("send").style.display = "block";
 
          
                 
@@ -173,17 +173,34 @@
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                     	let resp = xhr.responseText
-                        console.log(resp);
-                        console.log("successo");
+                        var respParsed = JSON.parse(resp).info;
+                        if(respParsed == "abortRest"){
+                                console.log(respParsed);
+                                document.getElementById("send").style.display = "none";
+                                document.getElementById("abortRe").style.display = "block"; 
+                        }
+                        else
+                            if(respParsed == "abortRider"){
+                                console.log(respParsed);
+                                document.getElementById("send").style.display = "none";
+                                document.getElementById("abortRi").style.display = "block"; 
+                            }
+                            else
+                                if(respParsed == "go"){
+                                    console.log(resp);
+                                    window.location = "http://localhost:8080/ACMEat/ClientAfterPayment";
+                                }
                         } else {
-                        	let resp = xhr.responseText
-                            console.log(resp);
                            console.log("NO");
                         }
                     }
                 }
      
             }
+        //
+        function goHome() {
+            window.location = "http://localhost:8080/ACMEat/ClientServlet";
+        }
 
     </script>
 
@@ -217,11 +234,24 @@
    
     <button type="submit" onclick="sendOrder()">SEND ORDER</button>
 </div>
-<div id="loading" hidden="true">
+<div id="send" hidden="true">
     <h2>ORDINE IN ELABORAZIONE</h2>
     stiamo verificando la fattibilità del tuo ordine,
-    verrai reindirizzato alla pagina del pagamento una volta terminati i controlli
+    verrai reindirizzato alla pagina del pagamento una volta terminati i controlli.
 </div>
+<div id="abortRe" hidden="true">
+    <h3>RISTORANTE NON DISPONIBILE</h3>
+    Il tuo ordine non può essere eseguito, ci scusiamo per il disagio.
+    <br><br>
+    <button type="submit" onclick="goHome()">HOME</button>
+</div>
+<div id="abortRi" hidden="true">
+    <h3>NESSUN RIDER DISPONIBILE</h3>
+    Il tuo ordine non può essere eseguito, ci scusiamo per il disagio.
+    <br><br>
+    <button type="submit" onclick="goHome()">HOME</button>
+</div>
+
 
 </body>
 </html>

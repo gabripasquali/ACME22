@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 
 import static com.sun.jersey.api.client.ClientResponse.Status.OK;
 
+
+
 public class GetAvailability implements JavaDelegate {
 
     private final Logger LOGGER = Logger.getLogger(LoggerDelegate.class.getName());
@@ -43,6 +45,7 @@ public class GetAvailability implements JavaDelegate {
         if(response.getStatus() == OK.getStatusCode()){
             RiderAvailability responseRider = response.getEntity(RiderAvailability.class);
             execution.setVariable("riderAvailable", responseRider.isDisp());
+            //execution.setVariable(RIDERAV, responseRider.isDisp());
             execution.setVariable("price", responseRider.getPrezzo());
             LOGGER.info("disp: " + responseRider.isDisp() + " price : "+ responseRider.getPrezzo());
             if(responseRider.isDisp() == true){
