@@ -33,60 +33,78 @@ public class Database {
                 throw new RuntimeException(ex);
             }
             this.restaurants = new ArrayList<>();
-            ArrayList<Dish> menu = new ArrayList<>();
-            menu.add(new Dish("Carote", 9.00));
-            menu.add(new Dish("Insalata", 12.00));
 
             restaurants.add(new Restaurant("Vegetale",
                     "Mantova",
                     "X", "http://localhost:10007",
                     true,
-                    menu));
-            
-            menu.clear();
-            menu.add(new Dish("Canaderli", 12.50));
-            menu.add(new Dish("Carlo",8.50));
+                    new ArrayList<Dish>() {
+                        {
+                            add(new Dish("Carote", 9.00));
+                            add(new Dish("Insalata", 12.00));
+                        }
+                    }
+            ));
+
             restaurants.add(new Restaurant("DeCarlo",
-            "Trento",
-            "X", "http://localhost:10008",
-            true,
-            menu));
+                    "Trento",
+                    "X", "http://localhost:10008",
+                    true,
+                    new ArrayList<Dish>() {
+                        {
+                            add(new Dish("Canaderli", 12.50));
+                            add(new Dish("Carlo",8.50));
+                        }
+                    }
+            ));
 
-            menu.clear();
-            menu.add(new Dish("Tagliata", 15.00));
-            menu.add(new Dish("Carbonara",11.50));
             restaurants.add(new Restaurant("Paradiso",
-            "Mantova",
-            "X", "http://localhost:10009",
-            true,
-            menu));
+                    "Mantova",
+                    "X", "http://localhost:10009",
+                    true,
+                    new ArrayList<Dish>() {
+                        {
+                            add(new Dish("Tagliata", 15.00));
+                            add(new Dish("Carbonara",11.50));
+                        }
+                    }
+            ));
 
-            menu.clear();
-            menu.add(new Dish("Nigiri", 3.50));
-            menu.add(new Dish("Udon",5.00));
             restaurants.add(new Restaurant("Sushino",
-            "Cagliari",
-            "X", "http://localhost:10010",
-            true,
-            menu));
+                    "Cagliari",
+                    "X", "http://localhost:10010",
+                    true,
+                    new ArrayList<Dish>() {
+                        {
+                            add(new Dish("Nigiri", 3.50));
+                            add(new Dish("Udon",5.00));
+                        }
+                    }
+            ));
 
-            menu.clear();
-            menu.add(new Dish("Aragosta", 25.00));
-            menu.add(new Dish("Frittura",18.50));
             restaurants.add(new Restaurant("Tramonto",
-            "Cagliari",
-            "X", "http://localhost:10011",
-            true,
-            menu));
+                    "Cagliari",
+                    "X", "http://localhost:10011",
+                    true,
+                    new ArrayList<Dish>() {
+                        {
+                            add(new Dish("Aragosta", 25.00));
+                            add(new Dish("Frittura",18.50));
+                        }
+                    }
+            ));
 
-            menu.clear();
-            menu.add(new Dish("Nuvole", 4.50));
-            menu.add(new Dish("Spicy Pork",9.50));
             restaurants.add(new Restaurant("YinDyan",
-            "Trento",
-            "X", "http://localhost:10012",
-            true,
-            menu));
+                    "Trento",
+                    "X", "http://localhost:10012",
+                    true,
+                    new ArrayList<Dish>() {
+                        {
+                            add(new Dish("Nuvole", 4.50));
+                            add(new Dish("Spicy Pork",9.50));
+                        }
+                    }
+            ));
 
 
             this.save();

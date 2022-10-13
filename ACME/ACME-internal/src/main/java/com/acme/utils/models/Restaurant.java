@@ -32,4 +32,10 @@ public class Restaurant implements Serializable{
     public String getSite() {
         return url;
     }
+
+    public void updateMenu(List<Dish> menu) {
+        for (int i = 0; i < menu.size(); i++){
+            this.menu.add(menu.get(i));
+        }
+    }
 }

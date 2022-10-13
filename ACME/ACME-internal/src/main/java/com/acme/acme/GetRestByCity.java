@@ -30,7 +30,6 @@ public class GetRestByCity implements JavaDelegate{
         String city = (String) execution.getVariable("city");
         LOGGER.info((city));
         //get restaurant of required city
-        //TODO: remove hardcoded city
         RestaurantList restaurants = new RestaurantList();
         restaurants.setRestaurants(getResByCity(city, db));
 
@@ -50,6 +49,5 @@ public class GetRestByCity implements JavaDelegate{
         return (ArrayList<Restaurant>) db.restaurants.stream()
                 .filter(restaurant -> city.equals(restaurant.city) && restaurant.isOpen)
                 .collect(Collectors.toList());
-
     }
 }

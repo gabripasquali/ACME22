@@ -7,6 +7,7 @@ Per far partire ACME:
 * copiare i file war, contenuti in ACME-frontend/target e ACME-internal/target, nella cartella webapps del server che avete scaricare
 * lanciare il server con l'apposito comando di start
 * la pagina iniziale di acme sarà visualizzabile a http://localhost:8080/ACMEat/
+* per poter utilizzare le funzionalità riservate al ristorante (updateMenu e changeAV) è necessario inizializzare il processo attraverso "http://localhost:8080/camunda/app/tasklist/default/" (da automatizzare)
 
 
 * Comunicazione acme-cliente in generale
@@ -15,6 +16,10 @@ Per far partire ACME:
 * spostare servlet (con settaggio delle variabili)
 * recupero dati da ritornare
 * sistemare frontend per chiamare servlet corrette
+
+* sistemare nomi messaggi nel bmpn
+
+
 
 
 

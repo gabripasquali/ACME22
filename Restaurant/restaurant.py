@@ -12,7 +12,7 @@ def index():
 
 @app.route('/getAvailability', methods=['POST'])
 def getAvailability():
-    order = random.choice(["True","False"])
+    order = random.choices(["True","False"], weights=(9,1), k=1)
     return jsonify(disp = order)
 
 @app.route('/abortOrder', methods=['GET'])

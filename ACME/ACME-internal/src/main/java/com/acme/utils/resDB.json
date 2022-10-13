@@ -15,7 +15,7 @@
   "url":"http://localhost:10008",
   "isOpen":true,
   "menu":[
-    {"name":"Canaderli",
+    {"name":"Canederli",
     "price":12.5},
     {"name":"Carlo",
     "price":8.5}
