@@ -20,6 +20,10 @@ public class OrderRestaurant  implements Serializable{
 
     }
     
+    public String getOraCons(){
+        return oraCons;
+    }
+
     public String getNameRisto() {
     	return restaurant;
     }

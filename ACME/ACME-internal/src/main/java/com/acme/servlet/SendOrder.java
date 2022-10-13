@@ -48,11 +48,30 @@ public class SendOrder extends ApiHttpServlet {
                     g.fromJson(request.getReader(), OrderRestaurant.class));
         process.correlate(camundaProcessId, SEND_ORDER);
 
-        OrderRestaurant restaurantOrder =
-                (OrderRestaurant) process.getVariable(camundaProcessId, RESTAURANT_ORDER);
-        sendResponse(response, g.toJson(restaurantOrder));
+        Boolean restAv = (boolean) process.getVariable(camundaProcessId, RESTAURANTAV);
+       
+        if (restAv == false){
+            respAbort abortRest = new respAbort("abortRest");
+            sendResponse(response, g.toJson(abortRest));
+        }else{
+            Boolean riderAv = (boolean) process.getVariable(camundaProcessId, RIDERAV);
+            if (riderAv == false){
+                respAbort abortRider = new respAbort("abortRider");
+                sendResponse(response, g.toJson(abortRider));
+            }
+            else{
+                respAbort go = new respAbort("go");
+                sendResponse(response,g.toJson(go));
+            }
+        }
     }
 
+    private class respAbort {
+        String info;
+        public respAbort(String info){
+            this.info = info;
+        }
+    }
 
 
 

@@ -40,6 +40,8 @@ public class GetAvailability implements JavaDelegate{
         
         String name = orderR.getNameRisto();
 
+        
+
         RestaurantList restaurants = new RestaurantList();
         restaurants.setRestaurants(getResByName(name, db));
         Restaurant rest = restaurants.gRestaurant(0);
@@ -80,11 +82,13 @@ public class GetAvailability implements JavaDelegate{
             if(responseRest.isDisp().equals("True")){
                     LOGGER.info(rest.getName() + " Disponibile");
                     execution.setVariable("restaurantAvailable", true);
+                    execution.setVariable(RESTAURANTAV, true);
             }
             else
                 if(responseRest.isDisp().equals("False")){
                     LOGGER.info(rest.getName() + " Non disponibile");
                     execution.setVariable("restaurantAvailable", false);
+                    execution.setVariable(RESTAURANTAV, false);
             }
         } else {
             LOGGER.info("server error");
