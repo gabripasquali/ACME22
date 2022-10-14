@@ -43,7 +43,7 @@
                         /**POPULATE DROPDOWN WITH RETURNED DATA**/
                         var slotPranzo = ["12:00-12:15","12:15-12:30","12:30-12:45", "12:45-13:00",
                             "13:00-13:15","13:15-13:30","13:30-13:45", "13:45-14:00"];
-                        var slotCena = ["19:00-19:15","16:15-19:30","19:30-19:45", "19:45-20:00",
+                        var slotCena = ["19:00-19:15","19:15-19:30","19:30-19:45", "19:45-20:00",
                             "20:00-20:15","20:15-20:30","20:30-20:45", "20:45-21:00"]
 
                         var today = new Date();
@@ -134,14 +134,8 @@
     }
 
     function sendOrder() {
-                //call servlet that start camunda engine
-                document.getElementById("sceltaordine").style.display = "none";
-                document.getElementById("send").style.display = "block";
-
-         
-                
-                     console.log("Manda ordine");
-
+             
+        var empty = false;
         //get selected restaurant
         var selectR = document.getElementById("restaurant");
         console.log(selectR);
@@ -175,10 +169,25 @@
         var selcted_hour = parseInt(selected_time[0]);
         var selcted_minute = parseInt(selected_time[1]);
         deliveryTime = orari.options[orari.selectedIndex].text.split("-")[0];
-     
+        
+        if (!(selcted_hour > hour || (selcted_hour === hour && selcted_minute > minute))) {
+            $('#inforari').html("orario selezionato errato");
+            empty = true;
+        } else {
+            $('#inforari').html(" ")
+        }
 		
-	
-  
+        if (!document.getElementById("indirizzo").value) {
+            empty = true;
+            $('#infoind').html("Inserisci l'indirizzo di consegna");
+        }
+        
+        if (!empty) {
+            document.getElementById("sceltaordine").style.display = "none";
+            document.getElementById("send").style.display = "block";
+    
+            console.log("Manda ordine");
+    
             var order =
                 {
                     "restaurant": choosenRname,
@@ -188,46 +197,48 @@
                     "indCliente": document.getElementById("indirizzo").value
                 };
 
-                var restaurant_url = "http://localhost:8080/ACME-internal/sendOrder";
-                var xhr = new XMLHttpRequest();
-                xhr.withCredentials = true;
-                xhr.open("POST", restaurant_url, true);
-                xhr.setRequestHeader("Content-type", "application/json");
-                var params = JSON.stringify(order);
-                console.log(params);
-                xhr.send(params);
-                xhr.onreadystatechange = function () {
+            var restaurant_url = "http://localhost:8080/ACME-internal/sendOrder";
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+            xhr.open("POST", restaurant_url, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+            var params = JSON.stringify(order);
+            console.log(params);
+            xhr.send(params);
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                    	let resp = xhr.responseText
+                        let resp = xhr.responseText
                         var respParsed = JSON.parse(resp).info;
                         if(respParsed == "abortRest"){
-                                console.log(respParsed);
-                                document.getElementById("send").style.display = "none";
-                                document.getElementById("abortRe").style.display = "block"; 
+                            console.log(respParsed);
+                            document.getElementById("send").style.display = "none";
+                            document.getElementById("abortRe").style.display = "block"; 
                         }
                         else
                             if(respParsed == "abortRider"){
                                 console.log(respParsed);
                                 document.getElementById("send").style.display = "none";
                                 document.getElementById("abortRi").style.display = "block"; 
-                            }
+                                }
                             else
                                 if(respParsed == "go"){
                                     console.log(resp);
                                     window.location = "http://localhost:8080/ACMEat/ClientAfterPayment";
                                 }
-                        } else {
-                           console.log("NO");
+                    } else {
+                        console.log("NO");
                         }
-                    }
                 }
-     
             }
-        //
-        function goHome() {
-            window.location = "http://localhost:8080/ACMEat/ClientServlet";
         }
+        
+     
+    }
+    
+    function goHome() {
+        window.location = "http://localhost:8080/ACMEat/ClientServlet";
+    }
 
     </script>
 
@@ -259,7 +270,8 @@
     <br><br>
     Indirizzo di consegna:
     <input type="text" id="indirizzo" name="indirizzo" value=""><br><br>
-   
+    <div id="infoind" style="color:rgb(226, 43, 43)"></div>
+    <br><br>
     <button type="submit" onclick="sendOrder()">SEND ORDER</button>
 </div>
 <div id="send" hidden="true">

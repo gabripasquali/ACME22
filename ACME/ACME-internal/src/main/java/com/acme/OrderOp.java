@@ -19,6 +19,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 
 import java.time.Instant;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Logger;
@@ -95,7 +96,7 @@ public class OrderOp implements JavaDelegate{
                 LocalTime localTime = LocalTime.parse(order.oraCons);
 
                 Instant orderCancellationTime = Instant.now()
-                    .atZone(ZoneOffset.UTC)
+                    .atZone(ZoneId.of( "Europe/Paris" ))
                     .withHour(localTime.getHour() - 1)
                     .withMinute(localTime.getMinute())
                     .withSecond(localTime.getSecond())
@@ -103,13 +104,13 @@ public class OrderOp implements JavaDelegate{
                 LOGGER.info("Delivery Time: " + orderCancellationTime.toString());
                 //orderCancellationTime = orderCancellationTime.truncatedTo(ChronoUnit.SECONDS);
                 Instant currentTime = Instant.now()
-                    .atZone(ZoneOffset.UTC)
+                    .atZone(ZoneId.of( "Europe/Paris" ))
                     .toInstant();
                 LOGGER.info("ORA ATTUALE: " + currentTime.toString());
-                int hour = orderCancellationTime.atZone(ZoneOffset.UTC).getHour();
-                int minutes = orderCancellationTime.atZone(ZoneOffset.UTC).getMinute();
-                int currentHour = currentTime.atZone(ZoneOffset.UTC).getHour();
-                int currentMinute = orderCancellationTime.atZone(ZoneOffset.UTC).getMinute();
+                int hour = orderCancellationTime.atZone(ZoneId.of( "Europe/Paris" )).getHour();
+                int minutes = orderCancellationTime.atZone(ZoneId.of( "Europe/Paris" )).getMinute();
+                int currentHour = currentTime.atZone(ZoneId.of( "Europe/Paris" )).getHour();
+                int currentMinute = orderCancellationTime.atZone(ZoneId.of( "Europe/Paris" )).getMinute();
 
                 if (!(currentHour > hour || (currentHour == hour && currentMinute > minutes))) {
                     execution.setVariable(DELIVERY_TIME, orderCancellationTime.toString());
