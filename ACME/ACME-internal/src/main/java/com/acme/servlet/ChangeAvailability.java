@@ -31,13 +31,13 @@ public class ChangeAvailability extends ApiHttpServlet {
         }
 
         /**get info and update db**/
-        /*if(isSuccesfull){
+        if(isSuccesfull){
             RestaurantAvailability restaurantAvailability = gson.fromJson(req.getReader(), RestaurantAvailability.class);
             System.out.println("***TIME OK restaurant name: "+restaurantAvailability.name+" is " + restaurantAvailability.disp+ "***");
             Database db = new Database();
             updateAvailability(restaurantAvailability.name, Boolean.parseBoolean(restaurantAvailability.disp), db);
             sendResponse(resp, "update restaurant" + restaurantAvailability.name + " availability as " + restaurantAvailability.disp);
-        }*/
+        }
 
     }
 
