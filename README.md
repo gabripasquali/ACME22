@@ -10,12 +10,12 @@ Per far partire ACME:
 * per poter utilizzare le funzionalità riservate al ristorante (updateMenu e changeAV) è necessario inizializzare il processo attraverso "http://localhost:8080/camunda/app/tasklist/default/" (da automatizzare)
 
 
+* controllo orario consegna front e back
+
 * comunicazione con banca e acme-cliente dopo pagamento
 * comunicazione con banca attualmente non c'è
-* non so quali servlet mancano ancora, sicuramente quelloper gestire l'abort da parte dell'utente
+* non so quali servlet mancano ancora
 * sistemare frontend per chiamare servlet corrette (dopo pagamento)
-* timer ristorante
-* timer annullamento utente (sia bpmn che altro)
 * report
 * revisione uml
 

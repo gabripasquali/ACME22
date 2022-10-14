@@ -41,20 +41,47 @@
                         document.getElementById('sceltaordine').style.display = "block";
 
                         /**POPULATE DROPDOWN WITH RETURNED DATA**/
-                        var slot = ["12:00-12:15","12:15-12:30","12:30-12:45", "12:45-13:00",
-                            "13:00-13:15","13:15-13:30","13:30-13:45", "13:45-14:00",
-                            "19:00-19:15","19:15-19:30","19:30-19:45", "19:45-20:00",
-                            "20:00-20:15","20:15-13:30","20:30-20:45", "20:45-21:00"]
+                        var slotPranzo = ["12:00-12:15","12:15-12:30","12:30-12:45", "12:45-13:00",
+                            "13:00-13:15","13:15-13:30","13:30-13:45", "13:45-14:00"];
+                        var slotCena = ["19:00-19:15","16:15-19:30","19:30-19:45", "19:45-20:00",
+                            "20:00-20:15","20:15-20:30","20:30-20:45", "20:45-21:00"]
+
+                        var today = new Date();
+                        var hour = today.getHours();
+                        var minute = today.getMinutes();
+
+                        var slot;
+                        if (hour < 14) {
+                            slot = slotPranzo.concat(slotCena);
+                        } else {
+                            slot = slotCena;
+                        }
+
                         var timeList = document.getElementById("timeslot");
+                        
                         for (let i = 0; i < slot.length; i++) {
                             let option = document.createElement("option");
                             option.text = slot[i];
                             option.value = slot[i];
                             timeList.append(option);
                         }
-                        //controllo su orario selezionato
                         
-    
+                        var selected_time = timeList.options[timeList.selectedIndex].text.split("-")[0].split(":");
+                        var selcted_hour = parseInt(selected_time[0]);
+                        var selcted_minute = parseInt(selected_time[1]);
+                        if (!(selcted_hour > hour || (selcted_hour === hour && selcted_minute > minute))) {
+                            $('#inforari').html("orario selezionato errato")
+                        }
+
+                        timeList.onchange = function (){
+                            $('#inforari').html(" ");
+                            var selected_time = timeList.options[timeList.selectedIndex].text.split("-")[0].split(":");
+                            var selcted_hour = parseInt(selected_time[0]);
+                            var selcted_minute = parseInt(selected_time[1]);
+                            if (!(selcted_hour > hour || (selcted_hour === hour && selcted_minute > minute))) {
+                                $('#inforari').html("orario selezionato errato")
+                            }
+                        };
 
                         var respParsed = JSON.parse(resp).restaurants;
                         var resList = document.getElementById("restaurant");
@@ -91,7 +118,7 @@
                             for (let i = 0; i < menus.length; i++){
                                 let option = document.createElement("option");
                                 option.text = menus[i].name.concat(" ( " + menus[i].price + " €)");
-                                option.value = menus[i].price.concat(";" + menus[i].price);
+                                option.value = menus[i].name.concat(";" + menus[i].price);
                                 console.log(menus[i]);
                                 menuList.append(option);
                             }
@@ -218,9 +245,8 @@
     <button type="submit" onclick="getResInZone()">cerca ristoranti</button>
 </div>
 
-<div id="sceltaordine" hidden="true">
+<div id="sceltaordine" hidden="true" style="color: blueviolet ;">
     <h2>Scelta ordine</h2>
-<div id="info2" style="color:red"></div>
     
     
     <label for="restaurant">Ristorante</label>
@@ -229,6 +255,8 @@
     <select name="menu" id="menu"></select><br>
     <label for="timeslot">Orario di consegna</label>
     <select name="timeslot" id="timeslot"></select><br>
+    <div id="inforari" style="color:rgb(226, 43, 43)"></div>
+    <br><br>
     Indirizzo di consegna:
     <input type="text" id="indirizzo" name="indirizzo" value=""><br><br>
    

@@ -13,11 +13,19 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.joda.time.Seconds;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 
-import java.time.LocalTime;
 
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.logging.Logger;
+import static com.acme.utils.acmeVar.*;
+
+import com.acme.utils.models.OrderRestaurant;
+
 import javax.ws.rs.core.MediaType;
 
 import static com.sun.jersey.api.client.ClientResponse.Status.OK;
@@ -50,9 +58,11 @@ public class OrderOp implements JavaDelegate{
         LocalTime time = LocalTime.of(hour, minutes);
         LOGGER.info("Orario Consegna: " + time);*/
         Restaurant ris = (Restaurant) execution.getVariable("restaurantC");
+        OrderRestaurant order = (OrderRestaurant) execution.getVariable(RESTAURANT_ORDER);
         String indRisto = ris.address;
-        String indCliente = "Via Cliente 43";
-        String time = (String) execution.getVariable("oraCons");
+        String indCliente = order.indCliente;
+        String time = order.oraCons;
+        LOGGER.info("Orario Consegna: " + time);
         //execution.setVariable("oraCons", time);
         int id =  (int) execution.getVariable("idCons");
 
@@ -78,7 +88,33 @@ public class OrderOp implements JavaDelegate{
              if(responseRider.getConsegna() == true){
                 LOGGER.info( responseRider.getInfo());
                 execution.setVariable("OrderOk", true);
-             }
+
+                /*se il rider prende in carico la consegna viene settata la variabile dell'orario per controllare successivamente
+                 l'abort order del cliente */
+                //OrderRestaurant order = (OrderRestaurant) execution.getVariable(RESTAURANT_ORDER);
+                LocalTime localTime = LocalTime.parse(order.oraCons);
+
+                Instant orderCancellationTime = Instant.now()
+                    .atZone(ZoneOffset.UTC)
+                    .withHour(localTime.getHour() - 1)
+                    .withMinute(localTime.getMinute())
+                    .withSecond(localTime.getSecond())
+                    .toInstant();
+                LOGGER.info("Delivery Time: " + orderCancellationTime.toString());
+                //orderCancellationTime = orderCancellationTime.truncatedTo(ChronoUnit.SECONDS);
+                Instant currentTime = Instant.now()
+                    .atZone(ZoneOffset.UTC)
+                    .toInstant();
+                LOGGER.info("ORA ATTUALE: " + currentTime.toString());
+                int hour = orderCancellationTime.atZone(ZoneOffset.UTC).getHour();
+                int minutes = orderCancellationTime.atZone(ZoneOffset.UTC).getMinute();
+                int currentHour = currentTime.atZone(ZoneOffset.UTC).getHour();
+                int currentMinute = orderCancellationTime.atZone(ZoneOffset.UTC).getMinute();
+
+                if (!(currentHour > hour || (currentHour == hour && currentMinute > minutes))) {
+                    execution.setVariable(DELIVERY_TIME, orderCancellationTime.toString());
+                }
+            }
              else{
                 LOGGER.info( responseRider.getInfo());
                 execution.setVariable("OrderOk", false);
@@ -87,5 +123,5 @@ public class OrderOp implements JavaDelegate{
              LOGGER.info("server error");
          }
     //dire al rider che è stato selezionato
-    }
+        }
 }

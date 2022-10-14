@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 
 import static com.sun.jersey.api.client.ClientResponse.Status.OK;
 
-
+import static com.acme.utils.acmeVar.*;
 
 
 public class NotifyRider implements JavaDelegate{
@@ -55,6 +55,9 @@ public class NotifyRider implements JavaDelegate{
          /**READ RESPONSE**/
         if(response.getStatus() == OK.getStatusCode()){
             RiderConsResp responseRider = response.getEntity(RiderConsResp.class);
+            if(responseRider.getConsegna() == true){
+                execution.setVariable(ABORT, false);
+            }
             LOGGER.info( responseRider.getInfo());
         
         } else {

@@ -5,12 +5,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type='text/JavaScript'>
         function goHome() {
-            window.location = "http://localhost:8080/acmeat-frontend/client-home";
+            window.location = "http://localhost:8080/ACMEat/ClientServlet";
         }
 
         function cancelOrder() {
 
-            var url = "http://localhost:8080/acmeat-ws/abort";
+            var url = "http://localhost:8080/ACME-internal/abort";
             var xhr = new XMLHttpRequest();
             xhr.open("PUT", url, true);
             xhr.send();
@@ -18,20 +18,23 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        var resp = xhr.responseText;
-                        $('#cancel-button').hide();
+                        let resp = xhr.responseText;
                         //TODO: mettere messaggio corretto nella cancellazione
                         var respParsed = JSON.parse(resp);
-                        var message;
-                        if (respParsed.result.message === "") {
-                            message = "Il tuo ordine e stato cancellato";
-                        } else {
-                            message = respParsed.result.message;
+                        console.log(resp);
+                        //var message;
+                        if (respParsed === "ok") {
+                            document.getElementById("cancel-button").style.display = "none";
+                            document.getElementById("home").style.display = "block"; 
+                        } else 
+                            if(respParsed === "no"){
+                                document.getElementById("cancel-button").style.display = "none";
+                                document.getElementById("noAbort").style.display = "block"; 
                         }
-                        $('#canc').html(message);
+                       
                     }
                 }
-            };
+            }
             console.log("request sent succesfully");
         }
 
@@ -61,13 +64,31 @@
     </script>
 </head>
 <body>
+<!--
 <div id="first">Hai completato il pagamento, ora confermalo ad Acme:
-    <input type="submit" value="Conferma pagamento" onclick="sendToken()"></div>
+    <input type="submit" value="Conferma pagamento" onclick="sendToken()"></div>-->
 
 
-<div id="token-success" hidden="true"><input id="cancel-button" type="submit" value="Cancella ordine"
-                                             onclick="cancelOrder()">
-    <div id="canc"></div>
+<div id="token-success">
+   <!-- <div id="abort">
+        <h3>Puoi cancellere il tuo ordine entro un'ora dall'orario di consegna</h3>
+    </div> -->
+    <div id="cancel-button" >
+        <h3>Puoi cancellere il tuo ordine entro un'ora dall'orario di consegna</h3>
+        <br><br>
+        <button type="submit" onclick="cancelOrder()">CANCELLA ORDINE</button>
+    </div>
+    <div id="noAbort" hidden="true">
+        <h3>IMPOSSIBILE ANNULLARE L'ORDINE</h3>
+        Limite di tempo per annullare l'ordine scaduto!
+    </div>
+    <div id="home" hidden="true">
+        <h3>ORDINE ANNULLATO CON SUCCESSO</h3>
+        Clicca sul tasto HOME se vuoi effettuare un nuovo ordine!
+        <br><br>
+        <button type="submit" onclick="goHome()">HOME</button>
+    </div>
+
 </div>
 
 

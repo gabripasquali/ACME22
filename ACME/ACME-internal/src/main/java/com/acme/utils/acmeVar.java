@@ -6,6 +6,11 @@ public class acmeVar {
     public static final String RIDERAV = "riderAvailable";
     public static final String RESTAURANTAV = "restaurantAvailable";
     public static final String PROCESS_ID = "id";
+    public static final String DELIVERY_TIME = "deliveryTime";
+    public static final String ABORT = "ClientAb";
     public static final String START = "StartMessage";
     public static final String SEND_ORDER = "SendOrder";
+    public static final String CLIENT_ABORT = "ClientAbort";
+    
+
 }

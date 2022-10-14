@@ -19,6 +19,8 @@ import java.util.logging.Logger;
 
 import javax.ws.rs.core.MediaType;
 
+import static com.acme.utils.acmeVar.*;
+
 import static com.sun.jersey.api.client.ClientResponse.Status.OK;
 
 public class AbortOrderEveryone implements JavaDelegate {
@@ -29,6 +31,7 @@ public class AbortOrderEveryone implements JavaDelegate {
         LOGGER.info("Task abort order Cliente Ristorante e Rider");
 
         LOGGER.info("1) Task abort order Cliente");
+        execution.setVariable(ABORT, true);
 
         LOGGER.info("2) Task abort order Ristorante ");
 
