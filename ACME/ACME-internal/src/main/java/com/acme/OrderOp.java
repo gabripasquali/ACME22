@@ -17,9 +17,7 @@ import org.joda.time.Seconds;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 
 
-import java.time.Instant;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Logger;
 import static com.acme.utils.acmeVar.*;
@@ -69,7 +67,7 @@ public class OrderOp implements JavaDelegate{
 
         Gson gson = new Gson();
         OrderRider body =  new OrderRider(id, time, indRisto, indCliente);
-        
+
          /**CALLING CONSAFF RIDER SERVICE**/
          String url = rider.getSite()+"/consAff";
          ClientConfig clientConfig = new DefaultClientConfig();
@@ -103,7 +101,7 @@ public class OrderOp implements JavaDelegate{
                 LOGGER.info("Delivery Time: " + orderCancellationTime.toString());
                 //orderCancellationTime = orderCancellationTime.truncatedTo(ChronoUnit.SECONDS);
                 Instant currentTime = Instant.now()
-                    .atZone(ZoneOffset.UTC)
+                    .atZone(ZoneId.of("Europe/Paris"))
                     .toInstant();
                 LOGGER.info("ORA ATTUALE: " + currentTime.toString());
                 int hour = orderCancellationTime.atZone(ZoneOffset.UTC).getHour();

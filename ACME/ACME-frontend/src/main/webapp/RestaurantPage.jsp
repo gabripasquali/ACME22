@@ -99,58 +99,69 @@
             }
         }
     </script>
+    <link rel="stylesheet" href="resPage.css">
 </head>
 <body>
 <h1> PAGINA RISTORANTI</h1>
+<div>
+    <h2>MODIFICA DISPONIBILITA'</h2>
+    <p>
+        <label for="restaurant">ristorante:</label>
+        <select id="restaurant" name="ristorante">
+            <option value="Vegetale" selected>Vegetale</option>
+            <option value="DeCarlo">DeCarlo</option>
+            <option value="Paradiso">Paradiso</option>
+            <option value="Sushino">Sushino</option>
+            <option value="Tramonto">Tramonto</option>
+            <option value="YinDyan">YinDyan</option>
+        </select>
+    </p>
 
-<h3>MODIFICA DISPONIBILITA'</h3>
-<label for="restaurant">ristorante:</label>
-<select id="restaurant" name="ristorante">
-    <option value="Vegetale" selected>Vegetale</option>
-    <option value="DeCarlo">DeCarlo</option>
-    <option value="Paradiso">Paradiso</option>
-    <option value="Sushino">Sushino</option>
-    <option value="Tramonto">Tramonto</option>
-    <option value="YinDyan">YinDyan</option>
-</select>
 
-<p>Disponibilità odierna:</p>
-<select id="availability" name="availability">
-    <option value="true" selected>SI</option>
-    <option value="false">NO</option>
-</select>
-<button type="submit"  onclick="changeAvailability()">UPDATE</button>
+    <p>
+        <label>Disponibilità</label>
+        <input type="radio" id="avTrue" name="availability" value="true">
+        <label for="avTrue">Disponibile</label>
+        <input type="radio" id="avFalse" name="availability" value="true">
+        <label for="avFalse">Non disponibile</label>
+    </p>
+    <button type="submit"  onclick="changeAvailability()">UPDATE</button>
+</div>
+
 
 <%--insert new plate--%>
-<h3>MODIFICA MENU'</h3>
-<label for="restaurant">ristorante:</label>
-<select id="restaurant" name="ristorante">
-    <option value="Vegetale" selected>Vegetale</option>
-    <option value="DeCarlo">DeCarlo</option>
-    <option value="Paradiso">Paradiso</option>
-    <option value="Sushino">Sushino</option>
-    <option value="Tramonto">Tramonto</option>
-    <option value="YinDyan">YinDyan</option>
-</select>
+<div>
+    <h2>MODIFICA MENU'</h2>
+    <label for="restaurant">ristorante:</label>
+    <select id="restaurant" name="ristorante">
+        <option value="Vegetale" selected>Vegetale</option>
+        <option value="DeCarlo">DeCarlo</option>
+        <option value="Paradiso">Paradiso</option>
+        <option value="Sushino">Sushino</option>
+        <option value="Tramonto">Tramonto</option>
+        <option value="YinDyan">YinDyan</option>
+    </select>
 
-<br>
-<form id="newDish" action="">
-    <input type="text" id="nomePiatto" name="nome piatto" placeholder="Nome" required>
-    <input type="number" id="prezzoPiatto" name = "prezzo" placeholder="Prezzo" required>
-    <input class="submit" type="submit">
-</form>
-<script>
-    $(function (){
-        $('#newDish').on('submit',function (e){
-            e.preventDefault();
-            addRow()
-        })
-})</script>
+    <br>
+    <form id="newDish" action="">
+        <input type="text" id="nomePiatto" name="nome piatto" placeholder="Nome" required>
+        <input type="number" id="prezzoPiatto" name = "prezzo" placeholder="Prezzo" required>
+        <input class="submit" type="submit">
+    </form>
+    <script>
+        $(function (){
+            $('#newDish').on('submit',function (e){
+                e.preventDefault();
+                addRow()
+            })
+        })</script>
 
-<table id="new-menu">
+    <table id="new-menu">
 
-</table>
+    </table>
 
-<button type="submit"  onclick="updateMenu()">UPDATE</button>
+    <button type="submit"  onclick="updateMenu()">UPDATE</button>
+</div>
+
 </body>
 </html>
