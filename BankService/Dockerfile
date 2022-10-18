@@ -4,6 +4,6 @@ WORKDIR /app
 
 EXPOSE 8000
 
-COPY . .
+COPY /src/main/jolie .
 
 CMD ["jolie", "server.ol"]
