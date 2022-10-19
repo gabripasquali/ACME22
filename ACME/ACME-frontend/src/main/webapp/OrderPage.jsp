@@ -20,6 +20,7 @@
     <meta http-equiv="pragma" content="no-cache">
 </head>
     <script>
+
         function getResInZone() {
             //get selected city
             let selectComune = document.getElementById('comune');
@@ -29,7 +30,7 @@
             let xhr = new XMLHttpRequest();
             xhr.open("GET", getResUrl, true);
             xhr.send();
-           
+
             xhr.onreadystatechange = function (){
                 if (xhr.readyState === 4){
                     if (xhr.status === 200){
@@ -58,14 +59,14 @@
                         }
 
                         var timeList = document.getElementById("timeslot");
-                        
+
                         for (let i = 0; i < slot.length; i++) {
                             let option = document.createElement("option");
                             option.text = slot[i];
                             option.value = slot[i];
                             timeList.append(option);
                         }
-                        
+
                         var selected_time = timeList.options[timeList.selectedIndex].text.split("-")[0].split(":");
                         var selcted_hour = parseInt(selected_time[0]);
                         var selcted_minute = parseInt(selected_time[1]);
@@ -92,14 +93,24 @@
                             option.value = respParsed[i].name.toString().concat(";" + respParsed[i].address);
                             resList.append(option);
                         }
-                            
-                        
+
+
                         var menuList = document.getElementById("menu");
+
                         for (let i = 0; i < respParsed[0].menu.length; i++){
-                            let option = document.createElement("option");
-                            option.text = respParsed[0].menu[i].name.concat(" ( " + respParsed[0].menu[i].price + " €)");
-                            option.value = respParsed[0].menu[i].name.toString().concat(";" + respParsed[i].menu[i].price);
-                            menuList.append(option);
+                            let option = menuList.insertRow(i);
+                            let c0 = option.insertCell(0);
+                            c0.innerHTML = respParsed[0].menu[i].name;
+                            c0.className = "col1";
+                            let c1 = option.insertCell(1);
+                            c1.innerHTML = respParsed[0].menu[i].price + " €";
+                            c1.className = "col2";
+                            let c2 = option.insertCell(2);
+                            c2.className = "col3";
+                            c2.innerHTML = `<button onclick='addToKart(this)' style="background-color: transparent;border: none; color: white; font-size: 28px">+</button>`;
+
+                            //option.value = respParsed[0].menu[i].name.toString().concat(";" + respParsed[i].menu[i].price);
+                            //menuList.append(option);
                         }
 
                         resList.onchange = function (){
@@ -109,187 +120,251 @@
                                 if(respParsed[i].name === resSelected){
                                     console.log(resSelected);
                                     menus = respParsed[i].menu;
-                                } else{
-                                    console.log("false"+respParsed[i].name)
                                 }
                             }
-                            var menuList = document.getElementById("menu");
-                            menuList.innerText = ""
+
+                            menuList.innerHTML = "";
+                            document.getElementById("carrello").innerHTML = "";
+
                             for (let i = 0; i < menus.length; i++){
-                                let option = document.createElement("option");
-                                option.text = menus[i].name.concat(" ( " + menus[i].price + " €)");
-                                option.value = menus[i].name.concat(";" + menus[i].price);
-                                console.log(menus[i]);
-                                menuList.append(option);
+                                let option = menuList.insertRow(i);
+                                let c0 = option.insertCell(0);
+                                c0.innerHTML = menus[i].name;
+                                c0.className = "col1";
+                                let c1 = option.insertCell(1);
+                                c1.innerHTML = menus[i].price + " €";
+                                c1.className = "col2";
+                                let c2 = option.insertCell(2);
+                                c2.className = "col3";
+                                c2.innerHTML = `<button onclick='addToKart(this)' style="background-color: transparent;border: none; color: white; font-size: 28px">+</button>`;
+
                             }
                         }
+                    } else {
+                        console.log("xhr failed");
+                    }
                 } else {
-                    console.log("xhr failed");
+                    console.log("xhr processing going on");
                 }
+            };
+            console.log("request sent succesfully");
+        }
+
+        function sendOrder() {
+            var empty = false;
+            //get selected restaurant
+            var selectR = document.getElementById("restaurant");
+            console.log(selectR);
+            var choosenRname = selectR.options[selectR.selectedIndex].value.split(";")[0];
+            console.log(choosenRname);
+            var choosenRaddress = selectR.options[selectR.selectedIndex].value.split(";")[1];
+            console.log(choosenRaddress);
+
+
+            //check and get selected dishes
+            var carrello = document.getElementById("carrello");
+            var opts = [];
+            let rowCount = carrello.rows.length;
+            for (var i = 0, len = rowCount; i < len; i++) {
+                let singleDish = {};
+                singleDish.name = carrello.rows[i].cells[0].innerText;
+                singleDish.price = carrello.rows[i].cells[1].innerText;
+                opts.push(singleDish);
+            }
+            console.log(opts);
+
+
+            var today = new Date();
+            var hour = today.getHours();
+            var minute = today.getMinutes();
+            var orari = document.getElementById("timeslot");
+            var deliveryTime;
+
+            var selected_time = orari.options[orari.selectedIndex].text.split("-")[0].split(":");
+            var selcted_hour = parseInt(selected_time[0]);
+            var selcted_minute = parseInt(selected_time[1]);
+            deliveryTime = orari.options[orari.selectedIndex].text.split("-")[0];
+
+            if (!(selcted_hour > hour || (selcted_hour === hour && selcted_minute > minute))) {
+                $('#inforari').html("orario selezionato errato");
+                empty = true;
             } else {
-                console.log("xhr processing going on");
+                $('#inforari').html(" ")
             }
-        };
-        console.log("request sent succesfully");
-    }
 
-    function sendOrder() {
-             
-        var empty = false;
-        //get selected restaurant
-        var selectR = document.getElementById("restaurant");
-        console.log(selectR);
-        var choosenRname = selectR.options[selectR.selectedIndex].value.split(";")[0];
-        console.log(choosenRname);
-        var choosenRaddress = selectR.options[selectR.selectedIndex].value.split(";")[1];
-        console.log(choosenRaddress);
-
-
-        //check and get selected dishes
-   
-            var opts = [], opt;
-            var selectD = document.getElementById("menu");
-            for (var i = 0, len = selectD.options.length; i < len; i++) {
-                opt = selectD.options[i];
-                // check if selected
-                if (opt.selected) {
-                    var singleDish = {};
-                    singleDish.name = opt.value.split(",")[0];
-                    singleDish.price = opt.value.split(",")[1];
-                    opts.push(singleDish);
-                }
+            if (!document.getElementById("indirizzo").value) {
+                empty = true;
+                $('#infoind').html("Inserisci l'indirizzo di consegna");
             }
-        var today = new Date();
-        var hour = today.getHours();
-        var minute = today.getMinutes();
-        var orari = document.getElementById("timeslot");
-        var deliveryTime;
 
-        var selected_time = orari.options[orari.selectedIndex].text.split("-")[0].split(":");
-        var selcted_hour = parseInt(selected_time[0]);
-        var selcted_minute = parseInt(selected_time[1]);
-        deliveryTime = orari.options[orari.selectedIndex].text.split("-")[0];
-        
-        if (!(selcted_hour > hour || (selcted_hour === hour && selcted_minute > minute))) {
-            $('#inforari').html("orario selezionato errato");
-            empty = true;
-        } else {
-            $('#inforari').html(" ")
-        }
-		
-        if (!document.getElementById("indirizzo").value) {
-            empty = true;
-            $('#infoind').html("Inserisci l'indirizzo di consegna");
-        }
-        
-        if (!empty) {
-            document.getElementById("sceltaordine").style.display = "none";
-            document.getElementById("send").style.display = "block";
-    
-            console.log("Manda ordine");
-    
-            var order =
-                {
-                    "restaurant": choosenRname,
-                    "dishes": opts,
-                    "oraCons": deliveryTime,
-                    "indRisto": choosenRaddress,
-                    "indCliente": document.getElementById("indirizzo").value
-                };
+            if (!empty) {
+                document.getElementById("sceltaordine").style.display = "none";
+                document.getElementById("send").style.display = "block";
 
-            var restaurant_url = "http://localhost:8080/ACME-internal/sendOrder";
-            var xhr = new XMLHttpRequest();
-            xhr.withCredentials = true;
-            xhr.open("POST", restaurant_url, true);
-            xhr.setRequestHeader("Content-type", "application/json");
-            var params = JSON.stringify(order);
-            console.log(params);
-            xhr.send(params);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        let resp = xhr.responseText
-                        var respParsed = JSON.parse(resp).info;
-                        if(respParsed == "abortRest"){
-                            console.log(respParsed);
-                            document.getElementById("send").style.display = "none";
-                            document.getElementById("abortRe").style.display = "block"; 
-                        }
-                        else
+                console.log("Manda ordine");
+
+                var order =
+                    {
+                        "restaurant": choosenRname,
+                        "dishes": opts,
+                        "oraCons": deliveryTime,
+                        "indRisto": choosenRaddress,
+                        "indCliente": document.getElementById("indirizzo").value
+                    };
+
+                var restaurant_url = "http://localhost:8080/ACME-internal/sendOrder";
+                var xhr = new XMLHttpRequest();
+                xhr.withCredentials = true;
+                xhr.open("POST", restaurant_url, true);
+                xhr.setRequestHeader("Content-type", "application/json");
+                var params = JSON.stringify(order);
+                console.log(params);
+                xhr.send(params);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            let resp = xhr.responseText
+                            var respParsed = JSON.parse(resp).info;
+                            if(respParsed == "abortRest"){
+                                console.log(respParsed);
+                                document.getElementById("send").style.display = "none";
+                                document.getElementById("abortRe").style.display = "block";
+                            }
+                            else
                             if(respParsed == "abortRider"){
                                 console.log(respParsed);
                                 document.getElementById("send").style.display = "none";
-                                document.getElementById("abortRi").style.display = "block"; 
-                                }
+                                document.getElementById("abortRi").style.display = "block";
+                            }
                             else
-                                if(respParsed == "go"){
-                                    console.log(resp);
-                                    window.location = "http://localhost:8080/ACMEat/ClientAfterPayment";
-                                }
-                    } else {
-                        console.log("NO");
+                            if(respParsed == "go"){
+                                console.log(resp);
+                                window.location = "http://localhost:8080/ACMEat/ClientAfterPayment";
+                            }
+                        } else {
+                            console.log("NO");
                         }
+                    }
                 }
             }
+
+
         }
-        
-     
-    }
-    
-    function goHome() {
-        window.location = "http://localhost:8080/ACMEat/ClientServlet";
-    }
+
+        function goHome() {
+            window.location = "http://localhost:8080/ACMEat/ClientServlet";
+        }
+
+        function addToKart(ele) {
+            var table = document.getElementById("carrello");
+            let rowCount = table.rows.length;
+
+            let row = table.insertRow(rowCount);
+            let c0 = row.insertCell(0);
+            c0.className = "col1";
+            c0.innerHTML = ele.parentNode.parentNode.cells[0].innerText;
+            let c1 = row.insertCell(1);
+            c1.className = "col2";
+            c1.innerHTML = ele.parentNode.parentNode.cells[1].innerText;
+            let c2 = row.insertCell(2);
+            c2.className = "col4";
+            c2.innerHTML = `<button onclick='deleteRow(this)' style="background-color: transparent;border: none;"><img src="icon/delete.svg" height="40"></button>`;
+        }
+
+        function deleteRow(ele){
+            let rowIndex = ele.parentNode.parentNode.rowIndex;
+            ele.parentNode.parentNode.remove();
+        }
 
     </script>
-
+    <link rel="stylesheet" href="clientPage.css">
 <body>
-<h1>PAGINA CLIENTI</h1>
+<div class="line">
 
-<div id="sceltaComune">
-    <h2>Seleziona il tuo comune: </h2>
-    <select name="comune" id="comune">
-        <option value="Cagliari">Cagliari</option>
-        <option value="Trento">Trento</option>
-        <option value="Mantova">Mantova</option>
-    </select>
-    
-    <button type="submit" onclick="getResInZone()">cerca ristoranti</button>
+    <h1>
+        <button onclick="location.href='../ACMEat'" style="background-color: transparent;border: none;">
+            <img src="icon/homeClient.svg" height="40">
+        </button>
+        PAGINA CLIENTI
+    </h1>
 </div>
 
-<div id="sceltaordine" hidden="true" style="color: blueviolet ;">
-    <h2>Scelta ordine</h2>
-    
-    
-    <label for="restaurant">Ristorante</label>
-    <select name="restaurant" id="restaurant"></select><br>
-    <label for="menu">Menù</label>
-    <select name="menu" id="menu"></select><br>
-    <label for="timeslot">Orario di consegna</label>
-    <select name="timeslot" id="timeslot"></select><br>
-    <div id="inforari" style="color:rgb(226, 43, 43)"></div>
-    <br><br>
-    Indirizzo di consegna:
-    <input type="text" id="indirizzo" name="indirizzo" value=""><br><br>
-    <div id="infoind" style="color:rgb(226, 43, 43)"></div>
-    <br><br>
-    <button type="submit" onclick="sendOrder()">SEND ORDER</button>
+
+
+<div id="sceltaComune" class="main_card">
+    <h2>Seleziona comune </h2>
+    <div class="line">
+        <label for="comune">Città</label>
+        <select name="comune" id="comune">
+            <option value="Cagliari" selected>Cagliari</option>
+            <option value="Trento">Trento</option>
+            <option value="Mantova">Mantova</option>
+        </select>
+    </div>
+    <button type="submit" onclick="getResInZone()">Cerca</button>
 </div>
-<div id="send" hidden="true">
+
+<div id="sceltaordine"  hidden="true">
+    <div class="main_card">
+        <h2>Seleziona ristorante</h2>
+        <div class="line">
+            <label for="restaurant">Ristorante</label>
+            <select name="restaurant" id="restaurant"></select>
+        </div>
+    </div>
+
+    <div class="main_card">
+        <h2>Seleziona piatti</h2>
+        <table name="menu" id="menu">
+
+        </table>
+    </div>
+
+    <div class="main_card">
+        <h2>Carrello</h2>
+        <table name="carrello" id="carrello"></table>
+    </div>
+
+    <div class="main_card">
+        <h2>Orario e luogo</h2>
+        <div class="line">
+            <label for="timeslot">Orario</label>
+            <select name="timeslot" id="timeslot"></select>
+            <div id="inforari" style="color:rgb(226, 43, 43)"></div>
+        </div>
+        <div class="line">
+            <label for="indirizzo">Indirizzo</label>
+            <input type="text" id="indirizzo" name="indirizzo" value=""><br><br>
+            <div id="infoind" style="color:rgb(226, 43, 43)"></div>
+        </div>
+        <button type="submit" onclick="sendOrder()">SEND ORDER</button>
+    </div>
+
+</div>
+<div id="send" class="main_card" hidden="true">
     <h2>ORDINE IN ELABORAZIONE</h2>
-    stiamo verificando la fattibilità del tuo ordine,
-    verrai reindirizzato alla pagina del pagamento una volta terminati i controlli.
+    <label>
+        Stiamo verificando la fattibilità del tuo ordine,
+        verrai reindirizzato alla pagina del pagamento una volta terminati i controlli.
+    </label>
 </div>
 <div id="abortRe" hidden="true">
-    <h3>RISTORANTE NON DISPONIBILE</h3>
-    Il tuo ordine non può essere eseguito, ci scusiamo per il disagio.
-    <br><br>
-    <button type="submit" onclick="goHome()">HOME</button>
+    <h2>RISTORANTE NON DISPONIBILE</h2>
+    <div class="line">
+        <label>
+            Il tuo ordine non può essere eseguito, ci scusiamo per il disagio.
+        </label>
+    </div>
+    <button type="submit" onclick="goHome()">nuovo ordine</button>
 </div>
 <div id="abortRi" hidden="true">
-    <h3>NESSUN RIDER DISPONIBILE</h3>
-    Il tuo ordine non può essere eseguito, ci scusiamo per il disagio.
-    <br><br>
-    <button type="submit" onclick="goHome()">HOME</button>
+    <h2>NESSUN RIDER DISPONIBILE</h2>
+    <div class="line">
+        <label>
+            Il tuo ordine non può essere eseguito, ci scusiamo per il disagio.
+        </label>
+    </div>
+    <button type="submit" onclick="goHome()">nuovo ordine</button>
 </div>
 
 

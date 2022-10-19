@@ -16,20 +16,23 @@
         var dishes = [];
 
         function addRow() {
-        let nome = document.getElementById("nomePiatto").value;
-        let price = document.getElementById("prezzoPiatto").value;
-        let rowCount = document.getElementById("new-menu").rows.length;
-        let row = document.getElementById("new-menu").insertRow(rowCount);
-        let c0 = row.insertCell(0);
-        c0.innerHTML = nome;
-        let c1 = row.insertCell(1);
-        c1.innerText = price;
-        let c2 = row.insertCell(2);
-        c2.innerHTML = `<button onclick='deleteRow(this)'>delete</button>`;
-        dishes.push({"name" : nome, "price" : price});
+            let nome = document.getElementById("nomePiatto").value;
+            let price = document.getElementById("prezzoPiatto").value;
+            let rowCount = document.getElementById("new-menu").rows.length;
+            let row = document.getElementById("new-menu").insertRow(rowCount);
+            let c0 = row.insertCell(0);
+            c0.innerHTML = nome;
+            c0.className = "col1";
+            let c1 = row.insertCell(1);
+            c1.innerText = price;
+            c1.className="col2";
+            let c2 = row.insertCell(2);
+            c2.className="col3";
+            c2.innerHTML = `<button onclick='deleteRow(this)' style="background-color: transparent;border: none;"><img src="icon/delete.svg" height="40"></button>`;
+            dishes.push({"name" : nome, "price" : price});
 
-        console.log(dishes);
-    }
+            console.log(dishes);
+        }
 
     function deleteRow(ele){
         let rowPos = ele.parentNode.parentNode.rowIndex;
@@ -46,7 +49,12 @@
     }
 
     function changeAvailability(){
-            let availability = document.getElementById("availability").value;
+            var ele = document.getElementsByName("availability");
+            var availability;
+            for (let i = 0; i < ele.length; i++){
+                if(ele[i].checked)
+                    availability = ele[i].value;
+            }
             let requestBody = {
                 "name" : document.getElementById("restaurant").value.toString(),
                 "disp" : availability.toString()
@@ -102,11 +110,16 @@
     <link rel="stylesheet" href="resPage.css">
 </head>
 <body>
-<h1> PAGINA RISTORANTI</h1>
-<div>
-    <h2>MODIFICA DISPONIBILITA'</h2>
-    <p>
-        <label for="restaurant">ristorante:</label>
+<h1>
+    <button onclick="location.href='../ACMEat'" style="background-color: transparent;border: none;">
+        <img src="icon/homeRes.svg" height="40">
+    </button>
+    PAGINA RISTORANTI
+</h1>
+<div class="main_card">
+    <h2>Aggiorna disponibilità</h2>
+    <div class="line">
+        <label for="restaurant">Nome ristorante</label>
         <select id="restaurant" name="ristorante">
             <option value="Vegetale" selected>Vegetale</option>
             <option value="DeCarlo">DeCarlo</option>
@@ -115,52 +128,56 @@
             <option value="Tramonto">Tramonto</option>
             <option value="YinDyan">YinDyan</option>
         </select>
-    </p>
+    </div>
 
-
-    <p>
+    <div class="line">
         <label>Disponibilità</label>
-        <input type="radio" id="avTrue" name="availability" value="true">
+        <input type="radio" id="avTrue" name="availability" value="true" style="margin-left: 142px" checked>
         <label for="avTrue">Disponibile</label>
         <input type="radio" id="avFalse" name="availability" value="true">
         <label for="avFalse">Non disponibile</label>
-    </p>
-    <button type="submit"  onclick="changeAvailability()">UPDATE</button>
+    </div>
+    <button type="submit"  onclick="changeAvailability()">Invia</button>
 </div>
 
 
 <%--insert new plate--%>
-<div>
-    <h2>MODIFICA MENU'</h2>
-    <label for="restaurant">ristorante:</label>
-    <select id="restaurant" name="ristorante">
-        <option value="Vegetale" selected>Vegetale</option>
-        <option value="DeCarlo">DeCarlo</option>
-        <option value="Paradiso">Paradiso</option>
-        <option value="Sushino">Sushino</option>
-        <option value="Tramonto">Tramonto</option>
-        <option value="YinDyan">YinDyan</option>
-    </select>
+<div class="main_card">
+    <h2>Aggiorna menù</h2>
+    <div class="line">
+        <label for="restaurant">Nome ristorante</label>
+        <select id="ristorante" name="ristorante" >
+            <option value="Vegetale" selected>Vegetale</option>
+            <option value="DeCarlo">DeCarlo</option>
+            <option value="Paradiso">Paradiso</option>
+            <option value="Sushino">Sushino</option>
+            <option value="Tramonto">Tramonto</option>
+            <option value="YinDyan">YinDyan</option>
+        </select>
+    </div>
+    <div class="line">
+        <form id="newDish" action="" style="margin: 0" >
+            <input type="text" id="nomePiatto" name="nome piatto" placeholder="Nome" required>
+            <input type="number" id="prezzoPiatto" step="0.01" name = "prezzo" placeholder="Prezzo" required>
+            <input class="submit" type="submit" value="+" style="float: right; width: 48px;" >
+        </form>
+    </div>
 
-    <br>
-    <form id="newDish" action="">
-        <input type="text" id="nomePiatto" name="nome piatto" placeholder="Nome" required>
-        <input type="number" id="prezzoPiatto" name = "prezzo" placeholder="Prezzo" required>
-        <input class="submit" type="submit">
-    </form>
+
     <script>
         $(function (){
             $('#newDish').on('submit',function (e){
                 e.preventDefault();
-                addRow()
+                addRow();
             })
         })</script>
+
 
     <table id="new-menu">
 
     </table>
 
-    <button type="submit"  onclick="updateMenu()">UPDATE</button>
+    <button type="submit"  onclick="updateMenu()">Invia</button>
 </div>
 
 </body>

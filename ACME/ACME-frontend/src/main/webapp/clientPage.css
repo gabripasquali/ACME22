@@ -1,18 +1,10 @@
-body {
-    background: #363135;
-    background-image: url("icon/sfondo.webp");
-    background-repeat: no-repeat;
-    background-position:bottom right;
-    background-size: 80%;
-}
-
 h1 {
     font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
     line-height: 58px;
-    color: #CD6952;
+    color: #363135;
     margin: 18px 102px;
 }
 
@@ -25,14 +17,25 @@ h2 {
     margin: 8px 0;
 }
 
-.main_card {
-    width: 686px;
+body {
+    background: #E6C660;
+    background-image: url("icon/3D1A017D.jpg");
+    background-repeat: no-repeat;
+    background-position:top right;
+    background-size: 80%;
+}
+
+.main_card{
+    width: 609px;
     background-color: rgba(245, 245, 245, 0.6);
     border-radius: 25px;
     padding: 24px 35px;
     margin: 18px 70px;
 }
 
+.line {
+    margin: 20px 0;
+}
 label{
     font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
@@ -41,7 +44,6 @@ label{
     line-height: 29px;
     color: #000000;
 }
-
 select{
     float:right;
     background: #FFFFFF;
@@ -52,66 +54,38 @@ select{
     border: 6px;
     padding: 8px 16px;
 }
-
-.line {
-    margin: 20px 0;
-}
-
-input[type=text]{
-    background: #FFFFFF;
-    border-radius: 17px;
-    width: 420px;
-    height: 48px;
-    padding: 0 16px;
-    font-size: 24px;
-    color: #363135;
-    margin-right: 20px;
-}
-
-input[type=number]{
-    background: #FFFFFF;
-    border-radius: 17px;
-    width: 148px;
-    height: 48px;
-    padding: 0 16px;
-    font-size: 24px;
-    color: #363135;
-}
-
-input[type=submit]{
-    border-radius: 25px;
-    height: 48px;
-    width: 48px;
-    background: #E6C660;
-    font-size: 40px;
-    color: white;
-    border: none;
-}
-
 button[type=submit]{
     border-radius: 25px;
     background: #E6C660;
     text-align: center;
-    height: 48px;
-    padding: 0 100px;
+    height: 36px;
+    padding: 0 70px;
     font-size: 24px;
-    border: none
+    border: none;
+    color: #FFFFFF;
 }
-
+input[type=text]{
+    float:right;
+    background: #FFFFFF;
+    border-radius: 17px;
+    width: 409px;
+    height: 48px;
+    padding: 0 16px;
+    font-size: 24px;
+    color: #363135;
+}
 table{
     border-collapse: separate;
     border-spacing: 0 15px;
 }
-
 td{
     font-family: Arial, Helvetica, sans-serif;
     height: 66px;
     background: white;
     font-size: 24px;
 }
-
 .col1{
-    width:435px;
+    width:409px;
     border-radius: 17px 0 0 17px;
     text-align: left;
     padding: 0px 23px;
@@ -124,6 +98,12 @@ td{
 .col3{
     border-radius: 0 17px 17px 0;
     width:91px;
-    background:#CD6952;
+    background:#E4C763;
     text-align: center;
 }
+.col4{
+     border-radius: 0 17px 17px 0;
+     width:91px;
+     background:#CD6952;
+     text-align: center;
+ }
