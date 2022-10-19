@@ -28,7 +28,7 @@ main{
         [getToken(getTokenRequest)(getTokenResponse){
             getTokenReponse.sid = csets.sid = new
             random@Math()(randomResult);
-            if (randomResult<0.5){
+            if (randomResult<0.5 || request.name=="go"){
                 getTokenResponse.status="success";
                 global.users.(getTokenResponse.sid).result = true;
                 global.users.(getTokenRequest.sid).isRefounded = false
