@@ -64,9 +64,9 @@
     </script>
 </head>
 <body>
-
+<!--
 <div id="first">Hai completato il pagamento, ora confermalo ad Acme:
-    <input type="submit" value="Conferma pagamento" onclick="sendToken()"></div>
+    <input type="submit" value="Conferma pagamento" onclick="sendToken()"></div>-->
 
 
 <div id="token-success">
@@ -88,8 +88,6 @@
         <br><br>
         <button type="submit" onclick="goHome()">HOME</button>
     </div>
-   <!-- <div id="token-failure" hidden="true">Pagamento fallito<input type="submit" value="Ritorna alla homepage"
-        onclick="goHome()"></div>-->
 
 </div>
 

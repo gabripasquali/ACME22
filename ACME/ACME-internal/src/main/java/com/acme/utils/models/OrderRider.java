@@ -8,7 +8,6 @@ public class OrderRider implements Serializable {
     public String oraCons;
     public String indRisto;
     public String indCliente;
-    
     public OrderRider(int id, String oraCons, String indRisto, String indCliente){
         this.id = id;
         this.oraCons = oraCons;

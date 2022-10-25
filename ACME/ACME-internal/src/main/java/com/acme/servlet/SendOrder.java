@@ -19,8 +19,7 @@ import java.io.IOException;
 
 import com.acme.utils.ApiHttpServlet;
 import com.acme.utils.models.OrderRestaurant;
-import com.acme.utils.models.Rider;
-import com.acme.utils.models.SendOrderContent;
+
 
 import static com.acme.utils.acmeVar.*;
 
@@ -50,28 +49,20 @@ public class SendOrder extends ApiHttpServlet {
         process.correlate(camundaProcessId, SEND_ORDER);
 
         Boolean restAv = (boolean) process.getVariable(camundaProcessId, RESTAURANTAV);
-        
        
-        if (session == null || session.getAttribute(PROCESS_ID) == null
-                    || (!process.isCorrelationSuccessful()  && session.getAttribute(SEND_ORDER) == null)) {
-                        respAbort no = new respAbort("no");
-                    sendResponse(response,g.toJson(no));
-                    }
-        else
-            if (restAv == false){
-                respAbort abortRest = new respAbort("abortRest");
-                sendResponse(response, g.toJson(abortRest));
-            }else{
-                Boolean riderAv = (boolean) process.getVariable(camundaProcessId, RIDERAV);
-                if (riderAv == false){
-                    respAbort abortRider = new respAbort("abortRider");
-                    sendResponse(response, g.toJson(abortRider));
-                }
-                else
-                    {
-                        respAbort go = new respAbort("go");
-                        sendResponse(response,g.toJson(go));
-                    }
+        if (restAv == false){
+            respAbort abortRest = new respAbort("abortRest");
+            sendResponse(response, g.toJson(abortRest));
+        }else{
+            Boolean riderAv = (boolean) process.getVariable(camundaProcessId, RIDERAV);
+            if (riderAv == false){
+                respAbort abortRider = new respAbort("abortRider");
+                sendResponse(response, g.toJson(abortRider));
+            }
+            else{
+                respAbort go = new respAbort("go");
+                sendResponse(response,g.toJson(go));
+            }
         }
     }
 
