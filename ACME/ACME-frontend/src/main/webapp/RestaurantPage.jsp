@@ -84,7 +84,7 @@
             let updateUrl ="http://localhost:8080/ACME-internal/changeMenu";
             //read new plate
             let requestBody = {
-                "name" : document.getElementById("ristorante").value.toString(),
+                "name" : document.getElementById("restaurant").value.toString(),
                 "menu" : dishes
             };
             console.log(requestBody);
@@ -102,41 +102,6 @@
                         alert("il menu è stato aggiornato");
                     } else {
                         alert("non è stato possibile aggiornare il menù. riprova entro le 10 del mattino")
-                    }
-                }
-            }
-        }
-
-        function getResMenu(){
-            let getMenuUrl = "http://localhost:8080/ACME-internal/getMenu"
-            let res = document.getElementById("ristorante").value.toString();
-            if(res != "default"){
-                let xhr = new XMLHttpRequest();
-                xhr.open("GET",getMenuUrl+"?res="+res);
-                xhr.send();
-                xhr.onreadystatechange = function (){
-                    if(xhr.readyState === XMLHttpRequest.DONE){
-                        const status = xhr.status;
-                        console.log(xhr.responseText);
-                        if(status === 0 || (status>=200 && status< 400)){
-                            var menu = JSON.parse(xhr.responseText);
-                            let table = document.getElementById("new-menu");
-                            table.innerHTML = "";
-                            dishes = [];
-                            for(let i = 0; i < menu.length; i++){
-                                let row = table.insertRow(i);
-                                let c0 = row.insertCell(0)
-                                c0.innerHTML = menu[i].name;
-                                c0.className = "col1"
-                                let c1 = row.insertCell(1)
-                                c1.innerHTML = menu[i].price;
-                                c1.className = "col2";
-                                let c2 = row.insertCell(2);
-                                c2.className="col3";
-                                c2.innerHTML = `<button onclick='deleteRow(this)' style="background-color: transparent;border: none;"><img src="icon/delete.svg" height="40"></button>`;
-                                dishes.push(menu[i])
-                            }
-                        }
                     }
                 }
             }
@@ -180,10 +145,9 @@
 <div class="main_card">
     <h2>Aggiorna menù</h2>
     <div class="line">
-        <label for="ristorante">Nome ristorante</label>
-        <select id="ristorante" onchange="getResMenu()" name="ristorante" >
-            <option value="default" selected></option>
-            <option value="Vegetale" >Vegetale</option>
+        <label for="restaurant">Nome ristorante</label>
+        <select id="ristorante" name="ristorante" >
+            <option value="Vegetale" selected>Vegetale</option>
             <option value="DeCarlo">DeCarlo</option>
             <option value="Paradiso">Paradiso</option>
             <option value="Sushino">Sushino</option>

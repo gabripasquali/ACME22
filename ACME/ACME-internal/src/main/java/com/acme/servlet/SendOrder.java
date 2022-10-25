@@ -2,8 +2,6 @@ package com.acme.servlet;
 
 import camundajar.impl.com.google.gson.Gson;
 
-import com.acme.LoggerDelegate;
-import org.apache.logging.log4j.LogManager;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 
@@ -16,7 +14,7 @@ import javax.servlet.http.*;
 
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.logging.Logger;
+
 
 
 import com.acme.utils.ApiHttpServlet;
@@ -35,7 +33,7 @@ public class SendOrder extends ApiHttpServlet {
     private HttpSession session;
     private ProcessEngineAdapter process;
 
-    private final java.util.logging.Logger LOGGER = Logger.getLogger(LoggerDelegate.class.getName());
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
@@ -51,9 +49,15 @@ public class SendOrder extends ApiHttpServlet {
                     g.fromJson(request.getReader(), OrderRestaurant.class));
         process.correlate(camundaProcessId, SEND_ORDER);
 
-        if(process.isCorrelationSuccessful()){
-            Boolean restAv = (boolean) process.getVariable(camundaProcessId, RESTAURANTAV);
-
+        Boolean restAv = (boolean) process.getVariable(camundaProcessId, RESTAURANTAV);
+        
+       
+        if (session == null || session.getAttribute(PROCESS_ID) == null
+                    || (!process.isCorrelationSuccessful()  && session.getAttribute(SEND_ORDER) == null)) {
+                        respAbort no = new respAbort("no");
+                    sendResponse(response,g.toJson(no));
+                    }
+        else
             if (restAv == false){
                 respAbort abortRest = new respAbort("abortRest");
                 sendResponse(response, g.toJson(abortRest));
@@ -63,22 +67,11 @@ public class SendOrder extends ApiHttpServlet {
                     respAbort abortRider = new respAbort("abortRider");
                     sendResponse(response, g.toJson(abortRider));
                 }
-                else{
-                    Rider rider = (Rider) process.getVariable(camundaProcessId, RIDER);
-                    Double priceR = rider.getPrice();
-                    OrderRestaurant order = (OrderRestaurant) process.getVariable(camundaProcessId, RESTAURANT_ORDER);
-                    Double priceO = order.getTotalPrice();
-                    Double price = priceR + priceO;
-                    SendOrderContent content = new SendOrderContent("go", BANK_REST_SERVICE_URL, price);
-                   //respAbort go = new respAbort("go");
-                    sendResponse(response,g.toJson(content));
-                }
-            }
-        } else {
-            //timeout error: too much time passed
-            respAbort resp = new respAbort("out of time");
-            sendResponse(response, g.toJson(resp));
-            LOGGER.info("--iscorrelationsuccesfull"+process.isCorrelationSuccessful());
+                else
+                    {
+                        respAbort go = new respAbort("go");
+                        sendResponse(response,g.toJson(go));
+                    }
         }
     }
 

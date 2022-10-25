@@ -40,16 +40,23 @@ public class GetAvailability implements JavaDelegate{
         
         String name = orderR.getNameRisto();
 
-        Restaurant rest = getResByName(name, db);
+        
+
+        RestaurantList restaurants = new RestaurantList();
+        restaurants.setRestaurants(getResByName(name, db));
+        Restaurant rest = restaurants.gRestaurant(0);
         execution.setVariable("restaurantC", rest);
         LOGGER.info("Risto " + rest.getSite());
 
+     
         int minId = 1;
 		int maxId = 10;
 		Random random = new Random();
 		int id = random.nextInt(maxId + minId) + minId;
 		
         LOGGER.info("ID: " + id);
+
+
 
         execution.setVariable("idCons", id);
         Gson gson = new Gson();
@@ -65,6 +72,7 @@ public class GetAvailability implements JavaDelegate{
                .type(MediaType.APPLICATION_JSON_TYPE)
                .post(ClientResponse.class, gson.toJson(orderR));
         LOGGER.info("Availability Rest STATUS CODE:" + response.getStatus());
+  
 
         /**READ RESPONSE**/
         if(response.getStatus() == OK.getStatusCode()){
@@ -87,11 +95,10 @@ public class GetAvailability implements JavaDelegate{
         }
     } 
  
-    private Restaurant getResByName(String name, Database db) {
-        return db.restaurants.stream()
+    private ArrayList<Restaurant> getResByName(String name, Database db) {
+        return (ArrayList<Restaurant>) db.restaurants.stream()
                 .filter(restaurant -> name.equals(restaurant.name))
-                .findAny()
-                .orElse(new Restaurant());
+                .collect(Collectors.toList());
 
     }
     
