@@ -20,7 +20,7 @@
     <meta http-equiv="pragma" content="no-cache">
 </head>
     <script>
-
+        var totCount = 0;
         function getResInZone() {
             //get selected city
             let selectComune = document.getElementById('comune');
@@ -125,6 +125,8 @@
 
                             menuList.innerHTML = "";
                             document.getElementById("carrello").innerHTML = "";
+                            totCount = 0;
+                            document.getElementById("totale").innerHTML = "";
 
                             for (let i = 0; i < menus.length; i++){
                                 let option = menuList.insertRow(i);
@@ -221,10 +223,15 @@
                 console.log(params);
                 xhr.send(params);
                 xhr.onreadystatechange = function () {
+                    console.log(xhr.responseText);
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200) {
                             let resp = xhr.responseText
                             var respParsed = JSON.parse(resp).info;
+                            if(respParsed == "out of time"){
+                               alert("il tempo per completare l'ordine è scaduto");
+                               window.location="http://localhost:8080/ACMEat/ClientServlet";
+                            }
                             if(respParsed == "abortRest"){
                                 console.log(respParsed);
                                 document.getElementById("send").style.display = "none";
@@ -258,6 +265,11 @@
         function addToKart(ele) {
             var table = document.getElementById("carrello");
             let rowCount = table.rows.length;
+            var tot = document.getElementById("totale");
+            price = +ele.parentNode.parentNode.cells[1].innerText.replace(/[^\d.]/g, "");
+            totCount = totCount + price;
+
+            tot.innerHTML = "<label>TOT "+totCount+" €</label>"
 
             let row = table.insertRow(rowCount);
             let c0 = row.insertCell(0);
@@ -273,6 +285,11 @@
 
         function deleteRow(ele){
             let rowIndex = ele.parentNode.parentNode.rowIndex;
+            var tot = document.getElementById("totale");
+            price = +ele.parentNode.parentNode.cells[1].innerText.replace(/[^\d.]/g, "");
+            totCount = totCount - price;
+
+            tot.innerHTML = "<label>TOT "+totCount+" €</label>"
             ele.parentNode.parentNode.remove();
         }
 
@@ -323,6 +340,7 @@
     <div class="main_card">
         <h2>Carrello</h2>
         <table name="carrello" id="carrello"></table>
+        <div id="totale" class="line" style="text-align: right"> </div>
     </div>
 
     <div class="main_card">
