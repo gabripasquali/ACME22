@@ -20,8 +20,8 @@ public class CheaperRider implements JavaDelegate{
         ArrayList<Rider> availableRider = (ArrayList<Rider>) execution.getVariable("riderAvailableList");
 
         // se la lista non è vuota calcolo prezzo migliore
-        double minPrice = 0; 
         Rider cRider = availableRider.get(0);
+        double minPrice = cRider.getPrice();
         for(int i = 0; i < availableRider.size(); i++) {
             double price = availableRider.get(i).getPrice();
             if(price < minPrice){

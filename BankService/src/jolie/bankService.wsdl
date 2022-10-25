@@ -79,7 +79,7 @@
   </wsdl:binding>
   <wsdl:service name="BankService">
     <wsdl:port name="BankServicePort" binding="tns:BankSOAPBinding">
-      <soap:address location="http://localhost:3002"/>
+      <soap:address location="http://localhost:8000"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
