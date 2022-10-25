@@ -7,6 +7,8 @@ public class Restaurant implements Serializable{
     public String name;
     public String city;
     public String address;
+    public Double lat;
+    public Double lng;
 
     public String url;
     public Boolean isOpen;
@@ -16,11 +18,13 @@ public class Restaurant implements Serializable{
     public Restaurant(){
     }
 
-    public Restaurant(String name, String city, String address, String url, Boolean isOpen, List<Dish> menu){
+    public Restaurant(String name, String city, String address, Double lat, Double lng , String url, Boolean isOpen, List<Dish> menu){
         this.isOpen = isOpen;
         this.name = name;
         this.menu = menu;
         this.address = address;
+        this.lat = lat;
+        this.lng = lng;
         this.url = url;
         this.city = city;
     }
@@ -34,8 +38,6 @@ public class Restaurant implements Serializable{
     }
 
     public void updateMenu(List<Dish> menu) {
-        for (int i = 0; i < menu.size(); i++){
-            this.menu.add(menu.get(i));
-        }
+        this.menu = menu;
     }
 }
