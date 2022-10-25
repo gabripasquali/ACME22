@@ -45,7 +45,7 @@
                         var slotPranzo = ["12:00-12:15","12:15-12:30","12:30-12:45", "12:45-13:00",
                             "13:00-13:15","13:15-13:30","13:30-13:45", "13:45-14:00"];
                         var slotCena = ["19:00-19:15","19:15-19:30","19:30-19:45", "19:45-20:00",
-                            "20:00-20:15","20:15-20:30","20:30-20:45", "20:45-21:00"]
+                            "20:00-20:15","20:15-20:30","20:30-20:45", "22:45-22:00"]
 
                         var today = new Date();
                         var hour = today.getHours();
@@ -169,6 +169,7 @@
                 let singleDish = {};
                 singleDish.name = carrello.rows[i].cells[0].innerText;
                 singleDish.price = carrello.rows[i].cells[1].innerText;
+                console.log(singleDish.price);
                 opts.push(singleDish);
             }
             console.log(opts);
@@ -225,6 +226,8 @@
                         if (xhr.status === 200) {
                             let resp = xhr.responseText
                             var respParsed = JSON.parse(resp).info;
+                           // var bank = JSON.parse(resp).bank_url;
+                           // var price = JSON.parse(resp).total_price;
                             if(respParsed == "abortRest"){
                                 console.log(respParsed);
                                 document.getElementById("send").style.display = "none";
@@ -237,9 +240,18 @@
                                 document.getElementById("abortRi").style.display = "block";
                             }
                             else
-                            if(respParsed == "go"){
+                            if(respParsed == "no"){
+                                console.log(respParsed);
+                                document.getElementById("send").style.display = "none";
+                                document.getElementById("timeEx").style.display = "block";
+                            }
+                            else
+                                if(respParsed == "go"){
                                 console.log(resp);
-                                window.location = "http://localhost:8080/ACMEat/ClientAfterPayment";
+                                var callback_url = encodeURIComponent("http://localhost:8080/ACMEat/ClientAfterPayment");
+                                var bank_url = bank + "home/" + "price/" + price + "/callback_url/" + callback_url;
+                                window.location.assign(bank_url);
+                                //window.location = "http://localhost:8080/ACMEat/ClientAfterPayment";
                             }
                         } else {
                             console.log("NO");
@@ -347,6 +359,15 @@
         Stiamo verificando la fattibilità del tuo ordine,
         verrai reindirizzato alla pagina del pagamento una volta terminati i controlli.
     </label>
+</div>
+<div id="timeEx" hidden="true">
+    <h2>TEMPO PER EFFETTUARE L'ORDINE SCADUTO</h2>
+    <div class="line">
+        <label>
+            Il tuo ordine non può essere eseguito, ci scusiamo per il disagio.
+        </label>
+    </div>
+    <button type="submit" onclick="goHome()">nuovo ordine</button>
 </div>
 <div id="abortRe" hidden="true">
     <h2>RISTORANTE NON DISPONIBILE</h2>
