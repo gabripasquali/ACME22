@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+    bank-db:
+        container_name: bank-db
+        image: postgres
+        ports:
+            - 10027:5432
+        environment: 
+            POSTGRES_PASSWORD: "bank"
+            POSTGRES_USER: "bank"
+    bank:
+        container_name: bank
+        build: ./BankBack
+        ports:
+            - 10013:8000
+        depends_on: 
+            - "bank-db"
+    bank-frontend:
+        container_name: bank-frontend
+        build: ./Bankfe
+        ports:
+            - 10015:5000

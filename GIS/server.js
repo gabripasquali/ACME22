@@ -24,4 +24,4 @@ app.post("/isInDistance", (req, res) => {
 		});
 })
 
-app.listen(process.env.PORT || 8080)
+app.listen(8080, () => console.log(`GIS Server is listening 8080!`))

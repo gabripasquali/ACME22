@@ -246,6 +246,8 @@
                             else
                             if(respParsed == "go"){
                                 console.log(resp);
+                                window.open("http://localhost:10015/?bill="+totCount, '_blank').focus();
+                                //go to confirm token
                                 window.location = "http://localhost:8080/ACMEat/ClientAfterPayment";
                             }
                         } else {

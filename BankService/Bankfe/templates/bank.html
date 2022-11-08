@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Login</title> 
+</head>
+<script>
+		function payFunction(){
+			let url = "/pay-request";
+			let xhr = new XMLHttpRequest();
+			let requestBody = {
+				"sid" : "{{sid}}",
+				"bill" : {{bill}}
+			};
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.send(JSON.stringify(requestBody));
+			xhr.onreadystatechange = function (){
+				if(xhr.readyState === XMLHttpRequest.DONE){
+					console.log(xhr.responseText)
+					response = JSON.parse(xhr.responseText);
+					if(response.success){
+						document.getElementById("succesfullPayment").style.display = "block";
+						document.getElementById("token").innerHTML = response.token;
+					} else {
+						alert("fondi insufficienti")
+					}
+				}
+			}
+		}
+	</script>
+<body>
+<h1>BANK</h1>
+	<h2>bill:{{ bill }}</h2>
+	<h2>saldo:</h2>
+	<button onclick="payFunction()">PAY</button>
+	<div id="succesfullPayment" hidden="true">
+		<h2>ricorda questo token per confermare il pagamento</h2>
+		<label id="token"></label>
+	</div>
+</body>
+</html>
