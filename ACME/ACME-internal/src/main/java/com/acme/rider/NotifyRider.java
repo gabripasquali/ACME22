@@ -1,7 +1,9 @@
 package com.acme.rider;
 import com.acme.LoggerDelegate;
+import com.acme.utils.DataBaseCons;
 import com.acme.utils.models.Rider;
 import com.acme.utils.models.RiderConsResp;
+import com.acme.utils.models.Status;
 
 import camundajar.impl.com.google.gson.Gson;
 
@@ -57,6 +59,10 @@ public class NotifyRider implements JavaDelegate{
             RiderConsResp responseRider = response.getEntity(RiderConsResp.class);
             if(responseRider.getConsegna() == true){
                 execution.setVariable(ABORT, false);
+                
+                DataBaseCons db = new DataBaseCons();
+                Status status = Status.DELIVERED;
+                db.modifyStatus(idCons, db, status);
             }
             LOGGER.info( responseRider.getInfo());
         

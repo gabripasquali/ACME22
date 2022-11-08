@@ -40,7 +40,7 @@
 
         function sendToken() {
 
-            var url = "http://localhost:8080/acmeat-ws/confirm?token=" + "<%=request.getParameter("token") %>";
+            var url = "http://localhost:8080/ACME-internal/sendToken?token=" + "<%=request.getParameter("token") %>";
             var xhr = new XMLHttpRequest();
             xhr.open("PUT", url, true);
             xhr.send();
@@ -64,9 +64,9 @@
     </script>
 </head>
 <body>
-<!--
+
 <div id="first">Hai completato il pagamento, ora confermalo ad Acme:
-    <input type="submit" value="Conferma pagamento" onclick="sendToken()"></div>-->
+    <input type="submit" value="Conferma pagamento" onclick="sendToken()"></div>
 
 
 <div id="token-success">
@@ -81,6 +81,7 @@
     <div id="noAbort" hidden="true">
         <h3>IMPOSSIBILE ANNULLARE L'ORDINE</h3>
         Limite di tempo per annullare l'ordine scaduto!
+        Il tuo ordine sta per arrivare!
     </div>
     <div id="home" hidden="true">
         <h3>ORDINE ANNULLATO CON SUCCESSO</h3>

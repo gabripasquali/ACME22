@@ -43,21 +43,6 @@ public class OrderOp implements JavaDelegate{
         Rider rider = (Rider) execution.getVariable("cheaperRider");
         LOGGER.info("Recupero cheaper Rider: " + rider.getName());
 
-        /*int[] minu = {0 , 15, 30, 45};
-        int minM = 0;
-		int maxM = 4;
-		Random randomM = new Random();
-		int i = randomM.nextInt(maxM + minM) + minM;
-        int minutes = minu[i];
-
-        int minH = 10;
-		int maxH = 23;
-        ThreadLocalRandom randomH = ThreadLocalRandom.current();
-        int  hour = randomH.nextInt(minH, maxH + 1);
-
-
-        LocalTime time = LocalTime.of(hour, minutes);
-        LOGGER.info("Orario Consegna: " + time);*/
         Restaurant ris = (Restaurant) execution.getVariable("restaurantC");
         OrderRestaurant order = (OrderRestaurant) execution.getVariable(RESTAURANT_ORDER);
         String indRisto = ris.address;

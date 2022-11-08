@@ -3,7 +3,6 @@ package com.acme.servlet;
 import camundajar.impl.com.google.gson.Gson;
 
 import com.acme.LoggerDelegate;
-import org.apache.logging.log4j.LogManager;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 
@@ -21,7 +20,8 @@ import java.util.logging.Logger;
 
 import com.acme.utils.ApiHttpServlet;
 import com.acme.utils.models.OrderRestaurant;
-
+import com.acme.utils.models.Rider;
+import com.acme.utils.models.SendOrderContent;
 
 import static com.acme.utils.acmeVar.*;
 
@@ -63,8 +63,15 @@ public class SendOrder extends ApiHttpServlet {
                     sendResponse(response, g.toJson(abortRider));
                 }
                 else{
-                    respAbort go = new respAbort("go");
-                    sendResponse(response,g.toJson(go));
+                    Rider rider = (Rider) process.getVariable(camundaProcessId, RIDER);
+                    Double priceR = rider.getPrice();
+                    OrderRestaurant order = (OrderRestaurant) process.getVariable(camundaProcessId, RESTAURANT_ORDER);
+                    Double priceO = order.getTotalPrice();
+                    Double priceTot = priceR + priceO;
+                    process.setVariable(camundaProcessId, PRICETOT, priceTot);
+                    SendOrderContent content = new SendOrderContent("go", BANK_URL, priceTot);
+                    //respAbort go = new respAbort("go");
+                    sendResponse(response,g.toJson(content));
                 }
             }
         } else {

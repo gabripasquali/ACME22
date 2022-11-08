@@ -1,18 +1,19 @@
 package com.acme.utils.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class OrderRestaurant  implements Serializable{
  
     public String restaurant;
-    public Dish dish;
+    public List<Dish> dishes;
     public String oraCons;
     public String indCliente;
    
-    public OrderRestaurant( String restaurant, Dish dish,String oraCons, String indCliente){
+    public OrderRestaurant( String restaurant, List<Dish> dishes,String oraCons, String indCliente){
         
         this.restaurant = restaurant;
-        this.dish = dish;
+        this.dishes = dishes;
         this.oraCons = oraCons;
         this.indCliente = indCliente;
        
@@ -28,6 +29,21 @@ public class OrderRestaurant  implements Serializable{
 
     public String getNameRisto() {
     	return restaurant;
+    }
+
+    public List<Dish> getDishes(){
+        return dishes;
+    }
+
+    public String getIndCliente(){
+        return indCliente;
+    }
+    public Double getTotalPrice(){
+        Double price = 0.0;
+        for(int i = 0; i<dishes.size();i++){
+            price += dishes.get(i).getPrice();
+        }
+        return price;
     }
    
 }

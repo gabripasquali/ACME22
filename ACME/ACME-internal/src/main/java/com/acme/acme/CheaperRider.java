@@ -29,8 +29,9 @@ public class CheaperRider implements JavaDelegate{
             }
         }
         LOGGER.info("Rider selezionato: " + cRider.getName()+ " Prezzo: " + cRider.getPrice());
-        execution.setVariable("cheaperRider", cRider);
+        execution.setVariable(RIDER, cRider);
         execution.setVariable(RIDERAV, true);
+        
         
         
     }

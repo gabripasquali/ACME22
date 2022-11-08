@@ -1,11 +1,13 @@
 package com.acme.restaurant;
 
 import com.acme.LoggerDelegate;
+import com.acme.utils.DataBaseCons;
 import com.acme.utils.Database;
 import com.acme.utils.models.OrderRestaurant;
 import com.acme.utils.models.Restaurant;
 import com.acme.utils.models.RestaurantAvailability;
 import com.acme.utils.models.RestaurantList;
+import com.acme.utils.models.Status;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -43,16 +45,25 @@ public class GetAvailability implements JavaDelegate{
         Restaurant rest = getResByName(name, db);
         execution.setVariable("restaurantC", rest);
         LOGGER.info("Risto " + rest.getSite());
+        DataBaseCons dbc = new DataBaseCons();
+        
+        int checkId = dbc.lastId(dbc);
+        LOGGER.info("ID vecchio: " + checkId);
+        int id = 0;
 
-        int minId = 1;
-		int maxId = 10;
-		Random random = new Random();
-		int id = random.nextInt(maxId + minId) + minId;
-		
+        if(checkId == 0){
+            id = 1;
+        }else{
+            id = checkId + 1;
+        }
+        
         LOGGER.info("ID: " + id);
 
         execution.setVariable("idCons", id);
         Gson gson = new Gson();
+
+        
+        dbc.modifyStatus(1, dbc, Status.DELIVERED);
 
         /**CALLING GETAVAILABILITY RISTO SERVICE**/
         String url = rest.getSite()+"/getAvailability";
