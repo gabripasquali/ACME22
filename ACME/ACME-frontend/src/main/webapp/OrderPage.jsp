@@ -170,7 +170,8 @@
             for (var i = 0, len = rowCount; i < len; i++) {
                 let singleDish = {};
                 singleDish.name = carrello.rows[i].cells[0].innerText;
-                singleDish.price = carrello.rows[i].cells[1].innerText;
+                //remove euro symbol
+                singleDish.price = carrello.rows[i].cells[1].innerText.replace(/[^\d.]/g, "");
                 opts.push(singleDish);
             }
             console.log(opts);
@@ -245,10 +246,10 @@
                             }
                             else
                             if(respParsed == "go"){
-                                console.log(resp);
-                                window.open("http://localhost:10015/?bill="+totCount, '_blank').focus();
-                                //go to confirm token
-                                window.location = "http://localhost:8080/ACMEat/ClientAfterPayment";
+                                console.log(JSON.parse(resp).bank_url);
+                                window.open(JSON.parse(resp).bank_url, '_blank').focus();
+                                //go to verify token
+                                window.location = "http://localhost:8080/ACMEat/verifyToken";
                             }
                         } else {
                             console.log("NO");

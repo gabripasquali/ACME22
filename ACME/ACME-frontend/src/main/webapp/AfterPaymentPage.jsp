@@ -64,11 +64,6 @@
     </script>
 </head>
 <body>
-
-<div id="first">Hai completato il pagamento, ora confermalo ad Acme:
-    <input type="submit" value="Conferma pagamento" onclick="sendToken()"></div>
-
-
 <div id="token-success">
    <!-- <div id="abort">
         <h3>Puoi cancellere il tuo ordine entro un'ora dall'orario di consegna</h3>

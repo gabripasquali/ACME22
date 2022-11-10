@@ -10,12 +10,10 @@ public class acmeVar {
     public static final String DELIVERY_TIME = "deliveryTime";
     public static final String ABORT = "ClientAb";
     public static final String PRICETOT = "priceTot";
-    public static final String USER_TOKEN = "UserBankToken";
     public static final String TOKEN_OK = "TokenOk";
     public static final String IS_UNREACHABLE_BANK_SERVICE = "UnreachableBankService";
-    public static final String BANK_URL = "http://localhost:10013/bank/";
-
-
+    public static final String BANK_URL = "http://localhost:10015/";
+    public static final String TOKEN = "token";
     public static final String START = "StartMessage";
     public static final String SEND_ORDER = "SendOrder";
     public static final String RECEIVE_TOKEN = "ReceiveToken";

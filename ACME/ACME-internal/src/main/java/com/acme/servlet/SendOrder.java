@@ -69,8 +69,10 @@ public class SendOrder extends ApiHttpServlet {
                     Double priceO = order.getTotalPrice();
                     Double priceTot = priceR + priceO;
                     process.setVariable(camundaProcessId, PRICETOT, priceTot);
-                    SendOrderContent content = new SendOrderContent("go", BANK_URL, priceTot);
+                    int id = (int) process.getVariable(camundaProcessId, "idCons");
+                    SendOrderContent content = new SendOrderContent("go", BANK_URL, priceTot, id);
                     //respAbort go = new respAbort("go");
+                    LOGGER.info(content.bank_url);
                     sendResponse(response,g.toJson(content));
                 }
             }

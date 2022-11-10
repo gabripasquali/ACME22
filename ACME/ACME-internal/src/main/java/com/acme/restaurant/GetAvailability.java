@@ -76,6 +76,7 @@ public class GetAvailability implements JavaDelegate{
                .type(MediaType.APPLICATION_JSON_TYPE)
                .post(ClientResponse.class, gson.toJson(orderR));
         LOGGER.info("Availability Rest STATUS CODE:" + response.getStatus());
+        LOGGER.info("++res mediatype:" + response.getType().toString());
 
         /**READ RESPONSE**/
         if(response.getStatus() == OK.getStatusCode()){
