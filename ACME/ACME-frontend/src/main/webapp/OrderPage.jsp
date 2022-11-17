@@ -5,7 +5,7 @@
   Time: 19:49
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" session="true" %>
 <html>
 <head>
     <title>Order</title>
@@ -21,12 +21,14 @@
 </head>
     <script>
         var totCount = 0;
+        var instanceId = "";
+
         function getResInZone() {
             //get selected city
             let selectComune = document.getElementById('comune');
             let city = selectComune.options[selectComune.selectedIndex].text;
             /**SEND REQUEST**/
-            let getResUrl ="http://localhost:8080/ACME-internal/getRestaurant?city=".concat(city);
+            let getResUrl ="getRestaurant?city=".concat(city);
             let xhr = new XMLHttpRequest();
             xhr.open("GET", getResUrl, true);
             xhr.send();
@@ -83,6 +85,14 @@
                                 $('#inforari').html("orario selezionato errato")
                             }
                         };
+
+                        instanceId = JSON.parse(resp).instanceId;
+
+                        let jsonInstanceId = {"instanceId":instanceId};
+                        console.log(jsonInstanceId);
+                        let xhrInstance = new XMLHttpRequest();
+                        xhrInstance.open("POST", "setInstanceId", true);
+                        xhrInstance.send(JSON.stringify(jsonInstanceId));
 
                         var respParsed = JSON.parse(resp).restaurants;
                         var resList = document.getElementById("restaurant");
@@ -206,20 +216,18 @@
 
                 console.log("Manda ordine");
 
-                var order =
-                    {
-                        "restaurant": choosenRname,
-                        "dishes": opts,
-                        "oraCons": deliveryTime,
-                        "indRisto": choosenRaddress,
-                        "indCliente": document.getElementById("indirizzo").value
-                    };
+                var order ={
+                            "restaurant": choosenRname,
+                            "dishes": opts,
+                            "oraCons": deliveryTime,
+                            "indRisto": choosenRaddress,
+                            "indCliente": document.getElementById("indirizzo").value,
+                            "instanceId": instanceId
+                        };
 
-                var restaurant_url = "http://localhost:8080/ACME-internal/sendOrder";
+                var restaurant_url = "sendOrder";
                 var xhr = new XMLHttpRequest();
-                xhr.withCredentials = true;
                 xhr.open("POST", restaurant_url, true);
-                xhr.setRequestHeader("Content-type", "application/json");
                 var params = JSON.stringify(order);
                 console.log(params);
                 xhr.send(params);
@@ -231,7 +239,7 @@
                             var respParsed = JSON.parse(resp).info;
                             if(respParsed == "out of time"){
                                alert("il tempo per completare l'ordine è scaduto");
-                               window.location="http://localhost:8080/ACMEat/ClientServlet";
+                               window.location="ClientServlet";
                             }
                             if(respParsed == "abortRest"){
                                 console.log(respParsed);
@@ -249,7 +257,7 @@
                                 console.log(JSON.parse(resp).bank_url);
                                 window.open(JSON.parse(resp).bank_url, '_blank').focus();
                                 //go to verify token
-                                window.location = "http://localhost:8080/ACMEat/verifyToken";
+                                window.location = "paymentConfirm";
                             }
                         } else {
                             console.log("NO");
@@ -262,7 +270,7 @@
         }
 
         function goHome() {
-            window.location = "http://localhost:8080/ACMEat/ClientServlet";
+            window.location = "ClientServlet";
         }
 
         function addToKart(ele) {
@@ -309,7 +317,8 @@
     </h1>
 </div>
 
-
+<div> session info : <%= session.getId() %></div>
+<h1> instance session id: <%= session.getAttribute("instanceId") %></h1>
 
 <div id="sceltaComune" class="main_card">
     <h2>Seleziona comune </h2>

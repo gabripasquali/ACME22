@@ -33,10 +33,6 @@ public class Restaurant implements Serializable{
         return name;
     }
 
-    public String getSite() {
-        return url;
-    }
-
     public void updateMenu(List<Dish> menu) {
         this.menu = menu;
     }

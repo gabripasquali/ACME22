@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify, request, json
 import requests
+import sys
 import xml.etree.ElementTree as ET
 
 
@@ -69,8 +70,9 @@ def login():
             response = {"success" : True, "sid" : sid, "url": url.text}
     else :
         response = {"success" : False}
-    
-    return json.dumps(response)    
+
+    headerResponse = {"Content-Type": "application/json; charset=utf-8"}
+    return json.dumps(response), 200, headerResponse
 
 @app.route('/payment-page')
 def bank_page():
@@ -99,6 +101,7 @@ def pay_request():
                              headers = headers,
                              data = body)
     success = 'false'
+
     tree = ET.fromstring(response.text)
     for n in tree.iter('payResponse'):
       success = n.find('success').text
@@ -109,8 +112,9 @@ def pay_request():
         response = {"success" : True, "token" : token}
     else:
         response = {"success" : False}
-        
-    return json.dumps(response)
+
+    headerResponse = {"Content-Type": "application/json; charset=utf-8"}
+    return json.dumps(response), 200, headerResponse
     
 @app.route('/verifyToken', methods=['POST'])
 def verifyToken():
@@ -131,7 +135,6 @@ def verifyToken():
     response = requests.request("POST", "http://bank:8000/verifyToken",
                              headers = headers,
                              data = body)
-    
     success = 'false'
     tree = ET.fromstring(response.text)
     for n in tree.iter('verifyTokenResponse'):
@@ -141,8 +144,9 @@ def verifyToken():
         response = {"success" : True}
     else:
         response = {"success" : False}
-        
-    return json.dumps(response)
+
+    headerResponse = {"Content-Type": "application/json; charset=utf-8"}
+    return json.dumps(response), 200, headerResponse
     
 @app.route('/refound', methods=['POST'])
 def refound():
@@ -172,7 +176,8 @@ def refound():
     else:
         response = {"success" : False}
         
-    return json.dumps(response)
+    headerResponse = {"Content-Type": "application/json; charset=utf-8"}
+    return json.dumps(response), 200, headerResponse
     
 @app.route('/confirm', methods=['POST'])
 def confirm():
@@ -202,4 +207,5 @@ def confirm():
     else:
         response = {"success" : False}
         
-    return json.dumps(response)
+    headerResponse = {"Content-Type": "application/json; charset=utf-8"}
+    return json.dumps(response), 200, headerResponse

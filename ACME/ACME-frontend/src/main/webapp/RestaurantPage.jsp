@@ -61,7 +61,7 @@
             };
             console.log(requestBody);
 
-            let availabilityUrl ="http://localhost:8080/ACME-internal/changeAvailability";
+            let availabilityUrl ="changeAvailability";
             let xhr = new XMLHttpRequest();
             xhr.open("POST", availabilityUrl, true);
             xhr.send(JSON.stringify(requestBody));
@@ -81,7 +81,7 @@
         }
 
         function updateMenu(){
-            let updateUrl ="http://localhost:8080/ACME-internal/changeMenu";
+            let updateUrl ="changeMenu";
             //read new plate
             let requestBody = {
                 "name" : document.getElementById("ristorante").value.toString(),
@@ -108,7 +108,7 @@
         }
 
         function getResMenu(){
-            let getMenuUrl = "http://localhost:8080/ACME-internal/getMenu"
+            let getMenuUrl = "getMenu"
             let res = document.getElementById("ristorante").value.toString();
             if(res != "default"){
                 let xhr = new XMLHttpRequest();
@@ -117,7 +117,7 @@
                 xhr.onreadystatechange = function (){
                     if(xhr.readyState === XMLHttpRequest.DONE){
                         const status = xhr.status;
-                        console.log(xhr.responseText);
+                        console.log("menu response"+xhr.responseText);
                         if(status === 0 || (status>=200 && status< 400)){
                             var menu = JSON.parse(xhr.responseText);
                             let table = document.getElementById("new-menu");

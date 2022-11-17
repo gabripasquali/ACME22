@@ -37,7 +37,7 @@ public class AbortOrderRest implements JavaDelegate {
         LOGGER.info("ABORT REST : "+ rest.getName());
 
         /**CALLING ABORT REST SERVICE**/
-        String url = rest.getSite()+"/abortOrder";
+        String url = RESTAURANT_URL+"/abortOrder";
         ClientConfig clientConfig = new DefaultClientConfig();
         clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
         Client client = Client.create(clientConfig);

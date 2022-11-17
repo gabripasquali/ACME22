@@ -31,6 +31,6 @@ public class GetMenu extends ApiHttpServlet {
 
         List<Dish> menu = res.menu;
         Gson gson = new Gson();
-        sendResponse(response, gson.toJson(menu));
+        sendResponse(response, gson.toJson(menu), "GET");
     }
 }

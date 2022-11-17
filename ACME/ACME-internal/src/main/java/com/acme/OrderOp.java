@@ -57,7 +57,7 @@ public class OrderOp implements JavaDelegate{
         OrderRider body =  new OrderRider(id, time, indRisto, indCliente);
 
          /**CALLING CONSAFF RIDER SERVICE**/
-         String url = rider.getSite()+"/consAff";
+         String url = RIDER_URL+"/consAff";
          ClientConfig clientConfig = new DefaultClientConfig();
         clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
         Client client = Client.create(clientConfig);

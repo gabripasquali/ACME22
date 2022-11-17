@@ -39,10 +39,10 @@ public class VerifyToken extends ApiHttpServlet {
         if(process.isCorrelationSuccessful()){
             //wait for process to be completed
             boolean token_ok = (boolean) process.getVariable(camundaProcessId, TOKEN_OK);
-            sendResponse(response, gson.toJson(token_ok));
+            sendResponse(response, gson.toJson(token_ok), "POST");
         } else {
             //return error
-            sendResponse(response, "SERVER ERROR");
+            sendResponse(response, "SERVER ERROR", "POST");
         }
     }
 

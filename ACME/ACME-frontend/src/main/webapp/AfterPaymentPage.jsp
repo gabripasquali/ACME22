@@ -10,7 +10,7 @@
 
         function cancelOrder() {
 
-            var url = "http://localhost:8080/ACME-internal/abort";
+            var url = "abort";
             var xhr = new XMLHttpRequest();
             xhr.open("PUT", url, true);
             xhr.send();
@@ -19,7 +19,6 @@
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         let resp = xhr.responseText;
-                        //TODO: mettere messaggio corretto nella cancellazione
                         var respParsed = JSON.parse(resp);
                         console.log(resp);
                         //var message;
@@ -38,36 +37,11 @@
             console.log("request sent succesfully");
         }
 
-        function sendToken() {
 
-            var url = "http://localhost:8080/ACME-internal/sendToken?token=" + "<%=request.getParameter("token") %>";
-            var xhr = new XMLHttpRequest();
-            xhr.open("PUT", url, true);
-            xhr.send();
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        var resp = xhr.responseText;
-                        var respParsed = JSON.parse(resp);
-                        if (respParsed.result.status === "success") {
-                            $('#first').hide();
-                            $('#token-success').show();
-                        } else {
-                            $('#first').hide();
-                            $('#token-failure').show();
-                        }
-                    }
-                }
-            };
-        }
     </script>
 </head>
 <body>
 <div id="token-success">
-   <!-- <div id="abort">
-        <h3>Puoi cancellere il tuo ordine entro un'ora dall'orario di consegna</h3>
-    </div> -->
     <div id="cancel-button" >
         <h3>Puoi cancellere il tuo ordine entro un'ora dall'orario di consegna</h3>
         <br><br>

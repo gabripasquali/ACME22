@@ -13,7 +13,7 @@
         function verifyToken() {
             //call camunda servlet
             let body = {"token": document.getElementById("token").value};
-            var url = "http://localhost:8080/ACME-internal/verifyToken"
+            var url = "verifyToken"
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url, true);
             xhr.setRequestHeader("Content-type", "application/json");
@@ -25,7 +25,7 @@
                     if(xhr.status === 200){
                         let resp = xhr.responseText;
                         if(resp){
-                            window.location = "http://localhost:8080/ACMEat/ClientAfterPayment";
+                            window.location = "ClientAfterPayment";
                         }
                         //check response
                         //true go to clientAfter payment

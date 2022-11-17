@@ -43,7 +43,7 @@ public class NotifyRider implements JavaDelegate{
 
         /**CALLING NOTIFICACONS RIDER SERVICE**/
         
-        String url = rider.getSite()+"/notificaCons";
+        String url = RIDER_URL+"/notificaCons";
         ClientConfig clientConfig = new DefaultClientConfig();
         clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
         Client client = Client.create(clientConfig);

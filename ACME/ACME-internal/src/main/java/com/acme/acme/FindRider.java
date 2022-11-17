@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static com.acme.utils.acmeVar.GIS_URL;
 import static com.acme.utils.acmeVar.RESTAURANT_ORDER;
 import static com.sun.jersey.api.client.ClientResponse.Status.OK;
 
@@ -48,7 +49,8 @@ public class FindRider implements JavaDelegate {
         LOGGER.info("FIND RIDER BODY: "+ gson.toJson(body).toString());
 
         /**chiamata a GIS**/
-        String url = "http://localhost:10000/isInDistance";
+
+        String url = GIS_URL+"isInDistance";
         ClientConfig clientConfig = new DefaultClientConfig();
         clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
         Client client = Client.create(clientConfig);
@@ -68,6 +70,7 @@ public class FindRider implements JavaDelegate {
             for (Rider r : riderList){
                 for(Rider rIZ : riderInZoneRes.results){
                     if(r.name.equals(rIZ.name) && rIZ.isInDistance){
+                        LOGGER.info(r.name);
                         riderInZoneList.add(r);
                     }
                 }

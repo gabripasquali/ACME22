@@ -37,17 +37,21 @@ public class SendOrder extends ApiHttpServlet {
     private final java.util.logging.Logger LOGGER = Logger.getLogger(LoggerDelegate.class.getName());
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.setContentType("application/json");
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         process = new ProcessEngineAdapter(processEngine);
-        session = request.getSession(false);
-        String camundaProcessId = session != null ? (String) session.getAttribute(PROCESS_ID) : "";
+
         Gson g = new Gson();
-        
-        if (process.isActive(camundaProcessId) && session != null && session.getAttribute(SEND_ORDER) == null)
-            process.setVariable(
-                    camundaProcessId,
-                    RESTAURANT_ORDER,
-                    g.fromJson(request.getReader(), OrderRestaurant.class));
+        OrderRestaurant orderRestaurant = g.fromJson(request.getReader(), OrderRestaurant.class);
+        LOGGER.info(orderRestaurant.instanceId);
+        LOGGER.info("res name"+orderRestaurant.restaurant);
+        String camundaProcessId = orderRestaurant.instanceId;
+
+        process.setVariable(
+                camundaProcessId,
+                RESTAURANT_ORDER,
+                orderRestaurant);
         process.correlate(camundaProcessId, SEND_ORDER);
 
         if(process.isCorrelationSuccessful()){
@@ -55,12 +59,12 @@ public class SendOrder extends ApiHttpServlet {
 
             if (restAv == false){
                 respAbort abortRest = new respAbort("abortRest");
-                sendResponse(response, g.toJson(abortRest));
+                sendResponse(response, g.toJson(abortRest), "POST");
             }else{
                 Boolean riderAv = (boolean) process.getVariable(camundaProcessId, RIDERAV);
                 if (riderAv == false){
                     respAbort abortRider = new respAbort("abortRider");
-                    sendResponse(response, g.toJson(abortRider));
+                    sendResponse(response, g.toJson(abortRider), "POST");
                 }
                 else{
                     Rider rider = (Rider) process.getVariable(camundaProcessId, RIDER);
@@ -70,17 +74,17 @@ public class SendOrder extends ApiHttpServlet {
                     Double priceTot = priceR + priceO;
                     process.setVariable(camundaProcessId, PRICETOT, priceTot);
                     int id = (int) process.getVariable(camundaProcessId, "idCons");
-                    SendOrderContent content = new SendOrderContent("go", BANK_URL, priceTot, id);
+                    SendOrderContent content = new SendOrderContent("go", BANK_FRONTEND_URL, priceTot, id);
                     //respAbort go = new respAbort("go");
                     LOGGER.info(content.bank_url);
-                    sendResponse(response,g.toJson(content));
+                    sendResponse(response,g.toJson(content), "POST");
                 }
             }
         } else {
             //timeout error: too much time passed
             respAbort resp = new respAbort("out of time");
-            sendResponse(response, g.toJson(resp));
-            LOGGER.info("--iscorrelationsuccesfull"+process.isCorrelationSuccessful());
+            sendResponse(response, g.toJson(resp), "POST");
+            LOGGER.info("-- iscorrelationsuccesfull"+process.isCorrelationSuccessful());
         }
     }
 

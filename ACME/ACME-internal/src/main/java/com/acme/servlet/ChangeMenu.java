@@ -28,7 +28,7 @@ public class ChangeMenu extends ApiHttpServlet {
                     .createMessageCorrelation("ChangeMenu")
                     .correlate();
         } catch (Exception e){
-            sendResponse(response, "out of time");
+            sendResponse(response, "out of time", "POST");
             isSuccesfull = false;
         }
         if (isSuccesfull){
@@ -37,7 +37,7 @@ public class ChangeMenu extends ApiHttpServlet {
             Database db = new Database();
             updateMenu(restaurantMenu, db);
 
-            sendResponse(response, "menu updated");
+            sendResponse(response, "menu updated", "POST");
         }
 
     }

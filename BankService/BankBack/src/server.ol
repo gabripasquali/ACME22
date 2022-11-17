@@ -169,7 +169,8 @@ main{
 		[verifyToken(verifyTokenRequest)(successResponse){
 			order_id = verifyTokenRequest.order_id;
 			token = verifyTokenRequest.token;
-			query@Database("SELECT * FROM Transactions WHERE token='" + token + "'and status = 0 and order_id='" + order_id + "' and to_user='" + idUsr + "'")(queryResponse);
+			print@Console("VERIFY TOKEN order_id: " + order_id + " and token " + token)();
+			query@Database("SELECT * FROM Transactions WHERE token='" + token + "'and status < 2 and order_id='" + order_id + "' and to_user='" + idUsr + "'")(queryResponse);
 			if(queryResponse.row[0].status == null) {
 				successResponse.success = false
 			} else {
@@ -179,6 +180,7 @@ main{
 		}]
 		[refound(refoundRequest)(successResponse){
 			order_id = refoundRequest.order_id;
+			print@Console("REFOUND order "+order_id)()
 			query@Database("SELECT * FROM Transactions WHERE status = 1 and order_id='" + order_id + "' and to_user='" + idUsr + "'")(queryResponse);
 			if(queryResponse.row[0].status == null) {
 				successResponse.success = false
@@ -194,6 +196,7 @@ main{
 		}]
 		[confirm(confirmRequest)(successResponse){
 			order_id = confirmRequest.order_id;
+			print@Console("CONFIRM order "+order_id)();
 			query@Database("SELECT * FROM Transactions WHERE status = 1 and order_id='" + order_id + "' and to_user='" + idUsr + "'")(queryResponse);
 			if(queryResponse.row[0].status == null) {
 				successResponse.success = false

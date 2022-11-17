@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.camunda.template-engines:camunda-template-engines-velocity:2.1.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/camunda/template-engines/camunda-template-engines-velocity/2.1.0/camunda-template-engines-velocity-2.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/camunda/template-engines/camunda-template-engines-velocity/2.1.0/camunda-template-engines-velocity-2.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/camunda/template-engines/camunda-template-engines-velocity/2.1.0/camunda-template-engines-velocity-2.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

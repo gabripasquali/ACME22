@@ -27,7 +27,7 @@ public class ChangeAvailability extends ApiHttpServlet {
         }catch (Exception e){
             System.out.println("------ ERRORE: "+ e.toString());
             isSuccesfull = false;
-            sendResponse(resp, e + "  out of time");
+            sendResponse(resp, e + "  out of time", "POST");
         }
 
         /**get info and update db**/
@@ -36,7 +36,7 @@ public class ChangeAvailability extends ApiHttpServlet {
             System.out.println("***TIME OK restaurant name: "+restaurantAvailability.name+" is " + restaurantAvailability.disp+ "***");
             Database db = new Database();
             updateAvailability(restaurantAvailability.name, Boolean.parseBoolean(restaurantAvailability.disp), db);
-            sendResponse(resp, "update restaurant" + restaurantAvailability.name + " availability as " + restaurantAvailability.disp);
+            sendResponse(resp, "update restaurant" + restaurantAvailability.name + " availability as " + restaurantAvailability.disp, "POST");
         }
 
     }

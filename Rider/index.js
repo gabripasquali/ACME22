@@ -1,37 +1,82 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors')
+const cors = require('cors');
+const readline = require('readline');
 var fs = require('fs');
 
 const app = express();
-var disponibità = [true, false]
+var autoFiller = true;
+var bufferingInput = false;
 const port = 3000;
-
 var consegne= [];
+
+
+const rl = readline.createInterface({
+		input : process.stdin,
+		output : process.stdout,
+		terminal: false
+	});
+
 
 
 app.use(cors())
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 
-app.get('/dispRider', (req, res) => {
-    var i = Math.round(Math.random());
-    if (disponibità[i] == true){
-        prezzo = (Math.random()* 10).toFixed(2);
-        var risposta = {
-            "disp" : true,
-           "prezzo" : prezzo
-        };
-        res.send(risposta);
-    }
-    else{
-        var risposta = {
-            "disp": false
-        };
-        res.send(risposta);
-    }
+app.post('/dispRider', (req, res) => {
+	
+	const rl = readline.createInterface({
+		input : process.stdin,
+		output : process.stdout
+	});
+	var risposta;
+	var body = req.body;
+	//show info to Rider
+	console.log("\n--- NEW AVAILABILITY REQUEST --- ")
+	console.log("Rider: " + body.rider)
+	console.log("Valore consegna: " + body.bill)
+	console.log("Indirizzo ristorante: " + body.resAddress )
+	console.log("Indirizzo cliente: " + body.clientAddress)
+	if(!autoFiller){
+		bufferingInput = true;
+		//ask question in bash
+		rl.question("\nAre you available ? Y/n", function(disp){
+			if(disp == 'Y' || disp == 'y' ){
+				
+				rl.question("Set your price: ", function(readPrice){
+					risposta = {
+						"disp": true,
+						"prezzo": readPrice
+					};
+					bufferingInput = false;
+					res.send(risposta);
+				})
+				
+			} else {
+				risposta = {
+					"disp" : false
+				};
+				bufferingInput = false;
+				res.send(risposta);
+			}
+			
+		})
+	} else {
+		prezzo = (Math.random()* 5).toFixed(2);
+		risposta = {
+			"disp" : true,
+			"prezzo" : prezzo
+		};
+		res.send(risposta);
+	}
 });
 
+//function to automatize availability response
+app.get('/toggle-autoFiller', (req, res) => {
+	autoFiller = !autoFiller;
+	console.log("***autoFiller set at "+autoFiller+" *** ")
+	res.send(autoFiller)
+});
 
 
 app.post('/consAff', (req,res) => {

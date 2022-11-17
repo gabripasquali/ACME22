@@ -1,13 +1,9 @@
 
-8080 	ACME
-10000	GIS
-10002	rider		Redir
-10003	rider		Riderin
-10004	rider		Astro
-10005	rider		B4L
-10007	restaurant	Vegetale
-10008	restaurant	DaCarlo
-10009	restaurant	Paradiso
-10010	restaurant	Sushino
-10011	restaurant	Tramonto
-10012	restaurant	YinDyan
+ACMEat		10000
+ACMEat BE	10001
+Restaurant 	10007
+Rider 		10008
+GIS 		10009
+FE banca	10015
+BE banca	10017
+DB banca	10027

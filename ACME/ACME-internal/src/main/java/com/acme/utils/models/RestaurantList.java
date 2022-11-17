@@ -9,6 +9,7 @@ public class RestaurantList {
 
     @Expose
     private ArrayList<Restaurant> restaurants;
+    private String instanceId;
 
     public boolean isEmpty() {
         return this.restaurants.isEmpty();
@@ -24,5 +25,9 @@ public class RestaurantList {
     }
     public void setRestaurants(ArrayList<Restaurant> restaurants) {
         this.restaurants = restaurants;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
     }
 }

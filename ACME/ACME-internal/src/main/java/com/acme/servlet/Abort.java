@@ -40,11 +40,11 @@ public class Abort extends ApiHttpServlet{
         Boolean abort = (Boolean) process.getVariable(camundaProcessId, ABORT);
         if (session == null || session.getAttribute(PROCESS_ID) == null ||
         (!process.isCorrelationSuccessful() && session.getAttribute(CLIENT_ABORT) == null) || abort == false) {
-            sendResponse(response, g.toJson("no"));
+            sendResponse(response, g.toJson("no"), "PUT");
         } else 
             if(abort == true){
                 session.setAttribute(CLIENT_ABORT,CLIENT_ABORT);
-                sendResponse(response, g.toJson("ok"));
+                sendResponse(response, g.toJson("ok"), "PUT");
         }
         
     }

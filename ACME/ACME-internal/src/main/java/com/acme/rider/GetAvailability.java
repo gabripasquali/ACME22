@@ -1,6 +1,9 @@
 package com.acme.rider;
 
+import camundajar.impl.com.google.gson.Gson;
 import com.acme.LoggerDelegate;
+import com.acme.rider.utils.AvailabilityRequest;
+import com.acme.utils.models.OrderRestaurant;
 import com.acme.utils.models.Rider;
 import com.acme.utils.models.RiderAvailability;
 import com.sun.jersey.api.client.Client;
@@ -16,6 +19,8 @@ import javax.ws.rs.core.MediaType;
 
 import java.util.logging.Logger;
 
+import static com.acme.utils.acmeVar.RESTAURANT_ORDER;
+import static com.acme.utils.acmeVar.RIDER_URL;
 import static com.sun.jersey.api.client.ClientResponse.Status.OK;
 
 
@@ -28,10 +33,14 @@ public class GetAvailability implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         /**GET CURRENT RIDER VARIABLE**/
         Rider rider = (Rider) execution.getVariable("rider");
+        OrderRestaurant order = (OrderRestaurant) execution.getVariable(RESTAURANT_ORDER);
+        Double bill = order.getTotalPrice();
         LOGGER.info("GET RIDER AVAILABILITY : "+ rider.getName());
+        AvailabilityRequest availabilityRequest = new AvailabilityRequest(rider.getName(), bill, order.getNameRisto() ,order.getIndCliente());
+        Gson g = new Gson();
 
         /**CALLING DISP RIDER SERVICE**/
-        String url = rider.getSite()+"/dispRider";
+        String url = RIDER_URL+"dispRider";
         ClientConfig clientConfig = new DefaultClientConfig();
         clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
         Client client = Client.create(clientConfig);
@@ -39,13 +48,13 @@ public class GetAvailability implements JavaDelegate {
         ClientResponse response =  webResource
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .type(MediaType.APPLICATION_JSON_TYPE)
-                .get(ClientResponse.class);
+                .post(ClientResponse.class, g.toJson(availabilityRequest));
 
         /**READ RESPONSE**/
         if(response.getStatus() == OK.getStatusCode()){
             RiderAvailability responseRider = response.getEntity(RiderAvailability.class);
             execution.setVariable("riderAvailable", responseRider.isDisp());
-            //execution.setVariable(RIDERAV, responseRider.isDisp());
+
             execution.setVariable("price", responseRider.getPrezzo());
             LOGGER.info("disp: " + responseRider.isDisp() + " price : "+ responseRider.getPrezzo());
             if(responseRider.isDisp() == true){

@@ -9,6 +9,7 @@ public class OrderRestaurant  implements Serializable{
     public List<Dish> dishes;
     public String oraCons;
     public String indCliente;
+    public String instanceId;
    
     public OrderRestaurant( String restaurant, List<Dish> dishes,String oraCons, String indCliente){
         

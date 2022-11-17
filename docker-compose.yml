@@ -1,0 +1,48 @@
+version: "3.9"
+services:
+    restaurant:
+        container_name: restaurant
+        build: Restaurant
+        ports: 
+            - 10007:5000
+    rider:
+        container_name: rider
+        build: Rider
+        ports:
+            - 10008:3000
+    gis:
+        container_name: gis
+        build: GIS
+        ports:
+            - 10009:8080
+    bank-db:
+        container_name: bank-db
+        image: postgres
+        ports:
+            - 10027:5432
+        environment: 
+            POSTGRES_PASSWORD: "bank"
+            POSTGRES_USER: "bank"
+    bank-frontend:
+        container_name: bank-frontend
+        build: BankService/Bankfe
+        ports:
+            - 10015:5000
+    bank:
+        container_name: bank
+        build: BankService/BankBack
+        ports:
+            - 10013:8000
+        depends_on: 
+            - "bank-db"
+    acme-fe:
+        container_name: ACMEat
+        build: ACME/ACME-frontend
+        ports: 
+            - 10000:8080      
+    acme-be:
+        container_name: acme-be
+        build: ACME/ACME-internal
+        ports:
+            - 10001:8080
+        

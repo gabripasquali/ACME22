@@ -39,12 +39,13 @@ public class GetAvailability implements JavaDelegate{
         LOGGER.info("Disponibilità ristorante");
         Database db = new Database();
         OrderRestaurant orderR = (OrderRestaurant) execution.getVariable(RESTAURANT_ORDER);
+        LOGGER.info(orderR.instanceId);
         
         String name = orderR.getNameRisto();
 
         Restaurant rest = getResByName(name, db);
         execution.setVariable("restaurantC", rest);
-        LOGGER.info("Risto " + rest.getSite());
+        LOGGER.info("Risto " + RESTAURANT_URL);
         DataBaseCons dbc = new DataBaseCons();
         
         int checkId = dbc.lastId(dbc);
@@ -66,7 +67,7 @@ public class GetAvailability implements JavaDelegate{
         dbc.modifyStatus(1, dbc, Status.DELIVERED);
 
         /**CALLING GETAVAILABILITY RISTO SERVICE**/
-        String url = rest.getSite()+"/getAvailability";
+        String url = RESTAURANT_URL+"/getAvailability";
         ClientConfig clientConfig = new DefaultClientConfig();
         clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
         Client client = Client.create(clientConfig);
@@ -76,7 +77,7 @@ public class GetAvailability implements JavaDelegate{
                .type(MediaType.APPLICATION_JSON_TYPE)
                .post(ClientResponse.class, gson.toJson(orderR));
         LOGGER.info("Availability Rest STATUS CODE:" + response.getStatus());
-        LOGGER.info("++res mediatype:" + response.getType().toString());
+        LOGGER.info("++ res mediatype:" + response.getType().toString());
 
         /**READ RESPONSE**/
         if(response.getStatus() == OK.getStatusCode()){
