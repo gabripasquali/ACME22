@@ -83,8 +83,9 @@ public class AbortOrderEveryone implements JavaDelegate {
         LOGGER.info("ABORT RIDER STATUS CODE:" + response.getStatus());
          /**READ RESPONSE**/
         if(response.getStatus() == OK.getStatusCode()){
-            RiderConsResp responseRider = response.getEntity(RiderConsResp.class);
-            LOGGER.info( responseRider.getInfo());
+            //RiderConsResp responseRider = response.getEntity(RiderConsResp.class);
+            //LOGGER.info( responseRider.getInfo());
+            LOGGER.info("Rider " + rider.getName() + ": ABORT SUCCESSED");
         
         } else {
             LOGGER.info("server error");

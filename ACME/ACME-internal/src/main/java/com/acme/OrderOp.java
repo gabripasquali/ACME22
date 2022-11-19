@@ -69,13 +69,13 @@ public class OrderOp implements JavaDelegate{
         LOGGER.info("ORDEROP STATUS CODE:" + response.getStatus());
          /**READ RESPONSE**/
          if(response.getStatus() == OK.getStatusCode()){
-             RiderConsResp responseRider = response.getEntity(RiderConsResp.class);
-             execution.setVariable("consegna", responseRider.getConsegna());
-             if(responseRider.getConsegna() == true){
-                LOGGER.info( responseRider.getInfo());
-                execution.setVariable("OrderOk", true);
+             //RiderConsResp responseRider = response.getEntity(RiderConsResp.class);
+             //execution.setVariable("consegna", responseRider.getConsegna());
+             //if(responseRider.getConsegna() == true){
+                //LOGGER.info( responseRider.getInfo());
+                //execution.setVariable("OrderOk", true);
 
-                /*se il rider prende in carico la consegna viene settata la variabile dell'orario per controllare successivamente
+                /*quando il rider prende in carico la consegna viene settata la variabile dell'orario per controllare successivamente
                  l'abort order del cliente */
                 //OrderRestaurant order = (OrderRestaurant) execution.getVariable(RESTAURANT_ORDER);
                 LocalTime localTime = LocalTime.parse(order.oraCons);
@@ -100,11 +100,7 @@ public class OrderOp implements JavaDelegate{
                 if (!(currentHour > hour || (currentHour == hour && currentMinute > minutes))) {
                     execution.setVariable(DELIVERY_TIME, orderCancellationTime.toString());
                 }
-            }
-             else{
-                LOGGER.info( responseRider.getInfo());
-                execution.setVariable("OrderOk", false);
-             }
+            //}
          } else {
              LOGGER.info("server error");
          }

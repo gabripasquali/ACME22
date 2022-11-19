@@ -56,15 +56,15 @@ public class NotifyRider implements JavaDelegate{
 
          /**READ RESPONSE**/
         if(response.getStatus() == OK.getStatusCode()){
-            RiderConsResp responseRider = response.getEntity(RiderConsResp.class);
-            if(responseRider.getConsegna() == true){
+            //RiderConsResp responseRider = response.getEntity(RiderConsResp.class);
+            //if(responseRider.getConsegna() == true){
                 execution.setVariable(ABORT, false);
                 
                 DataBaseCons db = new DataBaseCons();
                 Status status = Status.DELIVERED;
                 db.modifyStatus(idCons, db, status);
-            }
-            LOGGER.info( responseRider.getInfo());
+            //}
+            //LOGGER.info( responseRider.getInfo());
         
         } else {
             LOGGER.info("server error");

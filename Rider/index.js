@@ -80,7 +80,11 @@ app.get('/toggle-autoFiller', (req, res) => {
 
 
 app.post('/consAff', (req,res) => {
-    const consegna= req.body;
+    var risposta = {
+        "consegna" : "OK"
+    }
+    res.send(risposta)
+    /*const consegna= req.body;
     var exit = false
     fs.readFile('consegne.json', 'utf8', (err, data) => {
             if (err) {
@@ -114,13 +118,17 @@ app.post('/consAff', (req,res) => {
                     
                 }
             }
-        })
+        })*/
     
 })
 
 
 app.post('/notificaCons', (req,res) => {
-    const id = req.body.id;
+    var risposta = {
+        "notifica" : "OK"
+    }
+    res.send(risposta)
+    /*const id = req.body.id;
     var exit = false
 
     fs.readFile('consegne.json', 'utf8', (err, data) => {
@@ -155,12 +163,16 @@ app.post('/notificaCons', (req,res) => {
             }
             
         }
-    })
+    })*/
 })
 
 
 app.post('/consAnnul', (req, res) => {
-    const id = req.body.id;
+    var risposta = {
+        "annullamento" : "OK"
+    }
+    res.send(risposta)
+    /*const id = req.body.id;
     var exit = false
 
     fs.readFile('consegne.json', 'utf8', (err, data) => {
@@ -193,7 +205,7 @@ app.post('/consAnnul', (req, res) => {
                 res.send(risposta);
             }
         }
-    })
+    })*/
 })
 
 app.listen(port, () => console.log(`Rider Server is listening ${port}!`))
