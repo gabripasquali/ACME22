@@ -71,7 +71,7 @@ public class AbortOrderEveryone implements JavaDelegate {
         IdConsAbort body = new IdConsAbort(idCons);
 
         /**CALLING ABORT RIDER SERVICE**/
-        url = RIDER_URL+"/consAnnul";
+        url = RIDER_URL+"consAnnul";
         clientConfig = new DefaultClientConfig();
         clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
         client = Client.create(clientConfig);

@@ -12,7 +12,7 @@ public class acmeVar {
     public static final String PRICETOT = "priceTot";
     public static final String TOKEN_OK = "TokenOk";
     public static final String IS_UNREACHABLE_BANK_SERVICE = "UnreachableBankService";
-    public static final String BANK_URL = "http://bank:8000/";
+    public static final String BANK_URL = "http://bank-frontend:5000/";
     public static final String BANK_FRONTEND_URL = "http://localhost:10015/";
     public static final String GIS_URL = "http://GIS:8080/";
     public static final String RIDER_URL = "http://rider:3000/";

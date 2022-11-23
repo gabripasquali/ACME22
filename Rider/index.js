@@ -67,6 +67,7 @@ app.post('/dispRider', (req, res) => {
 			"disp" : true,
 			"prezzo" : prezzo
 		};
+		console.log(risposta);
 		res.send(risposta);
 	}
 });
@@ -80,6 +81,7 @@ app.get('/toggle-autoFiller', (req, res) => {
 
 
 app.post('/consAff', (req,res) => {
+	console.log("consegna affidata");
     var risposta = {
         "consegna" : "OK"
     }
@@ -124,6 +126,7 @@ app.post('/consAff', (req,res) => {
 
 
 app.post('/notificaCons', (req,res) => {
+	console.log("è ora di consegnare");
     var risposta = {
         "notifica" : "OK"
     }
@@ -168,6 +171,7 @@ app.post('/notificaCons', (req,res) => {
 
 
 app.post('/consAnnul', (req, res) => {
+	console.log("consegna annullata");
     var risposta = {
         "annullamento" : "OK"
     }

@@ -2,6 +2,8 @@ package com.acme.servlet;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.acme.LoggerDelegate;
+import com.acme.bank.utils.RequestVerify;
 import com.acme.utils.ApiHttpServlet;
 
 import camundajar.impl.com.google.gson.Gson;
@@ -17,6 +19,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 
 import static com.acme.utils.acmeVar.*;
@@ -26,25 +29,24 @@ public class Abort extends ApiHttpServlet{
     private HttpSession session;
     private ProcessEngineAdapter process;
 
+    private final Logger LOGGER = Logger.getLogger(LoggerDelegate.class.getName());
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         process = new ProcessEngineAdapter(processEngine);
-        session = request.getSession(false);
-        String camundaProcessId = session != null ? (String) session.getAttribute(PROCESS_ID) : "";
-        process.correlate(camundaProcessId, CLIENT_ABORT);
-        
-    
         Gson g = new Gson();
+
+        String camundaProcessId = g.fromJson(request.getReader(), RequestVerify.class).instanceId;
+
+        process.correlate(camundaProcessId, CLIENT_ABORT);
+
         Boolean abort = (Boolean) process.getVariable(camundaProcessId, ABORT);
-        if (session == null || session.getAttribute(PROCESS_ID) == null ||
-        (!process.isCorrelationSuccessful() && session.getAttribute(CLIENT_ABORT) == null) || abort == false) {
+
+        if (!process.isCorrelationSuccessful()) {
             sendResponse(response, g.toJson("no"), "PUT");
-        } else 
-            if(abort == true){
-                session.setAttribute(CLIENT_ABORT,CLIENT_ABORT);
-                sendResponse(response, g.toJson("ok"), "PUT");
+        } else {
+            sendResponse(response, g.toJson("ok"), "PUT");
         }
         
     }

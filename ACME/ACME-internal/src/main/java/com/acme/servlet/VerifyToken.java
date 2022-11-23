@@ -29,11 +29,10 @@ public class VerifyToken extends ApiHttpServlet {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         Gson gson = new Gson();
         process = new ProcessEngineAdapter(processEngine);
-        session = request.getSession(false);
-        String camundaProcessId = session != null ? (String) session.getAttribute(PROCESS_ID) : "";
-        if(process.isActive(camundaProcessId) && session != null){
-            process.setVariable(camundaProcessId, TOKEN, gson.fromJson(request.getReader(), RequestVerify.class));
-        }
+
+        RequestVerify requestVerify = gson.fromJson(request.getReader(), RequestVerify.class);
+        String camundaProcessId = requestVerify.instanceId;
+        process.setVariable(camundaProcessId, TOKEN, requestVerify);
         process.correlate(camundaProcessId, RECEIVE_TOKEN);
 
         if(process.isCorrelationSuccessful()){

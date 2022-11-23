@@ -12,7 +12,10 @@
     <script>
         function verifyToken() {
             //call camunda servlet
-            let body = {"token": document.getElementById("token").value};
+            let body = {
+                "token": document.getElementById("token").value,
+                "instanceId": "<%=session.getAttribute("instanceId")%>"
+            };
             var url = "verifyToken"
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url, true);
@@ -27,8 +30,6 @@
                         if(resp){
                             window.location = "ClientAfterPayment";
                         }
-                        //check response
-                        //true go to clientAfter payment
                         //else try again(?)
 
                     }
@@ -36,11 +37,23 @@
             }
         }
     </script>
+    <link rel="stylesheet" href="clientPage.css">
 </head>
 <body>
-    <label for="token">Token rilasciato dalla banca:</label>
-    <input type="text" id="token">
-    <button onclick="verifyToken()">Verifica</button>
+    <h1>CONFERMA ACQUISTO</h1>
+    <div class="main_card">
+        <h2>INSERISCI TOKEN</h2>
+        <label>
+            Inserisci il token che la banca ti ha rilasciato a fronte
+            del pagamento per poter confermare il pagamento
+        </label>
+        <div class="line">
+            <label for="token">Token</label>
+            <input type="text" id="token">
+        </div><br><br>
+        <button type="submit" onclick="verifyToken()">VERIFICA</button>
+    </div>
+
 
 </body>
 </html>

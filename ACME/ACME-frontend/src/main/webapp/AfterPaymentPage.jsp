@@ -5,15 +5,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type='text/JavaScript'>
         function goHome() {
-            window.location = "http://localhost:8080/ACMEat/ClientServlet";
+            window.location = "ClientServlet";
         }
 
         function cancelOrder() {
-
+            let param = {
+              "instanceId" : "<%=session.getAttribute("instanceId")%>"
+            };
             var url = "abort";
             var xhr = new XMLHttpRequest();
             xhr.open("PUT", url, true);
-            xhr.send();
+            xhr.send(JSON.stringify(param));
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
@@ -39,30 +41,39 @@
 
 
     </script>
+    <link rel="stylesheet" href="clientPage.css">
 </head>
 <body>
-<div id="token-success">
-    <div id="cancel-button" >
-        <h3>Puoi cancellere il tuo ordine entro un'ora dall'orario di consegna</h3>
-        <br><br>
+<div class="line">
+
+    <h1>
+        ORDINE IN ELABORAZIONE
+    </h1>
+</div>
+    <div id="cancel-button" class="main_card">
+        <h2>VUOI ANNULLARE L'ORDINE?</h2>
+        <div class="line">
+            <label>Puoi cancellere il tuo ordine entro un'ora dall'orario di consegna</label>
+        </div>
         <button type="submit" onclick="cancelOrder()">CANCELLA ORDINE</button>
     </div>
-    <div id="noAbort" hidden="true">
-        <h3>IMPOSSIBILE ANNULLARE L'ORDINE</h3>
-        Limite di tempo per annullare l'ordine scaduto!
+    <div id="noAbort" hidden="true" class="main_card">
+        <h2>IMPOSSIBILE ANNULLARE L'ORDINE</h2>
+        <label>
+            Limite di tempo per annullare l'ordine scaduto!
         Il tuo ordine sta per arrivare!
+        </label>
     </div>
-    <div id="home" hidden="true">
-        <h3>ORDINE ANNULLATO CON SUCCESSO</h3>
-        Clicca sul tasto HOME se vuoi effettuare un nuovo ordine!
-        <br><br>
+    <div id="home" hidden="true" class="main_card">
+        <h2>ORDINE ANNULLATO CON SUCCESSO</h2>
+        <div class="line">
+            <label>
+                Clicca sul tasto HOME se vuoi effettuare un nuovo ordine!
+            </label>
+        </div>
+
         <button type="submit" onclick="goHome()">HOME</button>
     </div>
 
-</div>
-
-
-<div id="token-failure" hidden="true">Pagamento fallito<input type="submit" value="Ritorna alla homepage"
-                                                              onclick="goHome()"></div>
 </body>
 </html>

@@ -317,9 +317,6 @@
     </h1>
 </div>
 
-<div> session info : <%= session.getId() %></div>
-<h1> instance session id: <%= session.getAttribute("instanceId") %></h1>
-
 <div id="sceltaComune" class="main_card">
     <h2>Seleziona comune </h2>
     <div class="line">
@@ -378,7 +375,7 @@
         verrai reindirizzato alla pagina del pagamento una volta terminati i controlli.
     </label>
 </div>
-<div id="abortRe" hidden="true">
+<div id="abortRe" class="main_card" hidden="true">
     <h2>RISTORANTE NON DISPONIBILE</h2>
     <div class="line">
         <label>
@@ -387,7 +384,7 @@
     </div>
     <button type="submit" onclick="goHome()">nuovo ordine</button>
 </div>
-<div id="abortRi" hidden="true">
+<div id="abortRi" class="main_card" hidden="true">
     <h2>NESSUN RIDER DISPONIBILE</h2>
     <div class="line">
         <label>

@@ -27,7 +27,7 @@ body {
 
 .main_card{
     width: 609px;
-    background-color: rgba(245, 245, 245, 0.6);
+    background-color: rgba(245, 245, 245, 0.75);
     border-radius: 25px;
     padding: 24px 35px;
     margin: 18px 70px;
