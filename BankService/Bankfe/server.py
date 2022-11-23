@@ -64,10 +64,11 @@ def login():
         for n in tree.iter('loginResponse'):
             sid = n.find('sid').text
             url = n.find('url')
+            balance = n.find('balance')
         if url is None:
             response = {"success" : True, "sid" : sid}
         else :
-            response = {"success" : True, "sid" : sid, "url": url.text}
+            response = {"success" : True, "sid" : sid, "url": url.text, "balance": balance}
     else :
         response = {"success" : False}
 
@@ -78,7 +79,8 @@ def login():
 def bank_page():
     sid = request.args.get('sid')
     bill = request.args.get('bill')
-    return render_template('bank.html', bill = bill, sid = sid)
+    balance = request.args.get('balance')
+    return render_template('bank.html', bill = bill, sid = sid, balance = balance)
     
 @app.route('/payed')
 def payed_page():

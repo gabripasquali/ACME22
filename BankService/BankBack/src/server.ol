@@ -110,7 +110,7 @@ main{
 				// check if already payed
 				query@Database("SELECT * FROM Transactions WHERE order_id='" + order_id + "' and to_user='" + to_user + "'")(query1Response)
 				if(query1Response.row[0].token == null){
-					loginResponse.url = "/payment-page?sid="+loginResponse.sid+"&bill="+bill+"&balance="+query1Response.row[0].balance
+					loginResponse.url = "/payment-page?sid="+loginResponse.sid+"&bill="+bill+"&balance="+queryResponse.row[0].balance
 				} else {
 					loginResponse.url = "/payed"
 				}

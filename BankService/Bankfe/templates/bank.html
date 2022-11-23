@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Login</title> 
+	<title>PAYMENT PAGE</title> 
 </head>
 <script>
 		function payFunction(){
@@ -27,14 +27,37 @@
 			}
 		}
 	</script>
-<body>
-<h1>BANK</h1>
-	<h2>bill:{{ bill }}</h2>
-	<h2>saldo:</h2>
-	<button onclick="payFunction()">PAY</button>
-	<div id="succesfullPayment" hidden="true">
-		<h2>ricorda questo token per confermare il pagamento</h2>
-		<label id="token"></label>
+<body style="background: linear-gradient(75.83deg, #CD6952 0.46%, #83C5BE 73.86%);">
+	<div style="margin: 65px" ">
+	<img src="templates/banklogo.svg" 
+		style="width:300px; 
+			height:120px">
 	</div>
+	<div style="margin: 65px">
+		<h1 style="font-family: Arial, Helvetica, sans-serif;
+				font-style: normal;
+				font-weight: 700;
+				font-size: 45px;
+				line-height: 54px;
+				letter-spacing: 0.11em;">PAY YOUR ORDER</h1>
+		<h2 style="font-family: Arial, Helvetica, sans-serif;">Bill:{{ bill }}</h2>
+		<h2 style="font-family: Arial, Helvetica, sans-serif;">Balance:{{ balance }}</h2>
+		<button  style="border-radius: 25px;
+					margin-top:25px;
+					background: #FFDDD2;
+					text-align: center;
+					height: 46px;
+					width:300px;
+					padding: 0 70px;
+					font-size: 25px;
+					border: none;"
+		onclick="payFunction()">PAY</button>
+		<div style="margin-top: 60px" id="succesfullPayment" hidden="true">
+			<h2 style="font-family: Arial, Helvetica, sans-serif;">TOKEN CONFERMA</h2>
+			<h2 style="font-family: Arial, Helvetica, sans-serif; font-weight:400; font-style:normal">ricorda questo token per confermare il pagamento</h2>
+			<label style="font-family: Arial, Helvetica, sans-serif;" id="token"></label>
+		</div>
+	</div>
+
 </body>
 </html>
