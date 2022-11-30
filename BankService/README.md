@@ -16,6 +16,15 @@ Nel caso in cui fosse già stato pagato all'utente verrà mostrata una schermata
 La pagina interna della banca è molto semplice, contiene l'informazione del credito attuale dell'utente, la possibilità di effettuare logout e di pagare.
 Nel caso in cui l'utente effettui il pagamento (a buon fine) verrà mostrato il token necessario all'utente per confermare il pagemento ad acme
 
+### Servizi
+| Http method | url            | Input                                                                                          | Description                                                                                                                                                                                  |
+|-------------|----------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Post        | /login-request | username: string, <br/>password: string,<br/>bill: double,<br/>to_user: int,<br/>id_order: int | verrà restituito un'url per andare<br/>alla pagina di pagamento nel caso in cui<br/>vi siano le informazioni relative<br/>al pagamento. Altrimenti il solo sessionid<br/>per effettuare il pagamento |
+| Post        | /pay-request   | sid: string                                                                                    | viene mandata la richiesta di pagamento<br/> alla banca che conosce già le informazioni<br/> del pagamento, poichè salvate durante<br/> l'operazione di login e collegate al sid             |
+| Post        | /verifyToken   | sid: string,<br/>token: string,<br/>id_order: int                                              | utilizzato da acme per verificare<br/> che il token ricevuto dall'utente<br/> sia corretto e corrisponda all'ordine<br/> che sta effettuando                                                 |
+| Post        | /refound              | sid: string,<br/>id_order: int                                                                 | utilizzato da acme per rimborsare<br/> il pagamento dell'utente nel caso<br/> in cui quest'ultimo voglia annullare l'ordine                                                                  |
+| Post        |/confirm| sid: string, <br/>id_order                                                                     | utilizzato ad acme per richiedere <br/>la transizione bancaria                                                                                                                                    |
+
 ## DATABASE:
 E' composto da due tabelle:
 

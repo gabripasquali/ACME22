@@ -1,6 +1,7 @@
 package com.acme.servlet;
 
 import camundajar.impl.com.google.gson.Gson;
+import com.acme.LoggerDelegate;
 import com.acme.utils.ApiHttpServlet;
 import com.acme.utils.Database;
 import com.acme.utils.models.RestaurantAvailability;
@@ -11,41 +12,32 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
 
 @WebServlet("/changeAvailability")
 public class ChangeAvailability extends ApiHttpServlet {
+    private final java.util.logging.Logger LOGGER = Logger.getLogger(LoggerDelegate.class.getName());
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-        boolean isSuccesfull = true;
+        ProcessEngineAdapter process = new ProcessEngineAdapter(processEngine);
+
         Gson gson = new Gson();
+        Map<String, Object> resAv = new HashMap<>();
+        RestaurantAvailability restaurantAvailability = gson.fromJson(req.getReader(), RestaurantAvailability.class);
+        resAv.put("resAvailability", restaurantAvailability);
+        String processInstanceID = processEngine.getRuntimeService()
+                .startProcessInstanceByMessage("ChangeAvailability", resAv)
+                .getProcessInstanceId();
+        LOGGER.info("started process instance with id: " + processInstanceID);
 
-        try {
-            processEngine.getRuntimeService()
-                    .createMessageCorrelation("ChangeAvailability")
-                    .correlate();
-        }catch (Exception e){
-            System.out.println("------ ERRORE: "+ e.toString());
-            isSuccesfull = false;
-            sendResponse(resp, e + "  out of time", "POST");
-        }
-
-        /**get info and update db**/
-        if(isSuccesfull){
-            RestaurantAvailability restaurantAvailability = gson.fromJson(req.getReader(), RestaurantAvailability.class);
-            System.out.println("***TIME OK restaurant name: "+restaurantAvailability.name+" is " + restaurantAvailability.disp+ "***");
-            Database db = new Database();
-            updateAvailability(restaurantAvailability.name, Boolean.parseBoolean(restaurantAvailability.disp), db);
-            sendResponse(resp, "update restaurant" + restaurantAvailability.name + " availability as " + restaurantAvailability.disp, "POST");
-        }
+        boolean successUpdate = (boolean) process.getVariable(processInstanceID, "successUpdate");
+        LOGGER.info("is succesfull " + successUpdate);
+        sendResponse(resp, ""+successUpdate, "POST");
 
     }
 
-    private void updateAvailability(String name, Boolean availability, Database db) {
-        db.restaurants.stream()
-                .filter(restaurant -> name.equals(restaurant.name))
-                .forEach(restaurant -> restaurant.isOpen = availability  );
-
-        db.save();
-    }
 }

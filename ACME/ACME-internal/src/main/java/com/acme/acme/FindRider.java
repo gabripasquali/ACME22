@@ -72,6 +72,7 @@ public class FindRider implements JavaDelegate {
                     if(r.name.equals(rIZ.name) && rIZ.isInDistance){
                         LOGGER.info(r.name);
                         riderInZoneList.add(r);
+
                     }
                 }
             }

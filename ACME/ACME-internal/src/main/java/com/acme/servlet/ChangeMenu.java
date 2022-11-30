@@ -14,6 +14,8 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @WebServlet("/changeMenu")
@@ -21,32 +23,22 @@ public class ChangeMenu extends ApiHttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-        boolean isSuccesfull = true;
+        ProcessEngineAdapter process = new ProcessEngineAdapter(processEngine);
+        Gson gson = new Gson();
+        RestaurantMenu restaurantMenu = gson.fromJson(request.getReader(), RestaurantMenu.class);
+        Map<String, Object> resMenu = new HashMap<>();
 
-        try{
-            processEngine.getRuntimeService()
-                    .createMessageCorrelation("ChangeMenu")
-                    .correlate();
-        } catch (Exception e){
-            sendResponse(response, "out of time", "POST");
-            isSuccesfull = false;
-        }
-        if (isSuccesfull){
-            Gson gson = new Gson();
-            RestaurantMenu restaurantMenu = gson.fromJson(request.getReader(), RestaurantMenu.class);
-            Database db = new Database();
-            updateMenu(restaurantMenu, db);
+        resMenu.put("resMenu", resMenu);
 
-            sendResponse(response, "menu updated", "POST");
-        }
+        String processInstanceId = processEngine.getRuntimeService()
+                .startProcessInstanceByMessage("ChangeMenu", resMenu)
+                .getProcessInstanceId();
+
+        boolean successUpdate = (boolean) process.getVariable(processInstanceId, "successUpdate");
+
+        sendResponse(response, ""+successUpdate, "POST");
 
     }
 
-    public void updateMenu(RestaurantMenu restaurantMenu, Database db){
-        db.restaurants.stream()
-                .filter(restaurant -> restaurantMenu.name.equals(restaurant.name))
-                .forEach(restaurant -> restaurant.updateMenu(restaurantMenu.menu));
 
-        db.save();
-    }
 }

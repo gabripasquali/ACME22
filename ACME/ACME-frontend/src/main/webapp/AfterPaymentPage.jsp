@@ -59,10 +59,13 @@
     </div>
     <div id="noAbort" hidden="true" class="main_card">
         <h2>IMPOSSIBILE ANNULLARE L'ORDINE</h2>
-        <label>
-            Limite di tempo per annullare l'ordine scaduto!
-        Il tuo ordine sta per arrivare!
-        </label>
+        <div class="line">
+            <label>
+                Limite di tempo per annullare l'ordine scaduto!<br>
+                Il tuo ordine sta per arrivare!
+            </label>
+        </div>
+        <button type="submit" onclick="goHome()">HOME</button>
     </div>
     <div id="home" hidden="true" class="main_card">
         <h2>ORDINE ANNULLATO CON SUCCESSO</h2>

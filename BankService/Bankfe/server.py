@@ -210,4 +210,21 @@ def confirm():
         response = {"success" : False}
         
     headerResponse = {"Content-Type": "application/json; charset=utf-8"}
-    return json.dumps(response), 200, headerResponse
+    return json.dumps(response), 200, headerRespons
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    reqData = json.loads(request.data)
+    sid = reqData["sid"]
+    body = """<s11:Envelope xmlns:s11='http://schemas.xmlsoap.org/soap/envelope/'>
+                  <s11:Body>
+                    <xsd1:logout xmlns:xsd1='BankService.xsd'>
+                      <sid>"""+sid+"""</sid>
+                    </xsd1:logout>
+                  </s11:Body>
+                </s11:Envelope>"""
+    headers = {"Content-Type": "text/xml; charset=utf-8"}
+    requests.request("POST", "http://bank:8000/logout",
+                             headers = headers,
+                             data = body)
+    return 200

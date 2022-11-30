@@ -72,9 +72,12 @@
                     let resp = xhr.responseText;
                     console.log(resp);
                     if(status === 0 || (status >= 200 && status < 400)){
-                        alert("la disponibilità è stata aggiornata");
+                        if(resp == true)
+                            alert("la disponibilità è stata aggiornata");
+                        else
+                            alert("non è stato possibile aggiornare il menù. riprova entro le 10 del mattino");
                     } else {
-                        alert("non è stato possibile aggiornare la disponibilità. riprova entro le 10 del mattino")
+                        alert("server error")
                     }
                 }
             }
@@ -99,9 +102,12 @@
                     let resp = xhr.responseText;
                     console.log(resp);
                     if(status === 0 || (status >= 200 && status < 400)){
-                        alert("il menu è stato aggiornato");
+                        if(resp == true)
+                            alert("il menu è stato aggiornato");
+                        else
+                            alert("non è stato possibile aggiornare il menù. riprova entro le 10 del mattino");
                     } else {
-                        alert("non è stato possibile aggiornare il menù. riprova entro le 10 del mattino")
+                        alert("server error")
                     }
                 }
             }

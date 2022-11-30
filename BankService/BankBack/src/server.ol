@@ -160,11 +160,6 @@ main{
 					payResponse.success = false
 				}
 			}]
-			
-			[logout(logoutRequest)(logoutResponse){
-				println@Console(username + "logged out")();
-				keepRunning = false
-			}]
 		}
 		[verifyToken(verifyTokenRequest)(successResponse){
 			order_id = verifyTokenRequest.order_id;
@@ -191,7 +186,8 @@ main{
 				from_user = queryResponse.row[0].from_user;
 				update@Database("UPDATE users" +
 							" SET balance = balance + " + bill +
-							" WHERE id= '"+from_user+"'")(query1Response)  
+							" WHERE id= '"+from_user+"'")(query1Response);
+				keepRunning = false
 			}
 		}]
 		[confirm(confirmRequest)(successResponse){
@@ -203,7 +199,15 @@ main{
 			} else {
 				successResponse.success = true;
 				update@Database("UPDATE Transactions SET status = 3 WHERE order_id='"+order_id+"' and to_user='"+idUsr+"'")(result)
+				update@Database("UPDATE users" +
+							" SET balance = balance + " + bill +
+							" WHERE id= '"+idUsr+"'")(queryMoveMoney);
+				keepRunning = false
 			}
+		}]
+		[logout(logoutRequest)(logoutResponse){
+			println@Console(username + "logged out")();
+			keepRunning = false
 		}]
 	}
 	
