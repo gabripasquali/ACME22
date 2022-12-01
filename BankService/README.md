@@ -60,6 +60,7 @@ vengono messi a disposizione 5 endpoint SOAP
 | Pay         | sidRequest         | payResponse     |
 | VerifyToken | verifyTokenRequest | successResponse |
 | Refound     | refoundRequest     | successResponse |
+| Confirm     | confirmRequest     | successResponse |
 
 ### Login
 Operazione necessaria per poter fare tutte le operazioni successive
