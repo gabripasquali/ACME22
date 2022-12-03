@@ -5,20 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8111de8-445d-468e-8b4b-990a80481cb2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../ACME-frontend/src/main/webapp/RestaurantPage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../ACME-frontend/src/main/webapp/RestaurantPage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ACME-frontend/src/main/webapp/VerifyToken.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../ACME-frontend/src/main/webapp/VerifyToken.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/acme/PaymentRefund.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/acme/bank/PaymentRefund.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/acme/acme/FindRider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/acme/acme/FindRider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/acme/acme/UpdateAvailability.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/acme/acme/UpdateAvailability.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/acme/bank/ConfirmTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/acme/bank/ConfirmTransition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/acme/bank/verifyToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/acme/bank/verifyToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/acme/rider/NotifyRider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/acme/rider/NotifyRider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/acme/servlet/ChangeAvailability.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/acme/servlet/ChangeAvailability.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/acme/servlet/ChangeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/acme/servlet/ChangeMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/process.bpmn" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/process.bpmn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BankService/BankBack/src/server.ol" beforeDir="false" afterPath="$PROJECT_DIR$/../../BankService/BankBack/src/server.ol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BankService/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../BankService/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../GIS/executeGIS.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BankService/Bankfe/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../BankService/Bankfe/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BankService/Bankfe/templates/BFC90F72.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BankService/Bankfe/templates/bank.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../BankService/Bankfe/templates/bank.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BankService/Bankfe/templates/banklogo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BankService/Bankfe/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../BankService/Bankfe/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Restaurant/executeRes.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Rider/executeRider.bat" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +86,8 @@
       <workItem from="1669569338892" duration="1341000" />
       <workItem from="1669629955063" duration="4291000" />
       <workItem from="1669651089468" duration="10403000" />
-      <workItem from="1669823473853" duration="3769000" />
+      <workItem from="1669823473853" duration="4099000" />
+      <workItem from="1670069790653" duration="701000" />
     </task>
     <servers />
   </component>

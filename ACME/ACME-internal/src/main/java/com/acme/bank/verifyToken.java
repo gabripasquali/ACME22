@@ -50,7 +50,6 @@ public class verifyToken implements JavaDelegate{
                 .post(ClientResponse.class, gson.toJson(verifyInfo));
 
         if(respVerify.getStatus() == OK.getStatusCode()){
-
             VerifyResponse verifyResponse = respVerify.getEntity(VerifyResponse.class);
             LOGGER.info("response:" + verifyResponse.success);
             execution.setVariable(TOKEN_OK, verifyResponse.success);
