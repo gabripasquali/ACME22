@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8111de8-445d-468e-8b4b-990a80481cb2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../ACME-frontend/src/main/webapp/VerifyToken.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../ACME-frontend/src/main/webapp/VerifyToken.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/acme/bank/verifyToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/acme/bank/verifyToken.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/process.bpmn" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/process.bpmn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BankService/Bankfe/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../BankService/Bankfe/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BankService/Bankfe/templates/BFC90F72.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BankService/Bankfe/templates/bank.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../BankService/Bankfe/templates/bank.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BankService/Bankfe/templates/banklogo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BankService/Bankfe/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../BankService/Bankfe/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Restaurant/executeRes.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Rider/executeRider.bat" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +78,8 @@
       <workItem from="1669629955063" duration="4291000" />
       <workItem from="1669651089468" duration="10403000" />
       <workItem from="1669823473853" duration="4099000" />
-      <workItem from="1670069790653" duration="701000" />
+      <workItem from="1670069790653" duration="703000" />
+      <workItem from="1670175136390" duration="14000" />
     </task>
     <servers />
   </component>

@@ -205,6 +205,13 @@
                 $('#inforari').html(" ")
             }
 
+            if(opts.length == 0){
+                empty = true;
+                $('#infokart').html("seleziona almeno un piatto");
+            } else {
+                $('#infokart').html(" ");
+            }
+
             if (!document.getElementById("indirizzo").value) {
                 empty = true;
                 $('#infoind').html("Inserisci l'indirizzo di consegna");
@@ -348,6 +355,7 @@
 
     <div class="main_card">
         <h2>Carrello</h2>
+        <div id="infokart" style="color:rgb(226, 43, 43)"></div>
         <table name="carrello" id="carrello"></table>
         <div id="totale" class="line" style="text-align: right"> </div>
     </div>
