@@ -1,4 +1,2 @@
-/target/
-!/target/ACME-internal.war
 /.apt_generated/
 /.apt_generated_tests/
