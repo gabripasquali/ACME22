@@ -72,7 +72,7 @@
                     let resp = xhr.responseText;
                     console.log(resp);
                     if(status === 0 || (status >= 200 && status < 400)){
-                        if(resp == true)
+                        if(resp == "true" || resp == true)
                             alert("la disponibilità è stata aggiornata");
                         else
                             alert("non è stato possibile aggiornare il menù. riprova entro le 10 del mattino");
@@ -102,7 +102,7 @@
                     let resp = xhr.responseText;
                     console.log(resp);
                     if(status === 0 || (status >= 200 && status < 400)){
-                        if(resp == true)
+                        if(resp == "true" || resp == true)
                             alert("il menu è stato aggiornato");
                         else
                             alert("non è stato possibile aggiornare il menù. riprova entro le 10 del mattino");

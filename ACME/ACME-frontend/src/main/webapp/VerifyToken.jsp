@@ -29,7 +29,7 @@
                 console.log(xhr.responseText);
                 if(xhr.status === 200){
                     let resp = xhr.responseText;
-                    if(resp == "true"){
+                    if(resp == "true" || resp == true){
                         window.location = "ClientAfterPayment";
                     }
                     else {

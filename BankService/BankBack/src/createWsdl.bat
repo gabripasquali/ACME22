@@ -1,1 +1,0 @@
-jolie2wsdl -i . --namespace BankService --portName Bank --portAddr 8000 --outputFile BankService.wsdl server.ol

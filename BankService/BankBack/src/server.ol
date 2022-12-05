@@ -167,8 +167,10 @@ main{
 			print@Console("VERIFY TOKEN order_id: " + order_id + " and token " + token)();
 			query@Database("SELECT * FROM Transactions WHERE token='" + token + "'and status < 2 and order_id='" + order_id + "' and to_user='" + idUsr + "'")(queryResponse);
 			if(queryResponse.row[0].status == null) {
+				println@Console("token: " + token + "is not correct")();
 				successResponse.success = false
 			} else {
+				println@Console("token: " + token + "is verified")();
 				successResponse.success = true;
 				update@Database("UPDATE Transactions SET status = 1 WHERE order_id='"+order_id+"' and to_user='"+idUsr+"'")(result)
 			}
@@ -178,8 +180,10 @@ main{
 			print@Console("REFOUND order "+order_id)()
 			query@Database("SELECT * FROM Transactions WHERE status = 1 and order_id='" + order_id + "' and to_user='" + idUsr + "'")(queryResponse);
 			if(queryResponse.row[0].status == null) {
+				println@Console(username + "refound request failed")();
 				successResponse.success = false
 			} else {
+				println@Console(username + "refound request successed; " + balance + " where refound to user with id " + from_user)();
 				successResponse.success = true;
 				update@Database("UPDATE Transactions SET status = 2 WHERE order_id='"+order_id+"' and to_user='"+idUsr+"'")(result);
 				bill = queryResponse.row[0].amount;
@@ -195,8 +199,10 @@ main{
 			print@Console("CONFIRM order "+order_id)();
 			query@Database("SELECT * FROM Transactions WHERE status = 1 and order_id='" + order_id + "' and to_user='" + idUsr + "'")(queryResponse);
 			if(queryResponse.row[0].status == null) {
+				println@Console(username + "request bank transaction failed")();
 				successResponse.success = false
 			} else {
+				println@Console(username + " request bank transaction successed; " + balance + "where added to the count")();
 				successResponse.success = true;
 				update@Database("UPDATE Transactions SET status = 3 WHERE order_id='"+order_id+"' and to_user='"+idUsr+"'")(result)
 				update@Database("UPDATE users" +

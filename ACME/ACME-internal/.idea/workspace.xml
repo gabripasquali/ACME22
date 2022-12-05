@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8111de8-445d-468e-8b4b-990a80481cb2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../ACME-frontend/src/main/webapp/RestaurantPage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../ACME-frontend/src/main/webapp/RestaurantPage.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/acme/servlet/ChangeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/acme/servlet/ChangeMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/process.bpmn" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/process.bpmn" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,6 +82,8 @@
       <workItem from="1669823473853" duration="4099000" />
       <workItem from="1670069790653" duration="703000" />
       <workItem from="1670175136390" duration="14000" />
+      <workItem from="1670229304068" duration="30000" />
+      <workItem from="1670229737804" duration="797000" />
     </task>
     <servers />
   </component>

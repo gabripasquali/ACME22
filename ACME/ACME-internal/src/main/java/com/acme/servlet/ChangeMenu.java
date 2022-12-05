@@ -28,7 +28,7 @@ public class ChangeMenu extends ApiHttpServlet {
         RestaurantMenu restaurantMenu = gson.fromJson(request.getReader(), RestaurantMenu.class);
         Map<String, Object> resMenu = new HashMap<>();
 
-        resMenu.put("resMenu", resMenu);
+        resMenu.put("resMenu", restaurantMenu);
 
         String processInstanceId = processEngine.getRuntimeService()
                 .startProcessInstanceByMessage("ChangeMenu", resMenu)
